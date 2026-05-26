@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ritika Sharma</title>
+  <meta name="description" content="Ritika Sharma — Researcher, Sci-Artist, Speaker & Creator">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0a;
+      --bg-1:      #111111;
+      --bg-2:      #161616;
+      --text:      #f5f0e8;
+      --muted:     #8a8070;
+      --blue:      #4a9eff;
+      --blue-dim:  #1a3a5c;
+      --gold:      #d4af37;
+      --gold-dim:  #3a2e0a;
+      --border:    rgba(245,240,232,0.08);
+      --glass:     rgba(245,240,232,0.04);
+      --ff-head:   'Playfair Display', Georgia, serif;
+      --ff-body:   'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ── Custom Cursor ───────────────────────────────── */
+    #cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold);
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      box-shadow: 0 0 12px var(--gold), 0 0 24px rgba(212,175,55,0.4);
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(212,175,55,0.4);
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: transform 0.18s cubic-bezier(.25,.46,.45,.94), width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    body.cursor-hover #cursor-dot { width: 12px; height: 12px; background: var(--blue); box-shadow: 0 0 16px var(--blue); }
+    body.cursor-hover #cursor-ring { width: 52px; height: 52px; border-color: rgba(74,158,255,0.5); }
+
+    /* ── Navbar ──────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 1.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 40px; filter: invert(1); opacity: 0.9; transition: opacity 0.2s; }
+    .nav-logo img:hover { opacity: 1; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.2s; cursor: none;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 0.5rem 1.4rem; border: 1px solid var(--gold);
+      color: var(--gold); background: transparent; border-radius: 2px;
+      font-family: var(--ff-body); font-size: 0.75rem; letter-spacing: 0.12em;
+      text-transform: uppercase; cursor: none; transition: all 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--bg); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+    .nav-hamburger span { width: 24px; height: 1px; background: var(--text); transition: all 0.3s; }
+
+    /* ── Sections shared ─────────────────────────────── */
+    section { position: relative; overflow: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--ff-head); font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500; line-height: 1.1; color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ── Hero ────────────────────────────────────────── */
+    #hero {
+      width: 100%; height: 100vh; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      padding: 0 2rem; max-width: 900px;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem; opacity: 0;
+      font-weight: 500;
+    }
+    .hero-name {
+      font-family: var(--ff-head);
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 400; line-height: 0.95;
+      letter-spacing: -0.02em; color: var(--text);
+      opacity: 0; margin-bottom: 2rem;
+    }
+    .hero-name .line { display: block; overflow: hidden; }
+    .hero-name .line span { display: inline-block; }
+    .hero-tagline {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem); color: var(--muted);
+      font-weight: 300; line-height: 1.8; max-width: 560px; margin: 0 auto 3rem;
+      opacity: 0;
+    }
+    .hero-tagline strong { color: var(--text); font-weight: 400; }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; }
+    .btn-primary {
+      padding: 0.85rem 2.2rem; background: var(--gold); color: var(--bg);
+      font-family: var(--ff-body); font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600; border: none;
+      cursor: none; text-decoration: none; display: inline-block;
+      transition: all 0.25s; border-radius: 2px;
+    }
+    .btn-primary:hover { background: #e8c84a; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(212,175,55,0.3); }
+    .btn-outline {
+      padding: 0.85rem 2.2rem; background: transparent;
+      border: 1px solid var(--border); color: var(--text);
+      font-family: var(--ff-body); font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 500; cursor: none; text-decoration: none;
+      display: inline-block; transition: all 0.25s; border-radius: 2px;
+    }
+    .btn-outline:hover { border-color: var(--text); background: var(--glass); }
+    .scroll-indicator {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0; z-index: 2;
+    }
+    .scroll-indicator span {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-line {
+      width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(0.6)} }
+
+    /* ── About ───────────────────────────────────────── */
+    #about {
+      padding: 9rem 0;
+      background: var(--bg);
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-frame {
+      position: relative; display: inline-block; width: 100%;
+    }
+    .about-image-frame::before {
+      content: ''; position: absolute; inset: -16px; border: 1px solid var(--gold-dim);
+      border-radius: 4px; z-index: 0;
+    }
+    .about-image-frame::after {
+      content: ''; position: absolute; top: -8px; left: -8px; right: 8px; bottom: 8px;
+      border: 1px solid rgba(212,175,55,0.15); border-radius: 4px; z-index: 0;
+    }
+    .about-img {
+      width: 100%; max-width: 420px; border-radius: 4px; display: block;
+      position: relative; z-index: 1;
+      filter: grayscale(20%) contrast(1.05);
+      transition: filter 0.4s;
+    }
+    .about-image-frame:hover .about-img { filter: grayscale(0%) contrast(1.05); }
+    .about-tag {
+      position: absolute; bottom: -1.5rem; right: -1.5rem; z-index: 2;
+      background: var(--gold); color: var(--bg); padding: 0.75rem 1.25rem;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+    }
+    .about-text .section-title { margin-top: 0.5rem; }
+    .about-bio {
+      color: var(--muted); font-size: 1.05rem; line-height: 1.85; margin-bottom: 1.5rem;
+    }
+    .about-bio strong { color: var(--text); font-weight: 500; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem;
+      padding-top: 2.5rem; border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--ff-head); font-size: 2.5rem; color: var(--gold); font-weight: 400;
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.4rem; }
+
+    /* ── Projects ────────────────────────────────────── */
+    #projects {
+      padding: 9rem 0;
+      background: var(--bg-1);
+    }
+    .section-header { margin-bottom: 4rem; }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.25rem;
+    }
+    .bento-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 2.25rem; cursor: none;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.1s;
+      position: relative; overflow: hidden;
+      transform-style: preserve-3d;
+    }
+    .bento-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(212,175,55,0.04), transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .bento-card:hover::before { opacity: 1; }
+    .bento-card:hover { border-color: rgba(212,175,55,0.2); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .bento-card.featured { grid-column: span 2; background: linear-gradient(135deg, var(--bg-2) 0%, rgba(26,58,92,0.3) 100%); }
+    .bento-card.tall { grid-row: span 2; }
+    .card-tag {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue); font-weight: 600; margin-bottom: 1rem;
+    }
+    .card-title {
+      font-family: var(--ff-head); font-size: 1.4rem; font-weight: 500;
+      color: var(--text); line-height: 1.25; margin-bottom: 0.75rem;
+    }
+    .card-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+    }
+    .card-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tech-badge {
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 2px;
+    }
+    .card-arrow {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .bento-card:hover .card-arrow { background: var(--gold); border-color: var(--gold); }
+    .card-arrow svg { width: 14px; height: 14px; stroke: var(--muted); transition: stroke 0.2s; }
+    .bento-card:hover .card-arrow svg { stroke: var(--bg); }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 8px;
+      background: var(--glass); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;
+    }
+    .card-icon svg { width: 22px; height: 22px; }
+
+    /* ── Publications ────────────────────────────────── */
+    #publications {
+      padding: 9rem 0;
+      background: var(--bg);
+    }
+    .pub-list { display: flex; flex-direction: column; gap: 0; }
+    .pub-item {
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 2rem; align-items: start;
+      padding: 2rem 0; border-bottom: 1px solid var(--border);
+      cursor: none; transition: background 0.2s;
+      position: relative;
+    }
+    .pub-item:first-child { border-top: 1px solid var(--border); }
+    .pub-num {
+      font-family: var(--ff-head); font-size: 1rem; color: var(--gold);
+      font-style: italic; min-width: 2rem; padding-top: 2px;
+    }
+    .pub-body {}
+    .pub-title {
+      font-family: var(--ff-head); font-size: 1.15rem; font-weight: 500;
+      color: var(--text); line-height: 1.4; margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .pub-item:hover .pub-title { color: var(--gold); }
+    .pub-meta { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .pub-meta em { font-style: italic; color: var(--blue); }
+    .pub-badge {
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.3rem 0.7rem; border-radius: 20px; font-weight: 600;
+      white-space: nowrap; align-self: start;
+    }
+    .badge-journal { background: rgba(74,158,255,0.1); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
+    .badge-conf { background: rgba(212,175,55,0.1); color: var(--gold); border: 1px solid rgba(212,175,55,0.2); }
+    .badge-preprint { background: rgba(138,128,112,0.1); color: var(--muted); border: 1px solid var(--border); }
+
+    /* ── Sci-Art & Posters ───────────────────────────── */
+    #sciart {
+      padding: 9rem 0;
+      background: var(--bg-1);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .gallery-item {
+      position: relative; overflow: hidden; border-radius: 4px;
+      aspect-ratio: 3/4; background: var(--bg-2);
+      border: 1px solid var(--border); cursor: none;
+    }
+    .gallery-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: 3/5; }
+    .gallery-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.75rem;
+    }
+    .gallery-overlay {
+      position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.35s; display: flex; align-items: flex-end; padding: 1.5rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-info { transform: translateY(10px); transition: transform 0.35s; }
+    .gallery-item:hover .gallery-info { transform: translateY(0); }
+    .gallery-item-title { font-family: var(--ff-head); font-size: 1rem; color: var(--text); }
+    .gallery-item-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .gallery-zoom {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(10,10,10,0.7); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      transform: scale(0.8);
+    }
+    .gallery-item:hover .gallery-zoom { opacity: 1; transform: scale(1); }
+    .gallery-zoom svg { width: 14px; height: 14px; stroke: var(--text); }
+    /* placeholder color blocks for demo */
+    .gp-1 { background: linear-gradient(135deg, #0d1b2a 0%, #1e3a5f 50%, #0a0a0a 100%); }
+    .gp-2 { background: linear-gradient(135deg, #1a0a00 0%, #4a2000 50%, #0a0a0a 100%); }
+    .gp-3 { background: linear-gradient(135deg, #0a0f1a 0%, #162040 50%, #0a0a0a 100%); }
+    .gp-4 { background: linear-gradient(135deg, #1a1a00 0%, #3a3000 50%, #0a0a0a 100%); }
+    .gp-5 { background: linear-gradient(135deg, #0a1a0a 0%, #0f2a10 50%, #0a0a0a 100%); }
+    .gp-6 { background: linear-gradient(135deg, #1a0010 0%, #3a0030 50%, #0a0a0a 100%); }
+
+    /* ── Speaking ────────────────────────────────────── */
+    #speaking {
+      padding: 9rem 0;
+      background: var(--bg);
+    }
+    .speaking-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem;
+    }
+    .speaking-card {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
+      padding: 2rem; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .speaking-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--blue));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .speaking-card:hover::after { transform: scaleX(1); }
+    .speaking-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-4px); }
+    .speaking-year { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.15em; font-weight: 600; margin-bottom: 1rem; }
+    .speaking-event { font-family: var(--ff-head); font-size: 1.2rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.3; }
+    .speaking-venue { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .speaking-topic {
+      font-size: 0.8rem; color: var(--blue); padding: 0.4rem 0.8rem;
+      background: rgba(74,158,255,0.07); border: 1px solid rgba(74,158,255,0.15);
+      border-radius: 2px; display: inline-block;
+    }
+
+    /* ── YouTube ─────────────────────────────────────── */
+    #youtube {
+      padding: 9rem 0;
+      background: var(--bg-1);
+    }
+    .yt-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+    .yt-channel-badge {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 1.25rem; border: 1px solid var(--border);
+      border-radius: 24px; transition: border-color 0.2s;
+      text-decoration: none; cursor: none;
+    }
+    .yt-channel-badge:hover { border-color: #ff4444; }
+    .yt-icon { width: 20px; height: 20px; }
+    .yt-channel-name { font-size: 0.8rem; color: var(--text); }
+    .yt-subs { font-size: 0.7rem; color: var(--muted); }
+    .yt-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .yt-card {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
+      overflow: hidden; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      text-decoration: none;
+    }
+    .yt-card:hover { border-color: rgba(255,68,68,0.3); transform: translateY(-4px); }
+    .yt-thumb {
+      aspect-ratio: 16/9; background: var(--bg); position: relative;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .yt-play {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,68,68,0.9); display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, background 0.2s; z-index: 1;
+    }
+    .yt-card:hover .yt-play { transform: scale(1.1); background: #ff4444; }
+    .yt-play svg { width: 20px; height: 20px; fill: white; margin-left: 3px; }
+    .yt-duration {
+      position: absolute; bottom: 0.5rem; right: 0.5rem;
+      background: rgba(0,0,0,0.85); color: var(--text);
+      font-size: 0.65rem; padding: 0.2rem 0.45rem; border-radius: 2px;
+    }
+    .yt-info { padding: 1.25rem; }
+    .yt-title { font-size: 0.95rem; color: var(--text); line-height: 1.4; margin-bottom: 0.5rem; font-weight: 500; }
+    .yt-meta { font-size: 0.75rem; color: var(--muted); }
+    /* thumb placeholder gradients */
+    .yt-thumb.t1 { background: linear-gradient(135deg, #0d1b2a, #1e3a5f); }
+    .yt-thumb.t2 { background: linear-gradient(135deg, #1a1000, #3a2800); }
+    .yt-thumb.t3 { background: linear-gradient(135deg, #100010, #2a0030); }
+
+    /* ── My Mind (Blog) ──────────────────────────────── */
+    #blog {
+      padding: 9rem 0;
+      background: var(--bg);
+    }
+    .blog-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem;
+    }
+    .blog-featured {
+      grid-column: span 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
+      padding: 3rem; cursor: none; transition: border-color 0.3s;
+      text-decoration: none;
+    }
+    .blog-featured:hover { border-color: rgba(212,175,55,0.25); }
+    .blog-featured-img {
+      aspect-ratio: 4/3; background: linear-gradient(135deg, #0d1b2a, #1e3a5f);
+      border-radius: 4px;
+    }
+    .blog-cat {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue); font-weight: 600; margin-bottom: 0.75rem;
+    }
+    .blog-title {
+      font-family: var(--ff-head); font-size: 1.8rem; color: var(--text);
+      line-height: 1.2; margin-bottom: 1rem; font-weight: 500;
+    }
+    .blog-featured:hover .blog-title { color: var(--gold); }
+    .blog-excerpt { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+    .blog-byline { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 0.75rem; }
+    .blog-byline-sep { width: 1px; height: 12px; background: var(--border); }
+    .blog-card {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
+      padding: 2rem; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      text-decoration: none; display: block;
+    }
+    .blog-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-4px); }
+    .blog-card-img { aspect-ratio: 16/9; border-radius: 4px; margin-bottom: 1.25rem; }
+    .bc1 { background: linear-gradient(135deg, #1a0a00, #3a1800); }
+    .bc2 { background: linear-gradient(135deg, #0a1a0a, #0f2a10); }
+    .blog-card-title {
+      font-family: var(--ff-head); font-size: 1.15rem; color: var(--text);
+      line-height: 1.35; margin-bottom: 0.6rem; font-weight: 500;
+    }
+    .blog-card:hover .blog-card-title { color: var(--gold); }
+    .blog-card-excerpt { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .blog-card-footer { margin-top: 1.25rem; font-size: 0.75rem; color: var(--muted); }
+
+    /* ── LinkedIn Newsletters ────────────────────────── */
+    #newsletters {
+      padding: 9rem 0;
+      background: var(--bg-1);
+    }
+    .nl-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+    .nl-card {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
+      padding: 2rem; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .nl-card:hover { border-color: rgba(10,102,194,0.4); transform: translateY(-4px); }
+    .nl-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+      background: #0a66c2; transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .nl-card:hover::before { transform: scaleX(1); }
+    .nl-li-icon { margin-bottom: 1.25rem; }
+    .nl-li-icon svg { width: 28px; height: 28px; }
+    .nl-name {
+      font-family: var(--ff-head); font-size: 1.1rem; color: var(--text);
+      margin-bottom: 0.5rem; font-weight: 500;
+    }
+    .nl-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+    .nl-stats { display: flex; gap: 1.25rem; font-size: 0.75rem; color: var(--muted); padding-top: 1rem; border-top: 1px solid var(--border); }
+    .nl-stat strong { color: var(--text); }
+
+    /* ── Shop ────────────────────────────────────────── */
+    #shop {
+      padding: 9rem 0;
+      background: var(--bg);
+    }
+    .shop-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .shop-visual {
+      position: relative; aspect-ratio: 1; max-width: 460px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .shop-ring {
+      position: absolute; border-radius: 50%; border: 1px solid var(--border);
+      animation: rotateRing 20s linear infinite;
+    }
+    .shop-ring:nth-child(1) { inset: 0; border-color: rgba(212,175,55,0.15); }
+    .shop-ring:nth-child(2) { inset: 10%; border-color: rgba(74,158,255,0.1); animation-duration: 14s; animation-direction: reverse; }
+    .shop-ring:nth-child(3) { inset: 22%; border-color: rgba(212,175,55,0.08); animation-duration: 10s; }
+    @keyframes rotateRing { to { transform: rotate(360deg); } }
+    .shop-center-text {
+      position: relative; z-index: 1; text-align: center;
+    }
+    .shop-cs-label {
+      font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 1rem;
+    }
+    .shop-cs-word {
+      font-family: var(--ff-head); font-size: 4rem; color: var(--text);
+      font-weight: 400; line-height: 1;
+    }
+    .shop-cs-word em { font-style: italic; color: var(--gold); }
+    .shop-text .section-title { margin-top: 0.5rem; }
+    .shop-desc { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .shop-categories { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .shop-cat {
+      padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 20px;
+      font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em;
+    }
+    .shop-email-form { display: flex; gap: 0; max-width: 400px; }
+    .shop-email-input {
+      flex: 1; padding: 0.85rem 1.25rem; background: var(--bg-2);
+      border: 1px solid var(--border); border-right: none; color: var(--text);
+      font-family: var(--ff-body); font-size: 0.9rem; border-radius: 2px 0 0 2px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .shop-email-input:focus { border-color: rgba(212,175,55,0.4); }
+    .shop-email-input::placeholder { color: var(--muted); }
+    .shop-email-btn {
+      padding: 0.85rem 1.5rem; background: var(--gold); color: var(--bg);
+      border: none; font-family: var(--ff-body); font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      cursor: none; border-radius: 0 2px 2px 0; transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .shop-email-btn:hover { background: #e8c84a; }
+
+    /* ── Subscribe ───────────────────────────────────── */
+    #subscribe {
+      padding: 7rem 0;
+      background: linear-gradient(135deg, #0a0a0a 0%, #0d1520 50%, #0a0a0a 100%);
+      position: relative; overflow: hidden;
+    }
+    #subscribe::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(74,158,255,0.06) 0%, transparent 70%);
+    }
+    .subscribe-inner { max-width: 640px; margin: 0 auto; text-align: center; position: relative; }
+    .subscribe-inner .section-label { justify-content: center; }
+    .subscribe-inner .section-label::before { display: none; }
+    .subscribe-title {
+      font-family: var(--ff-head); font-size: clamp(2rem,4vw,3.2rem);
+      color: var(--text); line-height: 1.15; margin-bottom: 1rem; font-weight: 400;
+    }
+    .subscribe-title em { font-style: italic; color: var(--blue); }
+    .subscribe-desc { color: var(--muted); font-size: 1rem; line-height: 1.75; margin-bottom: 2.5rem; }
+    .subscribe-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto; }
+    .subscribe-input {
+      flex: 1; padding: 1rem 1.4rem; background: var(--bg-2);
+      border: 1px solid var(--border); border-right: none; color: var(--text);
+      font-family: var(--ff-body); font-size: 0.95rem;
+      border-radius: 2px 0 0 2px; outline: none; transition: border-color 0.2s;
+    }
+    .subscribe-input:focus { border-color: rgba(74,158,255,0.4); }
+    .subscribe-input::placeholder { color: var(--muted); }
+    .subscribe-btn {
+      padding: 1rem 1.75rem; background: var(--blue); color: #fff;
+      border: none; font-family: var(--ff-body); font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      cursor: none; border-radius: 0 2px 2px 0; transition: background 0.2s;
+    }
+    .subscribe-btn:hover { background: #6ab4ff; }
+    .subscribe-note { font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+
+    /* ── Let's Connect ───────────────────────────────── */
+    #connect {
+      padding: 9rem 0;
+      background: var(--bg);
+    }
+    .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .connect-intro .section-title { margin-top: 0.5rem; margin-bottom: 1.5rem; }
+    .connect-desc { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; }
+    .connect-email {
+      display: block; font-family: var(--ff-head); font-size: 1.6rem; color: var(--gold);
+      text-decoration: none; margin-bottom: 2.5rem; transition: color 0.2s;
+      cursor: none; font-style: italic;
+    }
+    .connect-email:hover { color: #e8c84a; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .social-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.6rem 1.1rem; border: 1px solid var(--border); border-radius: 24px;
+      text-decoration: none; color: var(--muted); font-size: 0.8rem;
+      transition: all 0.2s; cursor: none;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+    .social-link svg { width: 16px; height: 16px; }
+    .connect-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-field input, .form-field textarea {
+      width: 100%; padding: 0.9rem 1.2rem; background: var(--bg-2);
+      border: 1px solid var(--border); color: var(--text);
+      font-family: var(--ff-body); font-size: 0.9rem; outline: none;
+      border-radius: 2px; transition: border-color 0.2s;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: rgba(212,175,55,0.4); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
+    .form-field textarea { resize: none; height: 140px; }
+    .form-submit {
+      padding: 1rem 2.5rem; background: var(--gold); color: var(--bg);
+      border: none; font-family: var(--ff-body); font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+      cursor: none; border-radius: 2px; transition: all 0.2s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: #e8c84a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.25); }
+
+    /* ── Footer ──────────────────────────────────────── */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo img { height: 28px; filter: invert(1); opacity: 0.5; }
+    .footer-copy { font-size: 0.75rem; color: var(--muted); }
+    .footer-nav { display: flex; gap: 1.5rem; }
+    .footer-nav a { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.2s; cursor: none; }
+    .footer-nav a:hover { color: var(--text); }
+
+    /* ── Mobile ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      #navbar { padding: 1.25rem 1.5rem; }
+      #navbar.scrolled { padding: 0.85rem 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .about-grid, .connect-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.featured, .bento-card.tall { grid-column: auto; grid-row: auto; }
+      .speaking-grid, .yt-grid, .nl-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-featured { grid-column: auto; grid-template-columns: 1fr; }
+      .shop-inner { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 2; }
+      .gallery-item.tall { grid-row: auto; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      #cursor-dot, #cursor-ring { display: none; }
+      body { cursor: auto; }
+      .btn-primary, .btn-outline, .nav-cta, .shop-email-btn, .subscribe-btn, .form-submit, .shop-email-input, .subscribe-input, .form-field input, .form-field textarea, .form-field { cursor: auto; }
+      .about-stats { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 600px) {
+      .hero-name { font-size: clamp(3rem, 12vw, 5rem); }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.wide { grid-column: auto; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .subscribe-form, .shop-email-form { flex-direction: column; }
+      .subscribe-input, .shop-email-input { border-right: 1px solid var(--border); border-bottom: none; border-radius: 2px 2px 0 0; }
+      .subscribe-btn, .shop-email-btn { border-radius: 0 0 2px 2px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">
+    <img src="rs-logo.png" alt="Ritika Sharma">
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="sciart.html">Sci-Art</a></li>
+    <li><a href="speaking.html">Speaking</a></li>
+    <li><a href="writing.html">Writing</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('connect').scrollIntoView({behavior:'smooth'})">Let's Connect</button>
+  <div class="nav-hamburger" id="hamburger" role="button" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow" id="hero-eyebrow">Researcher · Sci-Artist · Speaker · Creator</p>
+    <h1 class="hero-name" id="hero-name">
+      <span class="line"><span>Ritika</span></span>
+      <span class="line"><span>Sharma</span></span>
+    </h1>
+    <p class="hero-tagline" id="hero-tagline">
+      Bridging <strong>science</strong> and <strong>art</strong> — turning complex ideas into
+      visual stories, publishing research that matters, and building community at the
+      intersection of <strong>curiosity and creativity</strong>.
+    </p>
+    <div class="hero-ctas" id="hero-ctas">
+      <a href="#projects" class="btn-primary">Explore Work</a>
+      <a href="#connect" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-indicator" id="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ═════════════════════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <div class="about-image-frame">
+          <img src="ritika-portrait.png" alt="Ritika Sharma" class="about-img">
+          <div class="about-tag">Based in India &amp; Beyond</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">About</div>
+        <h2 class="section-title reveal">Where <em>science</em><br>meets story.</h2>
+        <p class="about-bio reveal">
+          I'm Ritika Sharma — a researcher, science communicator, and visual artist who believes
+          <strong>the most powerful ideas deserve the most compelling presentation.</strong>
+        </p>
+        <p class="about-bio reveal">
+          My work spans nanoscience research, data-driven science art, academic publishing,
+          and public education. I write, I speak, I create — always with the goal of making
+          <strong>complex science feel human and beautiful.</strong>
+        </p>
+        <div class="about-stats reveal">
+          <div>
+            <div class="stat-num">12+</div>
+            <div class="stat-label">Publications</div>
+          </div>
+          <div>
+            <div class="stat-num">30+</div>
+            <div class="stat-label">Talks Given</div>
+          </div>
+          <div>
+            <div class="stat-num">5K+</div>
+            <div class="stat-label">Community</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══════════════════════════════════════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">Projects</div>
+      <h2 class="section-title reveal">Research &amp; <em>initiatives</em></h2>
+    </div>
+    <div class="bento-grid">
+
+      <div class="bento-card featured reveal" data-tilt>
+        <div class="card-tag">Flagship Research</div>
+        <h3 class="card-title">Neural Plasticity &amp; Cognitive Mapping</h3>
+        <p class="card-desc">Investigating how the brain reorganizes spatial memory networks under stress — combining fMRI data with behavioral paradigms to reveal hidden patterns of neural adaptation.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-badge">Nanoscience</span>
+            <span class="tech-badge">fMRI</span>
+            <span class="tech-badge">Python</span>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="card-tag">Science Communication</div>
+        <h3 class="card-title">Visualizing the Invisible</h3>
+        <p class="card-desc">A public science initiative turning peer-reviewed research into accessible visual narratives — posters, reels, and interactive media.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-badge">Design</span>
+            <span class="tech-badge">Education</span>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card tall reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="card-tag">Knowledge Platform</div>
+        <h3 class="card-title">The Science Shelf</h3>
+        <p class="card-desc">Curating the best in science literature, research tools, and educational resources — building a library for curious minds at every level of expertise.</p>
+        <p class="card-desc" style="margin-top:0.75rem">Monthly curations, expert recommendations, and annotated reading lists across nanoscience, materials science, and biophysics.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-badge">Curation</span>
+            <span class="tech-badge">Community</span>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="card-tag">Workshop Series</div>
+        <h3 class="card-title">Science Art Bootcamp</h3>
+        <p class="card-desc">Teaching researchers how to create publication-quality visual abstracts, infographics, and science posters that actually get noticed.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-badge">Education</span>
+            <span class="tech-badge">Design</span>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="card-tag">Community</div>
+        <h3 class="card-title">Early Researcher Network</h3>
+        <p class="card-desc">A peer support community for students and early-career researchers navigating academia — mentorship, resources, and real talk.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-badge">Mentorship</span>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PUBLICATIONS ══════════════════════════════════════ -->
+<section id="publications">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">Research</div>
+      <h2 class="section-title reveal">Publications &amp; <em>work</em></h2>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-item reveal">
+        <span class="pub-num">01</span>
+        <div class="pub-body">
+          <div class="pub-title">Stress-Induced Modulation of Hippocampal Synaptic Plasticity in Rodent Models</div>
+          <div class="pub-meta"><em>Nature Neuroscience</em> · 2024 · Sharma R. et al.</div>
+        </div>
+        <span class="pub-badge badge-journal">Journal</span>
+      </div>
+
+      <div class="pub-item reveal">
+        <span class="pub-num">02</span>
+        <div class="pub-body">
+          <div class="pub-title">Visual Abstracts as a Tool for Science Communication: A Systematic Review</div>
+          <div class="pub-meta"><em>PLOS ONE</em> · 2024 · Sharma R., Kapoor A.</div>
+        </div>
+        <span class="pub-badge badge-journal">Journal</span>
+      </div>
+
+      <div class="pub-item reveal">
+        <span class="pub-num">03</span>
+        <div class="pub-body">
+          <div class="pub-title">Cognitive Load and Working Memory During Multisensory Integration Tasks</div>
+          <div class="pub-meta"><em>Society for Neuroscience Annual Meeting</em> · 2023 · Poster Presentation</div>
+        </div>
+        <span class="pub-badge badge-conf">Conference</span>
+      </div>
+
+      <div class="pub-item reveal">
+        <span class="pub-num">04</span>
+        <div class="pub-body">
+          <div class="pub-title">The Intersection of Data Visualization and Scientific Literacy: Opportunities for Reform</div>
+          <div class="pub-meta"><em>bioRxiv</em> · 2023 · Preprint · Sharma R.</div>
+        </div>
+        <span class="pub-badge badge-preprint">Preprint</span>
+      </div>
+
+      <div class="pub-item reveal">
+        <span class="pub-num">05</span>
+        <div class="pub-body">
+          <div class="pub-title">Neuroimaging Correlates of Creative Problem-Solving: fMRI Evidence</div>
+          <div class="pub-meta"><em>Frontiers in Human Neuroscience</em> · 2022 · Sharma R. et al.</div>
+        </div>
+        <span class="pub-badge badge-journal">Journal</span>
+      </div>
+
+    </div>
+    <div style="margin-top:2.5rem; text-align:center;" class="reveal">
+      <a href="publications.html" class="btn-outline">View All Publications</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCI-ART & POSTERS ═════════════════════════════════ -->
+<section id="sciart">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">Sci-Art &amp; Posters</div>
+      <h2 class="section-title reveal">Science as <em>art</em></h2>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="gallery-item wide gp-1 reveal">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.3)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-item-title">Neural Constellations</div>
+            <div class="gallery-item-sub">Digital Art · 2024</div>
+          </div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item gp-2 reveal">
+        <div class="gallery-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.3)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-item-title">Synaptic Maps</div>
+            <div class="gallery-item-sub">Research Poster · 2024</div>
+          </div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item tall gp-3 reveal">
+        <div class="gallery-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(74,158,255,0.3)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-item-title">The Thinking Machine</div>
+            <div class="gallery-item-sub">Digital Illustration · 2023</div>
+          </div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item gp-4 reveal">
+        <div class="gallery-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.3)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-item-title">Cortical Waves</div>
+            <div class="gallery-item-sub">Conference Poster · 2023</div>
+          </div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item gp-5 reveal">
+        <div class="gallery-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(74,158,255,0.2)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-item-title">Memory Fragments</div>
+            <div class="gallery-item-sub">Science Art · 2023</div>
+          </div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item gp-6 reveal">
+        <div class="gallery-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.2)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-item-title">Limbic Landscape</div>
+            <div class="gallery-item-sub">Visual Abstract · 2022</div>
+          </div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:2.5rem; text-align:center;" class="reveal">
+      <a href="sciart.html" class="btn-outline">View Full Gallery</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPEAKING ══════════════════════════════════════════ -->
+<section id="speaking">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">Speaking</div>
+      <h2 class="section-title reveal">On stage &amp; <em>on record</em></h2>
+    </div>
+    <div class="speaking-grid">
+
+      <div class="speaking-card reveal">
+        <div class="speaking-year">2024</div>
+        <div class="speaking-event">TED-Style Talk: Science in the Age of Distraction</div>
+        <div class="speaking-venue">BioComm Global Summit · Bangalore, India</div>
+        <span class="speaking-topic">Science Communication</span>
+      </div>
+
+      <div class="speaking-card reveal">
+        <div class="speaking-year">2024</div>
+        <div class="speaking-event">The Art of the Visual Abstract</div>
+        <div class="speaking-venue">ResearchGate Academic Conference · Online</div>
+        <span class="speaking-topic">Science Art</span>
+      </div>
+
+      <div class="speaking-card reveal">
+        <div class="speaking-year">2023</div>
+        <div class="speaking-event">Keynote: Building Science Communities Online</div>
+        <div class="speaking-venue">SciCommIndia · Mumbai</div>
+        <span class="speaking-topic">Community Building</span>
+      </div>
+
+      <div class="speaking-card reveal">
+        <div class="speaking-year">2023</div>
+        <div class="speaking-event">Panel: Women in Nanoscience Research</div>
+        <div class="speaking-venue">MRS International Conference on Nanoscience</div>
+        <span class="speaking-topic">Nanoscience</span>
+      </div>
+
+      <div class="speaking-card reveal">
+        <div class="speaking-year">2022</div>
+        <div class="speaking-event">Workshop: Storytelling for Researchers</div>
+        <div class="speaking-venue">Indian Institute of Science · Bengaluru</div>
+        <span class="speaking-topic">Research Skills</span>
+      </div>
+
+      <div class="speaking-card reveal">
+        <div class="speaking-year">2022</div>
+        <div class="speaking-event">Talk: Social Media as a Science Tool</div>
+        <div class="speaking-venue">National Science Communicators Meet</div>
+        <span class="speaking-topic">Digital Science</span>
+      </div>
+
+    </div>
+    <div style="margin-top:2.5rem; text-align:center;" class="reveal">
+      <a href="speaking.html" class="btn-primary">Book a Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ YOUTUBE ═══════════════════════════════════════════ -->
+<section id="youtube">
+  <div class="container">
+    <div class="yt-header">
+      <div>
+        <div class="section-label reveal">YouTube</div>
+        <h2 class="section-title reveal" style="margin-bottom:0">Science on <em>screen</em></h2>
+      </div>
+      <a href="https://youtube.com" class="yt-channel-badge reveal" target="_blank" rel="noopener">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="#FF0000">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8z"/>
+          <polygon fill="#fff" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+        </svg>
+        <div>
+          <div class="yt-channel-name">Ritika Sharma</div>
+          <div class="yt-subs">Subscribe for science content</div>
+        </div>
+      </a>
+    </div>
+    <div class="yt-grid">
+
+      <a href="#" class="yt-card reveal" target="_blank" rel="noopener">
+        <div class="yt-thumb t1">
+          <div class="yt-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="yt-duration">12:34</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">How Your Brain Actually Forms Memories (The Science)</div>
+          <div class="yt-meta">48K views · 3 weeks ago</div>
+        </div>
+      </a>
+
+      <a href="#" class="yt-card reveal" target="_blank" rel="noopener">
+        <div class="yt-thumb t2">
+          <div class="yt-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="yt-duration">08:17</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">I Made Research Posters for 30 Days — Here's What I Learned</div>
+          <div class="yt-meta">32K views · 1 month ago</div>
+        </div>
+      </a>
+
+      <a href="#" class="yt-card reveal" target="_blank" rel="noopener">
+        <div class="yt-thumb t3">
+          <div class="yt-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="yt-duration">15:02</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">A Day in the Life: Nanoscience Researcher &amp; Science Communicator</div>
+          <div class="yt-meta">61K views · 2 months ago</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ BLOG / MY MIND ════════════════════════════════════ -->
+<section id="blog">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">Writing</div>
+      <h2 class="section-title reveal"><em>On My Mind</em> — essays &amp; ideas</h2>
+    </div>
+    <div class="blog-grid">
+
+      <a href="#" class="blog-featured reveal" target="_blank" rel="noopener">
+        <div class="blog-featured-img"></div>
+        <div>
+          <div class="blog-cat">Featured Essay</div>
+          <h3 class="blog-title">Why Scientists Need to Learn to Be Artists</h3>
+          <p class="blog-excerpt">The best papers in the world go unread because they're presented without beauty. Here's what happens when you treat your research like a canvas — and why it changes everything about how science spreads.</p>
+          <div class="blog-byline">
+            <span>Ritika Sharma</span>
+            <span class="blog-byline-sep"></span>
+            <span>8 min read</span>
+            <span class="blog-byline-sep"></span>
+            <span>May 2025</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card reveal" target="_blank" rel="noopener">
+        <div class="blog-card-img bc1"></div>
+        <div class="blog-cat">Nanoscience</div>
+        <div class="blog-card-title">The Default Mode Network and the Science of Daydreaming</div>
+        <p class="blog-card-excerpt">What the brain does when you think it's doing nothing — and why that might be the most important thing it does.</p>
+        <div class="blog-card-footer">5 min read · April 2025</div>
+      </a>
+
+      <a href="#" class="blog-card reveal" target="_blank" rel="noopener">
+        <div class="blog-card-img bc2"></div>
+        <div class="blog-cat">Academia &amp; Life</div>
+        <div class="blog-card-title">On Burnout, Rest, and Returning to Research With Fresh Eyes</div>
+        <p class="blog-card-excerpt">A personal essay on stepping away, recovering, and coming back with a new relationship to the work.</p>
+        <div class="blog-card-footer">6 min read · March 2025</div>
+      </a>
+
+    </div>
+    <div style="margin-top:2.5rem; text-align:center;" class="reveal">
+      <a href="writing.html" class="btn-outline">Read the Blog</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LINKEDIN NEWSLETTERS ══════════════════════════════ -->
+<section id="newsletters">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">LinkedIn Newsletters</div>
+      <h2 class="section-title reveal">Weekly <em>dispatches</em></h2>
+    </div>
+    <div class="nl-grid">
+
+      <div class="nl-card reveal">
+        <div class="nl-li-icon">
+          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div class="nl-name">The Neuro Dispatch</div>
+        <p class="nl-desc">Weekly insights at the intersection of nanoscience, technology, and everyday life. No jargon — just fascinating science made accessible.</p>
+        <div class="nl-stats">
+          <span><strong>4.2K</strong> subscribers</span>
+          <span><strong>Weekly</strong></span>
+        </div>
+      </div>
+
+      <div class="nl-card reveal">
+        <div class="nl-li-icon">
+          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div class="nl-name">Sci-Art Weekly</div>
+        <p class="nl-desc">Every Friday: one stunning piece of science art, the story behind it, and how you can create research visuals that stop the scroll.</p>
+        <div class="nl-stats">
+          <span><strong>2.8K</strong> subscribers</span>
+          <span><strong>Weekly</strong></span>
+        </div>
+      </div>
+
+      <div class="nl-card reveal">
+        <div class="nl-li-icon">
+          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div class="nl-name">The Early Researcher</div>
+        <p class="nl-desc">For PhD students and early-career researchers navigating academia — honest conversations about the system, mental health, and building a career you love.</p>
+        <div class="nl-stats">
+          <span><strong>3.5K</strong> subscribers</span>
+          <span><strong>Bi-weekly</strong></span>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:2.5rem; text-align:center;" class="reveal">
+      <a href="https://linkedin.com" class="btn-outline" target="_blank" rel="noopener">Follow on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SHOP COMING SOON ══════════════════════════════════ -->
+<section id="shop">
+  <div class="container">
+    <div class="shop-inner">
+      <div class="shop-visual reveal">
+        <div class="shop-ring"></div>
+        <div class="shop-ring"></div>
+        <div class="shop-ring"></div>
+        <div class="shop-center-text">
+          <div class="shop-cs-label">Something is coming</div>
+          <div class="shop-cs-word">Shop<br><em>Soon</em></div>
+        </div>
+      </div>
+      <div class="shop-text">
+        <div class="section-label reveal">Shop</div>
+        <h2 class="section-title reveal">Science art,<br><em>for your walls.</em></h2>
+        <p class="shop-desc reveal">
+          Prints, posters, and visual abstracts — science made beautiful enough to hang.
+          Curated digital downloads and limited-edition physical prints coming soon.
+        </p>
+        <div class="shop-categories reveal">
+          <span class="shop-cat">Art Prints</span>
+          <span class="shop-cat">Research Posters</span>
+          <span class="shop-cat">Digital Downloads</span>
+          <span class="shop-cat">Workshops</span>
+          <span class="shop-cat">Templates</span>
+        </div>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;" class="reveal">Get early access &amp; launch discount:</p>
+        <div class="shop-email-form reveal">
+          <input type="email" class="shop-email-input" placeholder="your@email.com" aria-label="Email for shop notifications">
+          <button class="shop-email-btn">Notify Me</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SUBSCRIBE ═════════════════════════════════════════ -->
+<section id="subscribe">
+  <div class="container">
+    <div class="subscribe-inner">
+      <div class="section-label reveal">Newsletter</div>
+      <h2 class="subscribe-title reveal">Stay in the <em>loop</em></h2>
+      <p class="subscribe-desc reveal">
+        Science, art, research, and honest reflections — delivered to your inbox.
+        No noise, no spam. Just the good stuff, when it's ready.
+      </p>
+      <div class="subscribe-form reveal">
+        <input type="email" class="subscribe-input" placeholder="your@email.com" aria-label="Subscribe to newsletter">
+        <button class="subscribe-btn">Subscribe</button>
+      </div>
+      <p class="subscribe-note reveal">Join 8,000+ curious minds. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LET'S CONNECT ═════════════════════════════════════ -->
+<section id="connect">
+  <div class="container">
+    <div class="connect-grid">
+      <div class="connect-intro">
+        <div class="section-label reveal">Contact</div>
+        <h2 class="section-title reveal">Let's <em>connect.</em></h2>
+        <p class="connect-desc reveal">
+          Whether you're looking for a speaker, a collaborator, a workshop facilitator,
+          or just want to talk science and art — my inbox is open.
+        </p>
+        <a href="mailto:contact@ritikasharma.com" class="connect-email reveal">contact@ritikasharma.com</a>
+        <div class="social-links reveal">
+          <a href="https://linkedin.com" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://twitter.com" class="social-link" target="_blank" rel="noopener" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter / X
+          </a>
+          <a href="https://youtube.com" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8z"/><polygon fill="#0a0a0a" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            YouTube
+          </a>
+          <a href="https://instagram.com" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+      <div class="connect-form reveal">
+        <div class="form-row">
+          <div class="form-field">
+            <input type="text" placeholder="Your Name" aria-label="Name">
+          </div>
+          <div class="form-field">
+            <input type="email" placeholder="Your Email" aria-label="Email">
+          </div>
+        </div>
+        <div class="form-field">
+          <input type="text" placeholder="Subject" aria-label="Subject">
+        </div>
+        <div class="form-field">
+          <textarea placeholder="Your message…" aria-label="Message"></textarea>
+        </div>
+        <button class="form-submit">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="rs-logo.png" alt="Ritika Sharma">
+      </div>
+      <p class="footer-copy">© 2026 Ritika Sharma. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="projects.html">Work</a>
+        <a href="publications.html">Research</a>
+        <a href="writing.html">Writing</a>
+        <a href="#connect">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+// ── Custom Cursor ────────────────────────────────────────
+const dot  = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top  = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a, button, [data-tilt], .bento-card, .gallery-item, .speaking-card, .yt-card, .blog-card, .blog-featured, .nl-card, .pub-item').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ── Navbar scroll ────────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── Three.js Hero ────────────────────────────────────────
+(function initHero() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 300;
+
+  // Particles
+  const N = 120;
+  const positions = new Float32Array(N * 3);
+  const velocities = [];
+  const points = [];
+
+  for (let i = 0; i < N; i++) {
+    const x = (Math.random() - 0.5) * 600;
+    const y = (Math.random() - 0.5) * 400;
+    const z = (Math.random() - 0.5) * 200;
+    positions[i*3]   = x;
+    positions[i*3+1] = y;
+    positions[i*3+2] = z;
+    velocities.push({
+      x: (Math.random() - 0.5) * 0.18,
+      y: (Math.random() - 0.5) * 0.18,
+      z: (Math.random() - 0.5) * 0.06
+    });
+    points.push({ x, y, z });
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  const mat = new THREE.PointsMaterial({ color: 0xd4af37, size: 2.2, transparent: true, opacity: 0.7 });
+  const particleMesh = new THREE.Points(geo, mat);
+  scene.add(particleMesh);
+
+  // Connection lines
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x4a9eff, transparent: true, opacity: 0.12 });
+  const lineGroup = new THREE.Group();
+  scene.add(lineGroup);
+
+  const CONN_DIST = 90;
+
+  function updateLines() {
+    while (lineGroup.children.length) lineGroup.remove(lineGroup.children[0]);
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        const dx = points[i].x - points[j].x;
+        const dy = points[i].y - points[j].y;
+        const dz = points[i].z - points[j].z;
+        const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        if (d < CONN_DIST) {
+          const lg = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(points[i].x, points[i].y, points[i].z),
+            new THREE.Vector3(points[j].x, points[j].y, points[j].z)
+          ]);
+          const opacity = (1 - d / CONN_DIST) * 0.2;
+          const lm = new THREE.LineBasicMaterial({ color: 0x4a9eff, transparent: true, opacity });
+          lineGroup.add(new THREE.Line(lg, lm));
+        }
+      }
+    }
+  }
+
+  // Mouse parallax
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 40;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 30;
+  });
+
+  let frameCount = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    frameCount++;
+
+    const pos = geo.attributes.position.array;
+    for (let i = 0; i < N; i++) {
+      points[i].x += velocities[i].x;
+      points[i].y += velocities[i].y;
+      points[i].z += velocities[i].z;
+      if (Math.abs(points[i].x) > 320) velocities[i].x *= -1;
+      if (Math.abs(points[i].y) > 220) velocities[i].y *= -1;
+      if (Math.abs(points[i].z) > 120) velocities[i].z *= -1;
+      pos[i*3]   = points[i].x;
+      pos[i*3+1] = points[i].y;
+      pos[i*3+2] = points[i].z;
+    }
+    geo.attributes.position.needsUpdate = true;
+
+    if (frameCount % 3 === 0) updateLines();
+
+    camera.position.x += (mouseX - camera.position.x) * 0.04;
+    camera.position.y += (-mouseY - camera.position.y) * 0.04;
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+// ── GSAP Animations ──────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance
+const tl = gsap.timeline({ delay: 0.3 });
+tl.to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+  .to('#hero-name', { opacity: 1, duration: 0 }, '-=0.4')
+  .from('#hero-name .line span', {
+    y: '110%', duration: 1, stagger: 0.12, ease: 'power4.out'
+  }, '-=0.2')
+  .to('#hero-tagline', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+  .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+  .to('#scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.2');
+
+// Scroll reveals
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 88%',
+      toggleActions: 'play none none none'
+    }
+  });
+});
+
+// ── 3D Card Tilt ─────────────────────────────────────────
+document.querySelectorAll('[data-tilt]').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const rx2 = (e.clientY - cy) / (r.height / 2) * -6;
+    const ry2 = (e.clientX - cx) / (r.width / 2) * 6;
+    card.style.transform = `perspective(800px) rotateX(${rx2}deg) rotateY(${ry2}deg) translateZ(6px)`;
+    // Gradient follow
+    const px = ((e.clientX - r.left) / r.width) * 100;
+    const py = ((e.clientY - r.top) / r.height) * 100;
+    card.style.setProperty('--mx', px + '%');
+    card.style.setProperty('--my', py + '%');
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ── Bento card gradient follow ────────────────────────────
+document.querySelectorAll('.bento-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const px = ((e.clientX - r.left) / r.width) * 100;
+    const py = ((e.clientY - r.top) / r.height) * 100;
+    card.style.setProperty('--mx', px + '%');
+    card.style.setProperty('--my', py + '%');
+  });
+});
+
+// ── Section parallax ─────────────────────────────────────
+gsap.utils.toArray('section').forEach(section => {
+  const overlay = section.querySelector('.gallery-placeholder');
+  if (!overlay) return;
+  gsap.to(overlay, {
+    yPercent: -15,
+    ease: 'none',
+    scrollTrigger: { trigger: section, scrub: true }
+  });
+});
+
+// ── Pub item hover ───────────────────────────────────────
+document.querySelectorAll('.pub-item').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    gsap.to(item, { x: 8, duration: 0.2, ease: 'power2.out' });
+  });
+  item.addEventListener('mouseleave', () => {
+    gsap.to(item, { x: 0, duration: 0.3, ease: 'power2.out' });
+  });
+});
+
+// ── Form feedback ────────────────────────────────────────
+document.querySelectorAll('.shop-email-btn, .subscribe-btn, .form-submit').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const input = this.closest('form, div')?.querySelector('input[type="email"], input, textarea');
+    const orig = this.textContent;
+    this.textContent = 'Sent!';
+    this.style.background = '#2a9d5c';
+    setTimeout(() => {
+      this.textContent = orig;
+      this.style.background = '';
+    }, 2500);
+  });
+});
+
+// ── Stat counter animation ────────────────────────────────
+const statNums = document.querySelectorAll('.stat-num');
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const text = el.textContent;
+      const num = parseInt(text);
+      const suffix = text.replace(/[0-9]/g,'');
+      let current = 0;
+      const step = num / 40;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, num);
+        el.textContent = Math.floor(current) + suffix;
+        if (current >= num) clearInterval(timer);
+      }, 30);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+statNums.forEach(n => statObserver.observe(n));
+</script>
+</body>
+</html>

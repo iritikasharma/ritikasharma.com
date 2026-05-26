@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speaking — Ritika Sharma</title>
+  <meta name="description" content="Speaking engagements, workshops, and talks by Ritika Sharma.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0a0a0a; --bg-1:#111111; --bg-2:#161616; --text:#f5f0e8; --muted:#8a8070; --blue:#4a9eff; --gold:#d4af37; --border:rgba(245,240,232,0.08); --glass:rgba(245,240,232,0.04); --ff-head:'Playfair Display',Georgia,serif; --ff-body:'Inter',system-ui,sans-serif; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--ff-body); line-height:1.6; overflow-x:hidden; cursor:none; }
+    @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+    #cursor-dot { position:fixed; top:0; left:0; z-index:9999; width:8px; height:8px; border-radius:50%; background:var(--gold); pointer-events:none; transform:translate(-50%,-50%); box-shadow:0 0 12px var(--gold); transition:width .2s,height .2s,background .2s; }
+    #cursor-ring { position:fixed; top:0; left:0; z-index:9998; width:36px; height:36px; border-radius:50%; border:1px solid rgba(212,175,55,.4); pointer-events:none; transform:translate(-50%,-50%); transition:width .3s,height .3s; }
+    body.cursor-hover #cursor-dot { width:12px; height:12px; background:var(--blue); box-shadow:0 0 16px var(--blue); }
+    body.cursor-hover #cursor-ring { width:52px; height:52px; border-color:rgba(74,158,255,.5); }
+    #navbar { position:fixed; top:0; left:0; right:0; z-index:900; padding:1.5rem 3rem; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,10,.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-logo img { height:40px; filter:invert(1); opacity:.9; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; transition:color .2s; cursor:none; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-links a.active { color:var(--gold); }
+    .nav-cta { padding:.5rem 1.4rem; border:1px solid var(--gold); color:var(--gold); background:transparent; border-radius:2px; font-family:var(--ff-body); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; cursor:none; transition:all .2s; text-decoration:none; }
+    .nav-cta:hover { background:var(--gold); color:var(--bg); }
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:none; }
+    .nav-hamburger span { width:24px; height:1px; background:var(--text); }
+    .container { max-width:1100px; margin:0 auto; padding:0 2rem; }
+    .reveal { opacity:0; transform:translateY(30px); }
+    .btn-primary { padding:.85rem 2.2rem; background:var(--gold); color:var(--bg); font-family:var(--ff-body); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600; border:none; cursor:none; text-decoration:none; display:inline-block; transition:all .25s; border-radius:2px; }
+    .btn-primary:hover { background:#e8c84a; transform:translateY(-2px); }
+    .btn-outline { padding:.85rem 2.2rem; background:transparent; border:1px solid var(--border); color:var(--text); font-family:var(--ff-body); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; cursor:none; text-decoration:none; display:inline-block; transition:all .25s; border-radius:2px; }
+    .btn-outline:hover { border-color:var(--text); }
+
+    .page-hero { padding:10rem 0 5rem; background:var(--bg); position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 70% at 30% 50%,rgba(74,158,255,.04) 0%,transparent 70%); }
+    .page-hero-label { font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:1.5rem; }
+    .page-hero-title { font-family:var(--ff-head); font-size:clamp(3.5rem,8vw,7rem); font-weight:400; line-height:.95; letter-spacing:-.02em; margin-bottom:2rem; }
+    .page-hero-title em { font-style:italic; color:var(--gold); }
+    .page-hero-sub { font-size:1.1rem; color:var(--muted); line-height:1.8; max-width:560px; }
+
+    /* Stats */
+    .stats-strip { display:flex; gap:0; border:1px solid var(--border); border-radius:6px; overflow:hidden; margin:4rem 0; }
+    .stat-cell { flex:1; padding:2rem; border-right:1px solid var(--border); text-align:center; }
+    .stat-cell:last-child { border-right:none; }
+    .stat-num { font-family:var(--ff-head); font-size:2.5rem; color:var(--gold); font-weight:400; line-height:1; }
+    .stat-lbl { font-size:.7rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:.5rem; }
+
+    /* Topics I speak on */
+    .topics-section { padding:5rem 0; border-bottom:1px solid var(--border); }
+    .topics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3rem; }
+    .topic-card { background:var(--bg-2); border:1px solid var(--border); border-radius:6px; padding:2rem; cursor:none; transition:border-color .3s,transform .2s; position:relative; overflow:hidden; }
+    .topic-card::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),var(--blue)); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+    .topic-card:hover::after { transform:scaleX(1); }
+    .topic-card:hover { border-color:rgba(212,175,55,.2); transform:translateY(-4px); }
+    .topic-icon { width:44px; height:44px; border-radius:8px; background:rgba(212,175,55,.07); border:1px solid rgba(212,175,55,.15); display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem; }
+    .topic-icon svg { width:20px; height:20px; }
+    .topic-name { font-family:var(--ff-head); font-size:1.15rem; color:var(--text); margin-bottom:.5rem; }
+    .topic-desc { font-size:.85rem; color:var(--muted); line-height:1.7; }
+    .topic-tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1rem; }
+    .topic-tag { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .55rem; border:1px solid var(--border); color:var(--muted); border-radius:2px; }
+
+    /* Engagements */
+    .engagements-section { padding:5rem 0; }
+    .section-label { font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:1rem; display:flex; align-items:center; gap:.75rem; }
+    .section-label::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
+    .section-title { font-family:var(--ff-head); font-size:clamp(2rem,4vw,3.2rem); font-weight:500; line-height:1.1; margin-bottom:3rem; }
+    .section-title em { font-style:italic; color:var(--gold); }
+    .eng-list { display:flex; flex-direction:column; gap:0; }
+    .eng-item { display:grid; grid-template-columns:5rem 1fr auto; gap:2rem; align-items:start; padding:2rem 0; border-bottom:1px solid var(--border); cursor:none; transition:padding-left .2s; }
+    .eng-item:first-child { border-top:1px solid var(--border); }
+    .eng-item:hover { padding-left:.5rem; }
+    .eng-year { font-family:var(--ff-head); font-size:1rem; color:var(--gold); font-style:italic; padding-top:3px; }
+    .eng-title { font-family:var(--ff-head); font-size:1.15rem; color:var(--text); margin-bottom:.35rem; transition:color .2s; line-height:1.35; }
+    .eng-item:hover .eng-title { color:var(--gold); }
+    .eng-venue { font-size:.85rem; color:var(--muted); margin-bottom:.4rem; }
+    .eng-location { font-size:.8rem; color:var(--muted); display:flex; align-items:center; gap:.4rem; }
+    .eng-badge { font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; padding:.3rem .7rem; border-radius:20px; font-weight:600; white-space:nowrap; align-self:start; }
+    .badge-keynote { background:rgba(212,175,55,.1); color:var(--gold); border:1px solid rgba(212,175,55,.2); }
+    .badge-talk { background:rgba(74,158,255,.1); color:var(--blue); border:1px solid rgba(74,158,255,.2); }
+    .badge-workshop { background:rgba(138,128,112,.1); color:var(--muted); border:1px solid var(--border); }
+    .badge-panel { background:rgba(74,158,255,.07); color:#7ec8ff; border:1px solid rgba(74,158,255,.15); }
+
+    /* Booking */
+    .booking-section { background:var(--bg-1); border-top:1px solid var(--border); padding:6rem 0; }
+    .booking-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+    .booking-text h2 { font-family:var(--ff-head); font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; }
+    .booking-text h2 em { font-style:italic; color:var(--gold); }
+    .booking-text p { color:var(--muted); font-size:1rem; line-height:1.8; margin-bottom:1.5rem; }
+    .formats { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2rem; }
+    .format-item { display:flex; gap:.75rem; align-items:center; font-size:.9rem; }
+    .format-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+    .format-label { color:var(--text); font-weight:500; min-width:120px; }
+    .format-detail { color:var(--muted); font-size:.85rem; }
+    .booking-form { display:flex; flex-direction:column; gap:1rem; }
+    .form-field input, .form-field textarea, .form-field select { width:100%; padding:.9rem 1.2rem; background:var(--bg-2); border:1px solid var(--border); color:var(--text); font-family:var(--ff-body); font-size:.9rem; outline:none; border-radius:2px; transition:border-color .2s; }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color:rgba(212,175,55,.4); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color:var(--muted); }
+    .form-field select { color:var(--muted); appearance:none; cursor:none; }
+    .form-field select option { background:var(--bg-2); color:var(--text); }
+    .form-field textarea { height:120px; resize:none; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .form-submit { padding:1rem 2.5rem; background:var(--gold); color:var(--bg); border:none; font-family:var(--ff-body); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; cursor:none; border-radius:2px; transition:all .2s; align-self:flex-start; }
+    .form-submit:hover { background:#e8c84a; transform:translateY(-2px); }
+
+    footer { padding:2.5rem 0; border-top:1px solid var(--border); }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+    .footer-logo img { height:28px; filter:invert(1); opacity:.5; }
+    .footer-copy { font-size:.75rem; color:var(--muted); }
+    .footer-nav { display:flex; gap:1.5rem; }
+    .footer-nav a { font-size:.75rem; color:var(--muted); text-decoration:none; transition:color .2s; cursor:none; }
+    .footer-nav a:hover { color:var(--text); }
+
+    @media (max-width:900px) {
+      #navbar { padding:1.25rem 1.5rem; }
+      .nav-links,.nav-cta { display:none; }
+      .nav-hamburger { display:flex; }
+      .topics-grid { grid-template-columns:1fr; }
+      .stats-strip { flex-wrap:wrap; }
+      .stat-cell { flex:1 1 50%; border-bottom:1px solid var(--border); }
+      .eng-item { grid-template-columns:3.5rem 1fr; }
+      .eng-badge { display:none; }
+      .booking-inner { grid-template-columns:1fr; gap:3rem; }
+      .form-row { grid-template-columns:1fr; }
+      #cursor-dot,#cursor-ring { display:none; }
+      body { cursor:auto; }
+    }
+  </style>
+</head>
+<body>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<nav id="navbar">
+  <a class="nav-logo" href="index.html"><img src="rs-logo.png" alt="Ritika Sharma"></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="sciart.html">Sci-Art</a></li>
+    <li><a href="speaking.html" class="active">Speaking</a></li>
+    <li><a href="writing.html">Writing</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Book a Talk</a>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="page-hero-label reveal">Speaking</p>
+    <h1 class="page-hero-title reveal">On stage &amp;<br><em>on record.</em></h1>
+    <p class="page-hero-sub reveal">Keynotes, panels, workshops, and conversations — on nanoscience, science communication, and why beautiful ideas deserve beautiful presentation.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats-strip reveal">
+    <div class="stat-cell"><div class="stat-num">30+</div><div class="stat-lbl">Talks Given</div></div>
+    <div class="stat-cell"><div class="stat-num">12+</div><div class="stat-lbl">Countries</div></div>
+    <div class="stat-cell"><div class="stat-num">5K+</div><div class="stat-lbl">Audience Reached</div></div>
+    <div class="stat-cell"><div class="stat-num">8+</div><div class="stat-lbl">Workshops Run</div></div>
+  </div>
+</div>
+
+<!-- Topics -->
+<section class="topics-section">
+  <div class="container">
+    <div class="section-label reveal">Topics</div>
+    <div class="section-title reveal">What I <em>speak</em> about</div>
+    <div class="topics-grid">
+      <div class="topic-card reveal">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+        <div class="topic-name">Nanoscience for Everyone</div>
+        <p class="topic-desc">Breaking down the world at the billionth-of-a-metre scale — what it is, why it matters, and how it's changing medicine, energy, and electronics.</p>
+        <div class="topic-tags"><span class="topic-tag">Keynote</span><span class="topic-tag">Public Talk</span><span class="topic-tag">Schools</span></div>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="topic-name">The Art of Science Communication</div>
+        <p class="topic-desc">How researchers can communicate their work to wider audiences — through visual storytelling, social media, writing, and design.</p>
+        <div class="topic-tags"><span class="topic-tag">Workshop</span><span class="topic-tag">Conference</span><span class="topic-tag">Academic</span></div>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="topic-name">Building Science Communities</div>
+        <p class="topic-desc">Growing engaged, supportive research communities online and offline — what works, what doesn't, and why it matters for science culture.</p>
+        <div class="topic-tags"><span class="topic-tag">Panel</span><span class="topic-tag">Keynote</span></div>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="topic-name">Visual Abstracts &amp; Sci-Art</div>
+        <p class="topic-desc">A practical workshop on creating research posters and visual abstracts that actually get noticed — from concept to final design.</p>
+        <div class="topic-tags"><span class="topic-tag">Workshop</span><span class="topic-tag">Hands-on</span></div>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="topic-name">Women in Nanoscience</div>
+        <p class="topic-desc">On navigating research as a woman, building resilience, finding mentors, and why diversity in science is not just good ethics — it's good science.</p>
+        <div class="topic-tags"><span class="topic-tag">Panel</span><span class="topic-tag">Fireside Chat</span></div>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="topic-name">Early Career Research</div>
+        <p class="topic-desc">Honest conversations about PhD life, mental health in academia, publishing pressures, and building a sustainable research career.</p>
+        <div class="topic-tags"><span class="topic-tag">Talk</span><span class="topic-tag">Students</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Engagements -->
+<section class="engagements-section">
+  <div class="container">
+    <div class="section-label reveal">History</div>
+    <div class="section-title reveal">Past <em>engagements</em></div>
+    <div class="eng-list">
+      <div class="eng-item reveal">
+        <span class="eng-year">2024</span>
+        <div>
+          <div class="eng-title">Science in the Age of Distraction</div>
+          <div class="eng-venue">BioComm Global Summit</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bangalore, India</div>
+        </div>
+        <span class="eng-badge badge-keynote">Keynote</span>
+      </div>
+      <div class="eng-item reveal">
+        <span class="eng-year">2024</span>
+        <div>
+          <div class="eng-title">The Art of the Visual Abstract</div>
+          <div class="eng-venue">ResearchGate Academic Conference</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Online</div>
+        </div>
+        <span class="eng-badge badge-talk">Talk</span>
+      </div>
+      <div class="eng-item reveal">
+        <span class="eng-year">2023</span>
+        <div>
+          <div class="eng-title">Building Science Communities Online</div>
+          <div class="eng-venue">SciCommIndia Annual Conference</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Mumbai, India</div>
+        </div>
+        <span class="eng-badge badge-keynote">Keynote</span>
+      </div>
+      <div class="eng-item reveal">
+        <span class="eng-year">2023</span>
+        <div>
+          <div class="eng-title">Panel: Women in Nanoscience Research</div>
+          <div class="eng-venue">MRS International Conference on Nanoscience</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>San Francisco, USA</div>
+        </div>
+        <span class="eng-badge badge-panel">Panel</span>
+      </div>
+      <div class="eng-item reveal">
+        <span class="eng-year">2022</span>
+        <div>
+          <div class="eng-title">Storytelling for Researchers — A Practical Workshop</div>
+          <div class="eng-venue">Indian Institute of Science</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bengaluru, India</div>
+        </div>
+        <span class="eng-badge badge-workshop">Workshop</span>
+      </div>
+      <div class="eng-item reveal">
+        <span class="eng-year">2022</span>
+        <div>
+          <div class="eng-title">Social Media as a Science Communication Tool</div>
+          <div class="eng-venue">National Science Communicators Meet</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>New Delhi, India</div>
+        </div>
+        <span class="eng-badge badge-talk">Talk</span>
+      </div>
+      <div class="eng-item reveal">
+        <span class="eng-year">2022</span>
+        <div>
+          <div class="eng-title">From Lab to LinkedIn: Building Your Research Brand</div>
+          <div class="eng-venue">Young Researchers Symposium, University of Delhi</div>
+          <div class="eng-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>New Delhi, India</div>
+        </div>
+        <span class="eng-badge badge-workshop">Workshop</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Booking -->
+<section class="booking-section" id="booking">
+  <div class="container">
+    <div class="booking-inner">
+      <div class="booking-text reveal">
+        <div style="font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem;"><span style="display:block;width:32px;height:1px;background:var(--gold);"></span>Book a Talk</div>
+        <h2>Let's make your <em>event memorable.</em></h2>
+        <p>Whether you need a keynote speaker, a workshop facilitator, or a panelist — I bring energy, expertise, and a genuine love of making science land.</p>
+        <div class="formats">
+          <div class="format-item"><span class="format-dot"></span><span class="format-label">Keynote</span><span class="format-detail">30–60 mins · in-person or virtual</span></div>
+          <div class="format-item"><span class="format-dot"></span><span class="format-label">Workshop</span><span class="format-detail">2–4 hrs · hands-on, small groups</span></div>
+          <div class="format-item"><span class="format-dot"></span><span class="format-label">Panel</span><span class="format-detail">45–90 mins · moderated or participant</span></div>
+          <div class="format-item"><span class="format-dot"></span><span class="format-label">Fireside Chat</span><span class="format-detail">30–45 mins · conversational</span></div>
+        </div>
+      </div>
+      <div class="booking-form reveal">
+        <div class="form-row">
+          <div class="form-field"><input type="text" placeholder="Your Name" aria-label="Name"></div>
+          <div class="form-field"><input type="email" placeholder="Your Email" aria-label="Email"></div>
+        </div>
+        <div class="form-field"><input type="text" placeholder="Organisation / Event" aria-label="Organisation"></div>
+        <div class="form-field">
+          <select aria-label="Format">
+            <option value="" disabled selected>Format</option>
+            <option>Keynote</option>
+            <option>Workshop</option>
+            <option>Panel</option>
+            <option>Fireside Chat</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field"><input type="text" placeholder="Event Date / Timeframe" aria-label="Event date"></div>
+        <div class="form-field"><textarea placeholder="Tell me about the event and what you're looking for…" aria-label="Message"></textarea></div>
+        <button class="form-submit">Send Enquiry</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo"><img src="rs-logo.png" alt="Ritika Sharma"></a>
+      <p class="footer-copy">© 2026 Ritika Sharma. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="projects.html">Work</a>
+        <a href="publications.html">Research</a>
+        <a href="writing.html">Writing</a>
+        <a href="index.html#connect">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.topic-card,.eng-item').forEach(el=>{ el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover')); el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover')); });
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(el=>{ gsap.to(el,{ opacity:1, y:0, duration:.9, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' } }); });
+  document.querySelector('.form-submit')?.addEventListener('click',function(){ const orig=this.textContent; this.textContent='Sent!'; this.style.background='#2a9d5c'; setTimeout(()=>{ this.textContent=orig; this.style.background=''; },2500); });
+  document.querySelectorAll('.stat-num').forEach(el=>{ const obs=new IntersectionObserver(entries=>{ if(entries[0].isIntersecting){ const txt=el.textContent,num=parseInt(txt),suf=txt.replace(/[0-9]/g,''); let c=0,step=num/40; const t=setInterval(()=>{ c=Math.min(c+step,num); el.textContent=Math.floor(c)+suf; if(c>=num)clearInterval(t); },30); obs.unobserve(el); } },{threshold:.5}); obs.observe(el); });
+</script>
+</body>
+</html>

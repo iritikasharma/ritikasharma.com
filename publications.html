@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications — Ritika Sharma</title>
+  <meta name="description" content="Research publications by Ritika Sharma in nanoscience and science communication.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0a0a0a; --bg-1:#111111; --bg-2:#161616; --text:#f5f0e8; --muted:#8a8070; --blue:#4a9eff; --gold:#d4af37; --border:rgba(245,240,232,0.08); --glass:rgba(245,240,232,0.04); --ff-head:'Playfair Display',Georgia,serif; --ff-body:'Inter',system-ui,sans-serif; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--ff-body); line-height:1.6; overflow-x:hidden; cursor:none; }
+    @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+    #cursor-dot { position:fixed; top:0; left:0; z-index:9999; width:8px; height:8px; border-radius:50%; background:var(--gold); pointer-events:none; transform:translate(-50%,-50%); box-shadow:0 0 12px var(--gold),0 0 24px rgba(212,175,55,.4); transition:width .2s,height .2s,background .2s; }
+    #cursor-ring { position:fixed; top:0; left:0; z-index:9998; width:36px; height:36px; border-radius:50%; border:1px solid rgba(212,175,55,.4); pointer-events:none; transform:translate(-50%,-50%); transition:width .3s,height .3s; }
+    body.cursor-hover #cursor-dot { width:12px; height:12px; background:var(--blue); box-shadow:0 0 16px var(--blue); }
+    body.cursor-hover #cursor-ring { width:52px; height:52px; border-color:rgba(74,158,255,.5); }
+    #navbar { position:fixed; top:0; left:0; right:0; z-index:900; padding:1.5rem 3rem; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,10,.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-logo img { height:40px; filter:invert(1); opacity:.9; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; transition:color .2s; cursor:none; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-links a.active { color:var(--gold); }
+    .nav-cta { padding:.5rem 1.4rem; border:1px solid var(--gold); color:var(--gold); background:transparent; border-radius:2px; font-family:var(--ff-body); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; cursor:none; transition:all .2s; text-decoration:none; }
+    .nav-cta:hover { background:var(--gold); color:var(--bg); }
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:none; }
+    .nav-hamburger span { width:24px; height:1px; background:var(--text); }
+    .container { max-width:1100px; margin:0 auto; padding:0 2rem; }
+    .section-label { font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:1rem; display:flex; align-items:center; gap:.75rem; }
+    .section-label::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
+    .reveal { opacity:0; transform:translateY(30px); }
+    .btn-outline { padding:.85rem 2.2rem; background:transparent; border:1px solid var(--border); color:var(--text); font-family:var(--ff-body); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; cursor:none; text-decoration:none; display:inline-block; transition:all .25s; border-radius:2px; }
+    .btn-outline:hover { border-color:var(--text); }
+    .btn-primary { padding:.85rem 2.2rem; background:var(--gold); color:var(--bg); font-family:var(--ff-body); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600; border:none; cursor:none; text-decoration:none; display:inline-block; transition:all .25s; border-radius:2px; }
+    .btn-primary:hover { background:#e8c84a; transform:translateY(-2px); }
+
+    .page-hero { padding:10rem 0 5rem; background:var(--bg); position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 20% 50%,rgba(212,175,55,.04) 0%,transparent 70%); }
+    .page-hero-label { font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:1.5rem; }
+    .page-hero-title { font-family:var(--ff-head); font-size:clamp(3.5rem,8vw,7rem); font-weight:400; line-height:.95; letter-spacing:-.02em; margin-bottom:2rem; }
+    .page-hero-title em { font-style:italic; color:var(--gold); }
+    .page-hero-sub { font-size:1.1rem; color:var(--muted); line-height:1.8; max-width:560px; }
+
+    /* Stats */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--border); border-radius:6px; overflow:hidden; margin:4rem 0; }
+    .stat-cell { padding:2rem; border-right:1px solid var(--border); text-align:center; }
+    .stat-cell:last-child { border-right:none; }
+    .stat-num { font-family:var(--ff-head); font-size:2.5rem; color:var(--gold); font-weight:400; line-height:1; }
+    .stat-lbl { font-size:.7rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:.5rem; }
+
+    /* Filters */
+    .pub-controls { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:3rem; }
+    .filters { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .filter-btn { padding:.45rem 1.1rem; border:1px solid var(--border); border-radius:20px; background:transparent; color:var(--muted); font-family:var(--ff-body); font-size:.75rem; cursor:none; transition:all .2s; }
+    .filter-btn.active,.filter-btn:hover { border-color:var(--gold); color:var(--gold); }
+    .scholar-link { display:flex; align-items:center; gap:.5rem; color:var(--muted); font-size:.8rem; text-decoration:none; cursor:none; transition:color .2s; padding:.5rem 1rem; border:1px solid var(--border); border-radius:20px; }
+    .scholar-link:hover { color:var(--text); border-color:var(--border); }
+
+    /* Publication list */
+    .pub-year-group { margin-bottom:3rem; }
+    .pub-year-heading { font-family:var(--ff-head); font-size:1.5rem; color:var(--gold); font-style:italic; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--border); }
+    .pub-item { display:grid; grid-template-columns:auto 1fr auto; gap:2rem; align-items:start; padding:2rem 0; border-bottom:1px solid var(--border); cursor:none; transition:all .2s; position:relative; }
+    .pub-item:first-child { border-top:1px solid var(--border); }
+    .pub-item:hover { padding-left:.5rem; }
+    .pub-num { font-family:var(--ff-head); font-size:1rem; color:var(--gold); font-style:italic; min-width:2.5rem; padding-top:3px; }
+    .pub-title { font-family:var(--ff-head); font-size:1.15rem; font-weight:500; color:var(--text); line-height:1.4; margin-bottom:.5rem; transition:color .2s; }
+    .pub-item:hover .pub-title { color:var(--gold); }
+    .pub-authors { font-size:.82rem; color:var(--muted); margin-bottom:.4rem; }
+    .pub-authors strong { color:var(--text); }
+    .pub-venue { font-size:.82rem; color:var(--muted); }
+    .pub-venue em { font-style:italic; color:var(--blue); }
+    .pub-links { display:flex; gap:.5rem; margin-top:.75rem; flex-wrap:wrap; }
+    .pub-link { font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; padding:.25rem .65rem; border:1px solid var(--border); border-radius:2px; color:var(--muted); text-decoration:none; cursor:none; transition:all .2s; }
+    .pub-link:hover { border-color:var(--gold); color:var(--gold); }
+    .pub-badge { font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; padding:.3rem .7rem; border-radius:20px; font-weight:600; white-space:nowrap; align-self:start; flex-shrink:0; }
+    .badge-journal { background:rgba(74,158,255,.1); color:var(--blue); border:1px solid rgba(74,158,255,.2); }
+    .badge-conf { background:rgba(212,175,55,.1); color:var(--gold); border:1px solid rgba(212,175,55,.2); }
+    .badge-preprint { background:rgba(138,128,112,.1); color:var(--muted); border:1px solid var(--border); }
+    .badge-book { background:rgba(74,158,255,.08); color:#7ec8ff; border:1px solid rgba(74,158,255,.15); }
+
+    .cta-band { background:var(--bg-1); border-top:1px solid var(--border); padding:5rem 0; text-align:center; }
+    .cta-band h2 { font-family:var(--ff-head); font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; }
+    .cta-band h2 em { font-style:italic; color:var(--gold); }
+    .cta-band p { color:var(--muted); max-width:500px; margin:.75rem auto 2rem; }
+    footer { padding:2.5rem 0; border-top:1px solid var(--border); }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+    .footer-logo img { height:28px; filter:invert(1); opacity:.5; }
+    .footer-copy { font-size:.75rem; color:var(--muted); }
+    .footer-nav { display:flex; gap:1.5rem; }
+    .footer-nav a { font-size:.75rem; color:var(--muted); text-decoration:none; transition:color .2s; cursor:none; }
+    .footer-nav a:hover { color:var(--text); }
+
+    @media (max-width:900px) {
+      #navbar { padding:1.25rem 1.5rem; }
+      .nav-links,.nav-cta { display:none; }
+      .nav-hamburger { display:flex; }
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .stats-row .stat-cell:nth-child(2) { border-right:none; }
+      .stats-row .stat-cell:nth-child(3) { border-top:1px solid var(--border); }
+      .pub-item { grid-template-columns:auto 1fr; }
+      .pub-badge { position:absolute; top:2rem; right:0; }
+      #cursor-dot,#cursor-ring { display:none; }
+      body { cursor:auto; }
+    }
+  </style>
+</head>
+<body>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<nav id="navbar">
+  <a class="nav-logo" href="index.html"><img src="rs-logo.png" alt="Ritika Sharma"></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="publications.html" class="active">Publications</a></li>
+    <li><a href="sciart.html">Sci-Art</a></li>
+    <li><a href="speaking.html">Speaking</a></li>
+    <li><a href="writing.html">Writing</a></li>
+  </ul>
+  <a href="index.html#connect" class="nav-cta">Let's Connect</a>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="page-hero-label reveal">Research</p>
+    <h1 class="page-hero-title reveal">Publications &amp;<br><em>writing.</em></h1>
+    <p class="page-hero-sub reveal">Peer-reviewed research, conference contributions, and preprints spanning nanoscience, materials characterisation, and science communication.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats-row reveal">
+    <div class="stat-cell"><div class="stat-num" data-count="12">12+</div><div class="stat-lbl">Publications</div></div>
+    <div class="stat-cell"><div class="stat-num" data-count="280">280+</div><div class="stat-lbl">Citations</div></div>
+    <div class="stat-cell"><div class="stat-num" data-count="8">8</div><div class="stat-lbl">h-index</div></div>
+    <div class="stat-cell"><div class="stat-num" data-count="6">6</div><div class="stat-lbl">Journals</div></div>
+  </div>
+
+  <div class="pub-controls reveal">
+    <div class="filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Journal Articles</button>
+      <button class="filter-btn">Conferences</button>
+      <button class="filter-btn">Preprints</button>
+    </div>
+    <a href="#" class="scholar-link" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 0 1 .665 6.479A11.952 11.952 0 0 0 12 20.055a11.952 11.952 0 0 0-6.824-2.998 12.078 12.078 0 0 1 .665-6.479L12 14z"/></svg>
+      Google Scholar
+    </a>
+  </div>
+
+  <!-- 2024 -->
+  <div class="pub-year-group reveal">
+    <div class="pub-year-heading">2024</div>
+
+    <div class="pub-item">
+      <span class="pub-num">01</span>
+      <div>
+        <div class="pub-title">Size-Tunable Photoluminescence in Colloidal CdSe Quantum Dots: Synthesis, Characterisation, and Bioimaging Applications</div>
+        <div class="pub-authors"><strong>Sharma R.</strong>, Kapoor A., Singh P., Mehta S.</div>
+        <div class="pub-venue"><em>ACS Nano</em> · Volume 18, Issue 3, pp. 2145–2158 · DOI: 10.1021/acsnano.3c09876</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">PDF</a>
+          <a href="#" class="pub-link">DOI</a>
+          <a href="#" class="pub-link">Abstract</a>
+          <a href="sciart.html" class="pub-link">Visual Abstract</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Journal</span>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-num">02</span>
+      <div>
+        <div class="pub-title">Visual Abstracts as a Tool for Science Communication: A Systematic Review of Impact and Best Practices</div>
+        <div class="pub-authors"><strong>Sharma R.</strong>, Kapoor A.</div>
+        <div class="pub-venue"><em>PLOS ONE</em> · Volume 19, Issue 1 · DOI: 10.1371/journal.pone.0298123</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">PDF</a>
+          <a href="#" class="pub-link">DOI</a>
+          <a href="#" class="pub-link">Abstract</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Journal</span>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-num">03</span>
+      <div>
+        <div class="pub-title">Defect Engineering in 2D MoS₂ Nanosheets for Enhanced Photocatalytic Hydrogen Evolution</div>
+        <div class="pub-authors">Kapoor A., <strong>Sharma R.</strong>, Jain V., Rao K.</div>
+        <div class="pub-venue"><em>Materials Research Society — Spring Meeting</em> · San Francisco, USA · Oral Presentation</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">Abstract</a>
+          <a href="#" class="pub-link">Slides</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-conf">Conference</span>
+    </div>
+  </div>
+
+  <!-- 2023 -->
+  <div class="pub-year-group reveal">
+    <div class="pub-year-heading">2023</div>
+
+    <div class="pub-item">
+      <span class="pub-num">04</span>
+      <div>
+        <div class="pub-title">Surface Ligand Effects on Colloidal Stability and Cellular Uptake of Gold Nanoparticles: A Systematic Investigation</div>
+        <div class="pub-authors"><strong>Sharma R.</strong>, Singh P., Mehta S., Gupta R.</div>
+        <div class="pub-venue"><em>Nanoscale</em> · Volume 15, Issue 12, pp. 5678–5692 · DOI: 10.1039/D3NR01234A</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">PDF</a>
+          <a href="#" class="pub-link">DOI</a>
+          <a href="#" class="pub-link">Abstract</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Journal</span>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-num">05</span>
+      <div>
+        <div class="pub-title">The Intersection of Data Visualisation and Scientific Literacy: Opportunities for Reform in Research Communication</div>
+        <div class="pub-authors"><strong>Sharma R.</strong></div>
+        <div class="pub-venue"><em>bioRxiv</em> · Preprint · DOI: 10.1101/2023.09.15.557908</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">Preprint</a>
+          <a href="#" class="pub-link">Abstract</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-preprint">Preprint</span>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-num">06</span>
+      <div>
+        <div class="pub-title">Plasmonic Enhancement of Photoluminescence in Core-Shell Nanostructures</div>
+        <div class="pub-authors">Mehta S., Jain V., <strong>Sharma R.</strong>, Rao K.</div>
+        <div class="pub-venue"><em>International Conference on Nanoscience and Nanotechnology (ICONN)</em> · Poster Presentation, New Delhi</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">Abstract</a>
+          <a href="sciart.html" class="pub-link">Poster</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-conf">Conference</span>
+    </div>
+  </div>
+
+  <!-- 2022 -->
+  <div class="pub-year-group reveal">
+    <div class="pub-year-heading">2022</div>
+
+    <div class="pub-item">
+      <span class="pub-num">07</span>
+      <div>
+        <div class="pub-title">Carbon Nanotube Functionalisation Strategies for Biosensor Development: A Comprehensive Review</div>
+        <div class="pub-authors"><strong>Sharma R.</strong>, Gupta R., Kapoor A.</div>
+        <div class="pub-venue"><em>Trends in Analytical Chemistry</em> · Volume 154, Article 116654 · DOI: 10.1016/j.trac.2022.116654</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">PDF</a>
+          <a href="#" class="pub-link">DOI</a>
+          <a href="#" class="pub-link">Abstract</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Journal</span>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-num">08</span>
+      <div>
+        <div class="pub-title">Hydrothermal Synthesis of ZnO Nanoflowers and Their Photocatalytic Activity Under Visible Light</div>
+        <div class="pub-authors">Singh P., <strong>Sharma R.</strong>, Mehta S.</div>
+        <div class="pub-venue"><em>Journal of Materials Chemistry A</em> · Volume 10, Issue 8, pp. 4321–4335 · DOI: 10.1039/D2TA00123G</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">PDF</a>
+          <a href="#" class="pub-link">DOI</a>
+          <a href="#" class="pub-link">Abstract</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Journal</span>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-num">09</span>
+      <div>
+        <div class="pub-title">Making Science Beautiful: A Practical Guide to Visual Abstracts for Researchers</div>
+        <div class="pub-authors"><strong>Sharma R.</strong></div>
+        <div class="pub-venue"><em>FEBS Open Bio</em> · Volume 12, Issue 5, pp. 901–910 · DOI: 10.1002/2211-5463.13414</div>
+        <div class="pub-links">
+          <a href="#" class="pub-link">PDF</a>
+          <a href="#" class="pub-link">DOI</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Journal</span>
+    </div>
+  </div>
+
+  <div class="reveal" style="text-align:center;padding:2rem 0 5rem;">
+    <a href="#" class="btn-outline">View Full List on Google Scholar</a>
+  </div>
+</div>
+
+<section class="cta-band">
+  <div class="container">
+    <h2 class="reveal">Interested in <em>collaborating?</em></h2>
+    <p class="reveal">Open to research partnerships, co-authorship, and peer review invitations across nanoscience and science communication.</p>
+    <div class="reveal" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="index.html#connect" class="btn-primary">Get in Touch</a>
+      <a href="projects.html" class="btn-outline">View Projects</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo"><img src="rs-logo.png" alt="Ritika Sharma"></a>
+      <p class="footer-copy">© 2026 Ritika Sharma. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="projects.html">Work</a>
+        <a href="publications.html">Research</a>
+        <a href="writing.html">Writing</a>
+        <a href="index.html#connect">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.pub-item').forEach(el=>{ el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover')); el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover')); });
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(el=>{ gsap.to(el,{ opacity:1, y:0, duration:.9, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' } }); });
+  document.querySelectorAll('.filter-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }); });
+  document.querySelectorAll('.stat-num').forEach(el=>{ const obs=new IntersectionObserver(entries=>{ if(entries[0].isIntersecting){ const txt=el.textContent,num=parseInt(txt),suf=txt.replace(/[0-9]/g,''); let c=0,step=num/40; const t=setInterval(()=>{ c=Math.min(c+step,num); el.textContent=Math.floor(c)+suf; if(c>=num)clearInterval(t); },30); obs.unobserve(el); } },{threshold:.5}); obs.observe(el); });
+</script>
+</body>
+</html>

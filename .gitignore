@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Node / serve
+node_modules/
+.cache/
+
+# Editor
+.vscode/
+.idea/
+
+# Misc
+*.log
+*.tmp
