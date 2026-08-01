@@ -10,6 +10,7 @@
     gtag('config', 'G-7P2XWWWSZB');
   </script>
   <meta charset="UTF-8">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('rs-theme')||'dark');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sci-Art & Posters — Ritika Sharma</title>
   <meta name="description" content="Science art, visual abstracts, and research posters by Ritika Sharma.">
@@ -141,6 +142,39 @@
       .gallery-grid { grid-template-columns:1fr; }
       .g-item.wide,.g-item.large { grid-column:auto; }
     }
+    /* ── Theme Switcher ────────────────────────────────────── */
+    .theme-switcher { display:flex; align-items:center; gap:2px; background:var(--glass); border:1px solid var(--border); border-radius:100px; padding:3px; margin-right:.5rem; }
+    .theme-btn { width:28px; height:28px; border-radius:50%; border:none; background:transparent; color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+    .theme-btn:hover { color:var(--text); }
+    .theme-btn.active { background:var(--gold); color:var(--bg); }
+    .theme-btn svg { width:13px; height:13px; pointer-events:none; }
+
+    /* ── Light Mode ────────────────────────────────────────── */
+    :root[data-theme="light"] {
+      --bg:#fafaf8; --bg-1:#f0ece4; --bg-2:#e8e3d8;
+      --text:#1a1814; --muted:#6b6050;
+      --blue:#1e6bb8; --blue-dim:#dbeafe;
+      --gold:#b8921e; --gold-dim:#fef3d0;
+      --border:rgba(26,24,20,0.12); --glass:rgba(26,24,20,0.04);
+    }
+    :root[data-theme="light"] .nav-logo img { filter:none; }
+    :root[data-theme="light"] #navbar { background:rgba(250,250,248,0.92); border-bottom-color:rgba(26,24,20,0.08); }
+    :root[data-theme="light"] #navbar.scrolled { background:rgba(250,250,248,0.96); }
+
+    /* ── Read Mode ─────────────────────────────────────────── */
+    :root[data-theme="read"] {
+      --bg:#f5f0e4; --bg-1:#ece7d8; --bg-2:#e2dcc8;
+      --text:#2c2416; --muted:#7a6a4a;
+      --blue:#2c5f8a; --blue-dim:#d4e5f5;
+      --gold:#9e7620; --gold-dim:#f5e8c0;
+      --border:rgba(44,36,22,0.15); --glass:rgba(44,36,22,0.05);
+      --ff-body:'Playfair Display',Georgia,serif;
+    }
+    :root[data-theme="read"] body { line-height:1.85; }
+    :root[data-theme="read"] .nav-logo img { filter:none; }
+    :root[data-theme="read"] #navbar { background:rgba(245,240,228,0.95); border-bottom-color:rgba(44,36,22,0.1); }
+    :root[data-theme="read"] #navbar.scrolled { background:rgba(245,240,228,0.98); }
+
   </style>
 </head>
 <body>
@@ -157,6 +191,11 @@
     <li><a href="writing.html">Writing</a></li>
   </ul>
   <a href="index.html#connect" class="nav-cta">Let's Connect</a>
+  <div class="theme-switcher" id="themeSwitcher">
+    <button class="theme-btn" data-theme="dark" aria-label="Dark mode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    <button class="theme-btn" data-theme="light" aria-label="Light mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="theme-btn" data-theme="read" aria-label="Reading mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></button>
+  </div>
   <div class="nav-hamburger"><span></span><span></span><span></span></div>
 </nav>
 
@@ -351,6 +390,16 @@
   gsap.registerPlugin(ScrollTrigger);
   gsap.utils.toArray('.reveal').forEach(el=>{ gsap.to(el,{ opacity:1, y:0, duration:.9, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' } }); });
   document.querySelectorAll('.filter-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }); });
+  // ── Theme switcher ─────────────────────────────────────────
+  (function(){
+    function applyTheme(t){
+      document.documentElement.setAttribute('data-theme',t);
+      localStorage.setItem('rs-theme',t);
+      document.querySelectorAll('.theme-btn').forEach(function(b){ b.classList.toggle('active',b.dataset.theme===t); });
+    }
+    applyTheme(localStorage.getItem('rs-theme')||'dark');
+    document.querySelectorAll('.theme-btn').forEach(function(b){ b.addEventListener('click',function(){ applyTheme(this.dataset.theme); }); });
+  })();
 </script>
 </body>
 </html>
