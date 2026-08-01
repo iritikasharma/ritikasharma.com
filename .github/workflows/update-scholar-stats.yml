@@ -1,0 +1,44 @@
+name: Update Google Scholar Stats
+
+on:
+  schedule:
+    # 6:23 AM UTC on the 1st of every month
+    - cron: '23 6 1 * *'
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install scholarly
+
+      - name: Fetch Scholar stats and update HTML
+        run: python .github/scripts/update_stats.py
+
+      - name: Commit and push if stats changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "No changes — stats are already up to date."
+          else
+            git add publications.html about.html
+            git commit -m "chore: update Google Scholar stats [automated $(date +%Y-%m-%d)]"
+            git push
+            echo "Stats updated and deployed."
+          fi
