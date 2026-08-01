@@ -66,7 +66,11 @@
     .filter-btn { padding:.45rem 1.1rem; border:1px solid var(--border); border-radius:20px; background:transparent; color:var(--muted); font-family:var(--ff-body); font-size:.75rem; cursor:none; transition:all .2s; }
     .filter-btn.active,.filter-btn:hover { border-color:var(--gold); color:var(--gold); }
     .scholar-link { display:flex; align-items:center; gap:.5rem; color:var(--muted); font-size:.8rem; text-decoration:none; cursor:none; transition:color .2s; padding:.5rem 1rem; border:1px solid var(--border); border-radius:20px; }
-    .scholar-link:hover { color:var(--text); border-color:var(--border); }
+    .scholar-link:hover { color:var(--text); border-color:var(--gold); }
+    .profile-links { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:2rem; }
+    .profile-link { display:inline-flex; align-items:center; gap:.45rem; padding:.4rem .95rem; border:1px solid var(--border); border-radius:20px; color:var(--muted); font-size:.75rem; text-decoration:none; transition:all .2s; letter-spacing:.04em; cursor:none; white-space:nowrap; }
+    .profile-link:hover { color:var(--text); border-color:var(--gold); }
+    .profile-link svg { width:13px; height:13px; flex-shrink:0; }
 
     /* Publication list */
     .pub-year-group { margin-bottom:3rem; }
@@ -176,6 +180,24 @@
     <p class="page-hero-label reveal">Research</p>
     <h1 class="page-hero-title reveal">Publications &amp;<br><em>writing.</em></h1>
     <p class="page-hero-sub reveal">Peer-reviewed research, conference contributions, and preprints spanning nanoscience, materials characterisation, and science communication.</p>
+    <div class="profile-links reveal">
+      <a href="https://scholar.google.com/citations?user=4iq6z48AAAAJ&hl=en" class="profile-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 0 1 .665 6.479A11.952 11.952 0 0 0 12 20.055a11.952 11.952 0 0 0-6.824-2.998 12.078 12.078 0 0 1 .665-6.479L12 14z"/></svg>
+        Google Scholar
+      </a>
+      <a href="https://www.webofscience.com/wos/author/record/PGL-6380-2026" class="profile-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        Web of Science
+      </a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=60254037600" class="profile-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Scopus
+      </a>
+      <a href="https://orcid.org/0000-0001-9266-0476" class="profile-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 7h1.5a2.5 2.5 0 0 1 0 5H8V7z"/><line x1="8" y1="17" x2="8" y2="12"/></svg>
+        ORCID
+      </a>
+    </div>
   </div>
 </section>
 
@@ -194,7 +216,7 @@
       <button class="filter-btn">Conferences</button>
       <button class="filter-btn">Preprints</button>
     </div>
-    <a href="#" class="scholar-link" target="_blank" rel="noopener">
+    <a href="https://scholar.google.com/citations?user=4iq6z48AAAAJ&hl=en" class="scholar-link" target="_blank" rel="noopener">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 0 1 .665 6.479A11.952 11.952 0 0 0 12 20.055a11.952 11.952 0 0 0-6.824-2.998 12.078 12.078 0 0 1 .665-6.479L12 14z"/></svg>
       Google Scholar
     </a>
@@ -348,7 +370,7 @@
   </div>
 
   <div class="reveal" style="text-align:center;padding:2rem 0 5rem;">
-    <a href="#" class="btn-outline">View Full List on Google Scholar</a>
+    <a href="https://scholar.google.com/citations?user=4iq6z48AAAAJ&hl=en" class="btn-outline" target="_blank" rel="noopener">View Full List on Google Scholar</a>
   </div>
 </div>
 
