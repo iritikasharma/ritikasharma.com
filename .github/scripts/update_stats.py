@@ -78,12 +78,30 @@ def update_about_html(stats):
     print(f"about.html: {pub_display} publications")
 
 
+def update_index_html(stats):
+    with open("index.html", "r") as f:
+        content = f.read()
+
+    pub_display = f"{stats['publications']}+"
+
+    content = re.sub(
+        r'(<div class="stat-num">)(\d+\+?)(</div>\s*<div class="stat-label">Publications</div>)',
+        lambda m: f"{m.group(1)}{pub_display}{m.group(3)}",
+        content,
+    )
+
+    with open("index.html", "w") as f:
+        f.write(content)
+    print(f"index.html: {pub_display} publications")
+
+
 if __name__ == "__main__":
     try:
         stats = fetch_stats()
         print(f"Fetched from Google Scholar: {stats}")
         update_publications_html(stats)
         update_about_html(stats)
+        update_index_html(stats)
     except Exception as e:
         print(f"Error fetching stats: {e}", file=sys.stderr)
         sys.exit(1)
