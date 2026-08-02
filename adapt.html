@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7P2XWWWSZB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7P2XWWWSZB');
+  </script>
+  <meta charset="UTF-8">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('rs-theme')||'dark');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adapt — The New Rules for Thriving in an AI-Driven World · Ritika Sharma</title>
+  <meta name="description" content="A forthcoming book by Ritika Sharma. The greatest competitive advantage of the next decade won't be intelligence, talent, or experience. It will be your ability to adapt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #06090F;
+      --bg-1:    #0D1321;
+      --bg-2:    #131C2E;
+      --text:    #EAE5DC;
+      --muted:   #5C6880;
+      --muted-2: #3D4458;
+      --accent:  #E07B1A;
+      --accent-dim: rgba(224,123,26,.12);
+      --cool:    #2AB5C8;
+      --cool-dim: rgba(42,181,200,.08);
+      --border:  rgba(234,229,220,.07);
+      --ff-head: 'Inter', system-ui, sans-serif;
+      --ff-body: 'Inter', system-ui, sans-serif;
+      --ff-serif: 'Playfair Display', Georgia, serif;
+    }
+    :root[data-theme="light"] {
+      --bg:      #F4F0E8;
+      --bg-1:    #EBE6DA;
+      --bg-2:    #E1DACE;
+      --text:    #0E1118;
+      --muted:   #626B82;
+      --muted-2: #9AA0B2;
+      --accent:  #B55D00;
+      --accent-dim: rgba(181,93,0,.1);
+      --cool:    #0D7A8C;
+      --cool-dim: rgba(13,122,140,.07);
+      --border:  rgba(14,17,24,.09);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--ff-body); line-height: 1.6; overflow-x: hidden; cursor: none; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+    /* Cursor */
+    #cursor-dot  { position:fixed;top:0;left:0;z-index:9999;width:8px;height:8px;border-radius:50%;background:var(--accent);pointer-events:none;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;box-shadow:0 0 10px var(--accent); }
+    #cursor-ring { position:fixed;top:0;left:0;z-index:9998;width:36px;height:36px;border-radius:50%;border:1px solid rgba(224,123,26,.35);pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s; }
+    body.cursor-hover #cursor-dot  { width:12px;height:12px;background:var(--cool);box-shadow:0 0 14px var(--cool); }
+    body.cursor-hover #cursor-ring { width:52px;height:52px;border-color:rgba(42,181,200,.4); }
+
+    /* Navbar */
+    #navbar { position:fixed;top:0;left:0;right:0;z-index:900;padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(6,9,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:padding .3s; }
+    #navbar.scrolled { padding:.85rem 3rem; }
+    .nav-logo img { height:40px;filter:invert(1);opacity:.9; }
+    .nav-links { display:flex;gap:2rem;list-style:none; }
+    .nav-links a { color:var(--muted);text-decoration:none;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:color .2s;cursor:none; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-links a.active { color:var(--accent); }
+    .nav-cta { padding:.5rem 1.4rem;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:2px;font-family:var(--ff-body);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .2s;text-decoration:none; }
+    .nav-cta:hover { background:var(--accent);color:var(--bg); }
+    .nav-hamburger { display:none;flex-direction:column;gap:5px;cursor:none; }
+    .nav-hamburger span { width:24px;height:1px;background:var(--text); }
+
+    /* Theme switcher */
+    .theme-switcher { display:flex;align-items:center;gap:2px;background:rgba(234,229,220,.04);border:1px solid var(--border);border-radius:100px;padding:3px;margin-right:.5rem; }
+    .theme-btn { width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s; }
+    .theme-btn:hover { color:var(--text); }
+    .theme-btn.active { background:var(--accent);color:var(--bg); }
+    .theme-btn svg { width:13px;height:13px;pointer-events:none; }
+
+    /* Utilities */
+    .reveal { opacity:0;transform:translateY(28px); }
+    .container { max-width:1100px;margin:0 auto;padding:0 3rem; }
+    .section-label { font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem;display:flex;align-items:center;gap:.75rem; }
+    .section-label::before { content:'';display:block;width:24px;height:1px;background:var(--accent); }
+    .btn-primary { display:inline-block;padding:.9rem 2.4rem;background:var(--accent);color:#fff;font-family:var(--ff-body);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;border-radius:2px;transition:all .2s;text-decoration:none;cursor:none;border:none; }
+    .btn-primary:hover { background:#f08c2a;transform:translateY(-2px);box-shadow:0 8px 30px rgba(224,123,26,.3); }
+    .btn-outline { display:inline-block;padding:.9rem 2.4rem;border:1px solid var(--border);color:var(--muted);font-family:var(--ff-body);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;transition:all .2s;text-decoration:none;cursor:none; }
+    .btn-outline:hover { border-color:var(--accent);color:var(--accent); }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero { min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 0 5rem;border-bottom:1px solid var(--border); }
+    .hero-left { padding-right:4rem; }
+    .hero-eyebrow { font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:2.5rem; }
+    .hero-negation { display:flex;flex-direction:column;gap:.5rem;margin-bottom:2.5rem; }
+    .hero-neg-line { font-size:clamp(1.1rem,2.5vw,1.75rem);font-weight:900;letter-spacing:-.03em;color:var(--muted-2);position:relative;display:inline-flex;align-items:center;gap:1rem;text-transform:uppercase; }
+    .hero-neg-line::after { content:'';position:absolute;left:0;top:50%;width:100%;height:1.5px;background:var(--accent);opacity:.5; }
+    .hero-punchline { font-size:clamp(1.4rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em;text-transform:uppercase;line-height:1.05;margin-bottom:1.75rem; }
+    .hero-punchline em { font-style:italic;color:var(--accent); }
+    .hero-sub { color:var(--muted);font-size:1rem;line-height:1.85;max-width:48ch;margin-bottom:2.5rem;font-weight:300; }
+    .hero-badge { display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem;border:1px solid var(--accent-dim);background:var(--accent-dim);border-radius:20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent); }
+    .hero-badge::before { content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+    /* Right: vertical ADAPT acronym */
+    .hero-right { padding-left:2rem;border-left:1px solid var(--border); }
+    .adapt-stack { display:flex;flex-direction:column;gap:0; }
+    .adapt-row { display:grid;grid-template-columns:4rem 1fr;gap:1.5rem;align-items:start;padding:1.5rem 0;border-bottom:1px solid var(--border);transition:background .2s; }
+    .adapt-row:first-child { border-top:1px solid var(--border); }
+    .adapt-row:hover { background:var(--accent-dim); }
+    .adapt-ltr { font-family:var(--ff-serif);font-size:3.5rem;font-weight:700;font-style:italic;color:var(--accent);line-height:1; }
+    .adapt-concept { font-size:.95rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text);margin-bottom:.3rem; }
+    .adapt-desc { font-size:.82rem;color:var(--muted);line-height:1.6;font-weight:300; }
+
+    /* ── PREMISE ──────────────────────────────────────── */
+    .premise { padding:7rem 0;border-bottom:1px solid var(--border); }
+    .premise-inner { max-width:800px;margin:0 auto;text-align:center; }
+    .premise-quote { font-family:var(--ff-serif);font-size:clamp(1.5rem,3vw,2.25rem);font-weight:400;font-style:italic;line-height:1.45;color:var(--text);margin-bottom:2.5rem;position:relative;padding:0 1rem; }
+    .premise-quote::before { content:'\201C';position:absolute;left:-.25em;top:-.15em;font-size:4em;color:var(--accent);opacity:.25;font-family:var(--ff-serif);line-height:1; }
+    .premise-body { font-size:1rem;color:var(--muted);line-height:1.85;font-weight:300;max-width:56ch;margin:0 auto 3rem;text-align:left; }
+    .premise-stats { display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);border-radius:4px;overflow:hidden; }
+    .p-stat { padding:2rem 1.5rem;text-align:center;border-right:1px solid var(--border); }
+    .p-stat:last-child { border-right:none; }
+    .p-stat-num { font-family:var(--ff-serif);font-size:2.5rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.4rem; }
+    .p-stat-lbl { font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted); }
+
+    /* ── FRAMEWORK ────────────────────────────────────── */
+    .framework { padding:7rem 0;border-bottom:1px solid var(--border); }
+    .fw-header { margin-bottom:4rem; }
+    .fw-bands { display:flex;flex-direction:column;gap:0; }
+    .fw-band { display:grid;grid-template-columns:6rem 1fr 1fr;gap:3rem;align-items:start;padding:3rem 0;border-bottom:1px solid var(--border);transition:all .3s; }
+    .fw-band:first-child { border-top:1px solid var(--border); }
+    .fw-band:hover .fw-ltr { transform:translateX(4px); }
+    .fw-ltr { font-family:var(--ff-serif);font-size:5rem;font-weight:700;font-style:italic;color:var(--accent);line-height:1;transition:transform .3s; }
+    .fw-concept { font-size:1.35rem;font-weight:700;letter-spacing:-.01em;color:var(--text);margin-bottom:.75rem; }
+    .fw-concept-lbl { font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem; }
+    .fw-body { font-size:.92rem;color:var(--muted);line-height:1.8;font-weight:300;max-width:42ch; }
+    .fw-right { display:flex;flex-direction:column;justify-content:center; }
+    .fw-insight { padding:1.25rem 1.5rem;background:var(--bg-1);border-left:2px solid var(--accent);font-size:.85rem;color:var(--muted);line-height:1.7;font-style:italic;border-radius:0 4px 4px 0; }
+
+    /* ── STRUCTURE ────────────────────────────────────── */
+    .structure { padding:7rem 0;border-bottom:1px solid var(--border); }
+    .st-grid { display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem; }
+    .st-part { padding:2rem;background:var(--bg-1);border:1px solid var(--border);border-radius:4px; }
+    .st-part-num { font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem; }
+    .st-part-name { font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border); }
+    .st-chapters { list-style:none;display:flex;flex-direction:column;gap:.5rem; }
+    .st-chapter { font-size:.85rem;color:var(--muted);display:flex;gap:.75rem;align-items:baseline;font-weight:300; }
+    .st-ch-num { color:var(--muted-2);font-size:.7rem;letter-spacing:.08em;flex-shrink:0;font-variant-numeric:tabular-nums; }
+
+    /* ── CTA ──────────────────────────────────────────── */
+    .cta-section { padding:8rem 0;text-align:center;position:relative;overflow:hidden; }
+    .cta-section::before { content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(224,123,26,.06) 0%,transparent 70%);pointer-events:none; }
+    .cta-inner { position:relative;max-width:560px;margin:0 auto; }
+    .cta-title { font-family:var(--ff-serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:700;font-style:italic;line-height:1.15;margin-bottom:1rem;color:var(--text); }
+    .cta-sub { color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:2.5rem;font-weight:300; }
+    .cta-form { display:flex;max-width:440px;margin:0 auto 1.5rem; }
+    .cta-input { flex:1;padding:1rem 1.4rem;background:var(--bg-1);border:1px solid var(--border);border-right:none;color:var(--text);font-family:var(--ff-body);font-size:.92rem;border-radius:2px 0 0 2px;outline:none;transition:border-color .2s; }
+    .cta-input:focus { border-color:rgba(224,123,26,.4); }
+    .cta-input::placeholder { color:var(--muted); }
+    .cta-submit { padding:1rem 1.75rem;background:var(--accent);color:#fff;border:none;font-family:var(--ff-body);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:none;border-radius:0 2px 2px 0;transition:background .2s;white-space:nowrap; }
+    .cta-submit:hover { background:#f08c2a; }
+    .cta-note { font-size:.72rem;color:var(--muted-2); }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer { padding:2.5rem 0;border-top:1px solid var(--border); }
+    .footer-inner { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem; }
+    .footer-logo img { height:28px;filter:invert(1);opacity:.5; }
+    .footer-copy { font-size:.75rem;color:var(--muted); }
+    .footer-nav { display:flex;gap:1.5rem; }
+    .footer-nav a { font-size:.75rem;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none; }
+    .footer-nav a:hover { color:var(--text); }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width:900px) {
+      #navbar { padding:1.25rem 1.5rem; }
+      .nav-links,.nav-cta { display:none; }
+      .nav-hamburger { display:flex; }
+      .container { padding:0 1.5rem; }
+      .hero { grid-template-columns:1fr;min-height:auto;padding:7rem 0 4rem; }
+      .hero-left { padding-right:0;margin-bottom:3rem; }
+      .hero-right { padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:2rem; }
+      .fw-band { grid-template-columns:3.5rem 1fr;grid-template-rows:auto auto; }
+      .fw-band .fw-right { grid-column:2; }
+      .fw-ltr { font-size:3.5rem; }
+      .st-grid { grid-template-columns:1fr; }
+      .premise-stats { grid-template-columns:1fr; }
+      .p-stat { border-right:none;border-bottom:1px solid var(--border); }
+      .p-stat:last-child { border-bottom:none; }
+      #cursor-dot,#cursor-ring { display:none; }
+      body { cursor:auto; }
+      .btn-primary,.btn-outline,.cta-submit { cursor:auto; }
+    }
+    @media (max-width:600px) {
+      .cta-form { flex-direction:column; }
+      .cta-input { border-right:1px solid var(--border);border-bottom:none;border-radius:2px 2px 0 0; }
+      .cta-submit { border-radius:0 0 2px 2px; }
+    }
+
+    /* Light overrides */
+    :root[data-theme="light"] .nav-logo img { filter:none; }
+    :root[data-theme="light"] #navbar { background:rgba(244,240,232,.92);border-bottom-color:rgba(14,17,24,.08); }
+    :root[data-theme="light"] #navbar.scrolled { background:rgba(244,240,232,.97); }
+    :root[data-theme="read"] {
+      --bg:#F5F0E4;--bg-1:#ECE7D8;--bg-2:#E2DCC8;--text:#2C2416;--muted:#7A6A4A;
+      --muted-2:#B0A080;--accent:#9E7620;--cool:#2C5F8A;--border:rgba(44,36,22,.15);
+    }
+    :root[data-theme="read"] .nav-logo img { filter:none; }
+    :root[data-theme="read"] #navbar { background:rgba(245,240,228,.95); }
+  </style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html"><img src="rs-logo.png" alt="Ritika Sharma"></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="sciart.html">Sci-Art</a></li>
+    <li><a href="speaking.html">Speaking</a></li>
+    <li><a href="writing.html">Writing</a></li>
+  </ul>
+  <a href="#notify" class="nav-cta">Get Notified</a>
+  <div class="theme-switcher" id="themeSwitcher">
+    <button class="theme-btn" data-theme="dark" aria-label="Dark mode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    <button class="theme-btn" data-theme="light" aria-label="Light mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="theme-btn" data-theme="read" aria-label="Reading mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></button>
+  </div>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container" style="display:contents;">
+
+    <div class="hero-left container">
+      <p class="hero-eyebrow reveal">Forthcoming book &nbsp;·&nbsp; Ritika Sharma</p>
+
+      <div class="hero-negation reveal">
+        <span class="hero-neg-line">Not Talent</span>
+        <span class="hero-neg-line">Not Intelligence</span>
+        <span class="hero-neg-line">Not Experience</span>
+      </div>
+
+      <p class="hero-punchline reveal">
+        The defining advantage<br>
+        of the next decade<br>
+        is your ability to&nbsp;<em>ADAPT.</em>
+      </p>
+
+      <p class="hero-sub reveal">
+        We are entering the first era in history where the pace of technological
+        change exceeds the pace of human adaptation. The people who will thrive
+        aren't learning new tools — they're learning a new way of thinking.
+      </p>
+
+      <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+        <a href="#notify" class="btn-primary">Notify Me When It's Ready</a>
+        <span class="hero-badge">Coming Soon</span>
+      </div>
+    </div>
+
+    <div class="hero-right container">
+      <div class="adapt-stack">
+        <div class="adapt-row">
+          <span class="adapt-ltr">A</span>
+          <div>
+            <div class="adapt-concept">Awareness</div>
+            <div class="adapt-desc">Recognize change before it disrupts you. Most people react — adaptive people anticipate.</div>
+          </div>
+        </div>
+        <div class="adapt-row">
+          <span class="adapt-ltr">D</span>
+          <div>
+            <div class="adapt-concept">Decision</div>
+            <div class="adapt-desc">Make better choices when certainty is impossible. Probabilistic thinking for an unpredictable world.</div>
+          </div>
+        </div>
+        <div class="adapt-row">
+          <span class="adapt-ltr">A</span>
+          <div>
+            <div class="adapt-concept">Agility</div>
+            <div class="adapt-desc">Learn, unlearn, relearn continuously. Knowledge has a shorter shelf life than ever before.</div>
+          </div>
+        </div>
+        <div class="adapt-row">
+          <span class="adapt-ltr">P</span>
+          <div>
+            <div class="adapt-concept">Purpose</div>
+            <div class="adapt-desc">Anchor yourself in values rather than circumstances. Purpose is the compass when everything else shifts.</div>
+          </div>
+        </div>
+        <div class="adapt-row">
+          <span class="adapt-ltr">T</span>
+          <div>
+            <div class="adapt-concept">Transformation</div>
+            <div class="adapt-desc">Don't survive disruption. Grow because of it. Reinvention as a deliberate practice, not a last resort.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PREMISE ═══════════════════════════════════════════ -->
+<section class="premise">
+  <div class="container">
+    <div class="premise-inner">
+      <div class="section-label reveal" style="justify-content:center;">The Premise</div>
+      <blockquote class="premise-quote reveal">
+        "The greatest challenge of the AI era isn't technological. It's human."
+      </blockquote>
+      <p class="premise-body reveal">
+        Artificial intelligence is transforming careers, economies, education, and creativity at a pace
+        humans have never encountered before. And yet most people are responding the wrong way —
+        scrambling to learn the newest tool, chasing credentials, optimizing for the world as it was.
+        <br><br>
+        The people who will thrive are building something different: a capacity to continuously adapt
+        without losing their identity, purpose, or humanity. <em>Adapt</em> gives them the framework to do it.
+      </p>
+      <div class="premise-stats reveal">
+        <div class="p-stat">
+          <div class="p-stat-num">5</div>
+          <div class="p-stat-lbl">Framework Principles</div>
+        </div>
+        <div class="p-stat">
+          <div class="p-stat-num">16</div>
+          <div class="p-stat-lbl">Chapters</div>
+        </div>
+        <div class="p-stat">
+          <div class="p-stat-num">4</div>
+          <div class="p-stat-lbl">Parts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ADAPT FRAMEWORK ═══════════════════════════════════ -->
+<section class="framework">
+  <div class="container">
+    <div class="fw-header reveal">
+      <div class="section-label">The ADAPT Framework</div>
+      <h2 style="font-family:var(--ff-serif);font-size:clamp(2rem,4vw,3rem);font-weight:700;font-style:italic;line-height:1.15;max-width:18ch;">Five principles. One practice. A new way of thinking.</h2>
+    </div>
+
+    <div class="fw-bands">
+      <div class="fw-band reveal">
+        <span class="fw-ltr">A</span>
+        <div>
+          <div class="fw-concept-lbl">Principle One</div>
+          <div class="fw-concept">Awareness</div>
+          <p class="fw-body">Adaptive people don't just react to change — they see it forming on the horizon. Awareness is the discipline of reading patterns before they become crises: in technology, in your industry, in yourself. It means becoming conscious of the assumptions you don't even know you're making.</p>
+        </div>
+        <div class="fw-right">
+          <div class="fw-insight">"The most dangerous blindspot is the assumption that today's map still describes tomorrow's territory."</div>
+        </div>
+      </div>
+
+      <div class="fw-band reveal">
+        <span class="fw-ltr">D</span>
+        <div>
+          <div class="fw-concept-lbl">Principle Two</div>
+          <div class="fw-concept">Decision</div>
+          <p class="fw-body">In a world of incomplete information and accelerating change, perfect certainty is a luxury that doesn't exist. Decision explores probabilistic reasoning, cognitive bias recognition, and the art of making high-quality choices under pressure — not despite uncertainty, but because of it.</p>
+        </div>
+        <div class="fw-right">
+          <div class="fw-insight">"The goal isn't to eliminate uncertainty. It's to make better decisions in its presence."</div>
+        </div>
+      </div>
+
+      <div class="fw-band reveal">
+        <span class="fw-ltr">A</span>
+        <div>
+          <div class="fw-concept-lbl">Principle Three</div>
+          <div class="fw-concept">Agility</div>
+          <p class="fw-body">The half-life of knowledge is shrinking. What you know today may be irrelevant in five years — and the skills that earned you your position may become your greatest constraint. Agility is the practice of learning how to learn: staying intellectually flexible, embracing experimentation, and treating expertise as a platform to leap from, not a fortress to defend.</p>
+        </div>
+        <div class="fw-right">
+          <div class="fw-insight">"Unlearning is harder than learning. That's exactly why it's the more valuable skill."</div>
+        </div>
+      </div>
+
+      <div class="fw-band reveal">
+        <span class="fw-ltr">P</span>
+        <div>
+          <div class="fw-concept-lbl">Principle Four</div>
+          <div class="fw-concept">Purpose</div>
+          <p class="fw-body">When your career, your industry, and the world around you are all in motion, purpose becomes the anchor. Not the surface-level version — a mission statement or a life goal — but the deep current of values that tells you which changes to embrace and which to resist. Purpose is how you adapt without losing yourself in the process.</p>
+        </div>
+        <div class="fw-right">
+          <div class="fw-insight">"The people who navigate change well aren't the ones who resist it. They're the ones who know what they won't compromise."</div>
+        </div>
+      </div>
+
+      <div class="fw-band reveal">
+        <span class="fw-ltr">T</span>
+        <div>
+          <div class="fw-concept-lbl">Principle Five</div>
+          <div class="fw-concept">Transformation</div>
+          <p class="fw-body">Transformation is the highest form of adaptation. It isn't about bouncing back from disruption — it's about emerging from it as someone fundamentally more capable. Transformation turns uncertainty into fuel: the career pivot that unlocks a new identity, the failure that teaches what success never could, the disruption that becomes the origin story.</p>
+        </div>
+        <div class="fw-right">
+          <div class="fw-insight">"Resilience recovers. Transformation evolves. The goal isn't to return to who you were — it's to become who you couldn't have been without the change."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BOOK STRUCTURE ═════════════════════════════════════ -->
+<section class="structure">
+  <div class="container">
+    <div class="section-label reveal">Inside the Book</div>
+    <h2 class="reveal" style="font-family:var(--ff-serif);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;font-style:italic;margin-bottom:.5rem;">16 chapters. One throughline.</h2>
+    <p class="reveal" style="color:var(--muted);font-size:.95rem;font-weight:300;margin-bottom:0;">From why the old rules no longer work to how to build an adaptive life.</p>
+
+    <div class="st-grid">
+      <div class="st-part reveal">
+        <div class="st-part-num">Part I</div>
+        <div class="st-part-name">The Age of Constant Change</div>
+        <ul class="st-chapters">
+          <li class="st-chapter"><span class="st-ch-num">01</span>The Day the Future Arrived</li>
+          <li class="st-chapter"><span class="st-ch-num">02</span>Why Everything Feels Different</li>
+          <li class="st-chapter"><span class="st-ch-num">03</span>The Adaptability Gap</li>
+        </ul>
+      </div>
+
+      <div class="st-part reveal">
+        <div class="st-part-num">Part II</div>
+        <div class="st-part-name">The ADAPT Framework</div>
+        <ul class="st-chapters">
+          <li class="st-chapter"><span class="st-ch-num">04</span>Awareness</li>
+          <li class="st-chapter"><span class="st-ch-num">05</span>Decision</li>
+          <li class="st-chapter"><span class="st-ch-num">06</span>Agility</li>
+          <li class="st-chapter"><span class="st-ch-num">07</span>Purpose</li>
+          <li class="st-chapter"><span class="st-ch-num">08</span>Transformation</li>
+        </ul>
+      </div>
+
+      <div class="st-part reveal">
+        <div class="st-part-num">Part III</div>
+        <div class="st-part-name">Applying ADAPT</div>
+        <ul class="st-chapters">
+          <li class="st-chapter"><span class="st-ch-num">09</span>Careers in the Age of AI</li>
+          <li class="st-chapter"><span class="st-ch-num">10</span>Learning Without End</li>
+          <li class="st-chapter"><span class="st-ch-num">11</span>Relationships in a Digital World</li>
+          <li class="st-chapter"><span class="st-ch-num">12</span>Leading Through Uncertainty</li>
+          <li class="st-chapter"><span class="st-ch-num">13</span>Health, Habits, and Mental Resilience</li>
+        </ul>
+      </div>
+
+      <div class="st-part reveal">
+        <div class="st-part-num">Part IV</div>
+        <div class="st-part-name">Becoming Future-Ready</div>
+        <ul class="st-chapters">
+          <li class="st-chapter"><span class="st-ch-num">14</span>The Human Skills AI Cannot Replace</li>
+          <li class="st-chapter"><span class="st-ch-num">15</span>Reinvention as a Way of Life</li>
+          <li class="st-chapter"><span class="st-ch-num">16</span>Your Adaptive Legacy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOTIFY CTA ═════════════════════════════════════════ -->
+<section class="cta-section" id="notify">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="section-label reveal" style="justify-content:center;">Be First to Read It</div>
+      <h2 class="cta-title reveal">The world isn't asking<br>if you'll adapt.<br>It's asking <em>how fast.</em></h2>
+      <p class="cta-sub reveal">Join the list for early access, behind-the-scenes updates, and a first look at the manuscript when it's ready.</p>
+      <form class="cta-form reveal" onsubmit="handleNotify(event)">
+        <input type="email" class="cta-input" placeholder="your@email.com" aria-label="Email for book notification" required>
+        <button type="submit" class="cta-submit">Notify Me</button>
+      </form>
+      <p class="cta-note reveal">No spam. Just the book updates that matter.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo"><img src="rs-logo.png" alt="Ritika Sharma"></a>
+      <p class="footer-copy">&copy; 2026 Ritika Sharma. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="publications.html">Research</a>
+        <a href="writing.html">Writing</a>
+        <a href="index.html#connect">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));});
+  window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
+  });
+  function handleNotify(e){
+    e.preventDefault();
+    const btn=e.target.querySelector('.cta-submit');
+    btn.textContent='✓ You\'re on the list';
+    btn.style.background='#2AB5C8';
+    e.target.querySelector('.cta-input').disabled=true;
+    btn.disabled=true;
+  }
+  (function(){
+    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('rs-theme',t);document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===t));}
+    applyTheme(localStorage.getItem('rs-theme')||'dark');
+    document.querySelectorAll('.theme-btn').forEach(b=>b.addEventListener('click',()=>applyTheme(b.dataset.theme)));
+  })();
+</script>
+</body>
+</html>
