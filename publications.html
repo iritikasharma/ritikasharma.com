@@ -151,6 +151,24 @@
     :root[data-theme="read"] #navbar { background:rgba(245,240,228,0.95); border-bottom-color:rgba(44,36,22,0.1); }
     :root[data-theme="read"] #navbar.scrolled { background:rgba(245,240,228,0.98); }
 
+    /* Overview Modal */
+    #overview-modal { position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.78); backdrop-filter:blur(12px); display:none; align-items:center; justify-content:center; padding:1.5rem; }
+    #overview-modal.open { display:flex; }
+    .overview-card { background:var(--bg-1); border:1px solid var(--border); border-radius:6px; max-width:600px; width:100%; padding:2.5rem; }
+    .overview-card-label { font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:.75rem; }
+    .overview-card-title { font-family:var(--ff-head); font-size:1.05rem; color:var(--text); line-height:1.5; margin-bottom:1.25rem; }
+    .overview-card-text { color:var(--muted); line-height:1.9; font-size:.92rem; margin-bottom:1.75rem; }
+    .overview-card-actions { display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; }
+    .overview-close { background:none; border:1px solid var(--border); color:var(--muted); padding:.4rem 1rem; border-radius:2px; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:all .2s; font-family:var(--ff-body); }
+    .overview-close:hover { border-color:var(--text); color:var(--text); }
+    .overview-doi { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; padding:.45rem 1.3rem; background:var(--gold); color:var(--bg); border-radius:2px; text-decoration:none; transition:background .2s; font-weight:600; cursor:none; }
+    .overview-doi:hover { background:#e8c84a; }
+    /* Updated badges */
+    .badge-research { background:rgba(74,158,255,.1); color:var(--blue); border:1px solid rgba(74,158,255,.2); }
+    .badge-journal { background:rgba(212,175,55,.1); color:var(--gold); border:1px solid rgba(212,175,55,.2); }
+    .badge-book { background:rgba(167,139,250,.1); color:#a78bfa; border:1px solid rgba(167,139,250,.2); }
+    .badge-conf { background:rgba(52,211,153,.1); color:#34d399; border:1px solid rgba(52,211,153,.2); }
+    .badge-poster { background:rgba(251,146,60,.1); color:#fb923c; border:1px solid rgba(251,146,60,.2); }
   </style>
 </head>
 <body>
@@ -197,6 +215,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 7h1.5a2.5 2.5 0 0 1 0 5H8V7z"/><line x1="8" y1="17" x2="8" y2="12"/></svg>
         ORCID
       </a>
+      <a href="https://www.researchgate.net/profile/Ritika-Sharma-41" class="profile-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+        ResearchGate
+      </a>
     </div>
   </div>
 </section>
@@ -211,107 +233,296 @@
 
   <div class="pub-controls reveal">
     <div class="filters">
-      <button class="filter-btn active">All</button>
-      <button class="filter-btn">Research Articles</button>
-      <button class="filter-btn">Journal Articles</button>
-      <button class="filter-btn">Conferences</button>
-      <button class="filter-btn">Preprints</button>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="research">Research Articles</button>
+      <button class="filter-btn" data-filter="journal">Journal Articles</button>
+      <button class="filter-btn" data-filter="book">Book Chapters</button>
+      <button class="filter-btn" data-filter="conference">Conferences</button>
+      <button class="filter-btn" data-filter="poster">Posters</button>
     </div>
-
   </div>
 
-  <!-- 2024 -->
-  <div class="pub-year-group reveal">
-    <div class="pub-year-heading">2024</div>
+  <!-- 2026 -->
+  <div class="pub-year-group reveal" id="yr-2026">
+    <div class="pub-year-heading">2026</div>
 
-    <div class="pub-item">
+    <div class="pub-item" data-category="research">
       <span class="pub-num">01</span>
       <div>
-        <div class="pub-title">Size-Tunable Photoluminescence in Colloidal CdSe Quantum Dots: Synthesis, Characterisation, and Bioimaging Applications</div>
-        <div class="pub-authors"><strong>Sharma R.</strong>, Kapoor A., Singh P., Mehta S.</div>
-        <div class="pub-venue"><em>ACS Nano</em> · Volume 18, Issue 3, pp. 2145–2158 · DOI: 10.1021/acsnano.3c09876</div>
+        <div class="pub-title">Mechanistic insights into dinitrogen reduction to ammonia in light-controlled nanocrystal:nitrogenase complexes</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Pellows, L. M.; Dahl, P. J.; Mulder, D. W.; Yang, Z.-Y.; King, P. W.; Dukovic, G.; Seefeldt, L. C.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Accounts of Chemical Research</em>, 59, 1609–1620</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">PDF</a>
-          <a href="#" class="pub-link">DOI</a>
-          <a href="#" class="pub-link">Abstract</a>
-          <a href="sciart.html" class="pub-link">Visual Abstract</a>
+          <button class="pub-link overview-btn" data-title="Mechanistic insights into dinitrogen reduction to ammonia" data-overview="Nitrogen fixation — converting atmospheric N₂ to ammonia — is one of nature's most energy-demanding reactions, and bacteria do it effortlessly at room temperature. This paper couples quantum dot nanocrystals to nitrogenase to deliver photogenerated electrons directly to the enzyme, revealing step-by-step how the FeMo-cofactor handles the reduction and where the bottlenecks actually are." data-doi="https://doi.org/10.1021/acs.accounts.5c00763">TL;DR</button>
+          <a href="https://doi.org/10.1021/acs.accounts.5c00763" class="pub-link" target="_blank" rel="noopener">DOI →</a>
         </div>
       </div>
-      <span class="pub-badge badge-journal">Journal</span>
+      <span class="pub-badge badge-research">Research</span>
     </div>
 
-    <div class="pub-item">
+    <div class="pub-item" data-category="conference">
       <span class="pub-num">02</span>
       <div>
-        <div class="pub-title">Visual Abstracts as a Tool for Science Communication: A Systematic Review of Impact and Best Practices</div>
-        <div class="pub-authors"><strong>Sharma R.</strong>, Kapoor A.</div>
-        <div class="pub-venue"><em>PLOS ONE</em> · Volume 19, Issue 1 · DOI: 10.1371/journal.pone.0298123</div>
+        <div class="pub-title">Light-controlled electron delivery to the FeMo-cofactor in light-driven nitrogenase-quantum dot biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Gordon Research Conference, Metallocofactors 2026</em> — Oral Presentation</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">PDF</a>
-          <a href="#" class="pub-link">DOI</a>
-          <a href="#" class="pub-link">Abstract</a>
-        </div>
-      </div>
-      <span class="pub-badge badge-journal">Journal</span>
-    </div>
-
-    <div class="pub-item">
-      <span class="pub-num">03</span>
-      <div>
-        <div class="pub-title">Defect Engineering in 2D MoS₂ Nanosheets for Enhanced Photocatalytic Hydrogen Evolution</div>
-        <div class="pub-authors">Kapoor A., <strong>Sharma R.</strong>, Jain V., Rao K.</div>
-        <div class="pub-venue"><em>Materials Research Society — Spring Meeting</em> · San Francisco, USA · Oral Presentation</div>
-        <div class="pub-links">
-          <a href="#" class="pub-link">Abstract</a>
-          <a href="#" class="pub-link">Slides</a>
+          <button class="pub-link overview-btn" data-title="Light-controlled electron delivery (GRC Oral)" data-overview="Oral talk at GRC Metallocofactors — one of the most selective venues in the field. Presented results on how quantum dot surface chemistry controls when and how electrons reach the FeMo-cofactor in nitrogenase, giving mechanistic insight into the rate-limiting steps of biological nitrogen fixation.">TL;DR</button>
         </div>
       </div>
       <span class="pub-badge badge-conf">Conference</span>
     </div>
+
+    <div class="pub-item" data-category="conference">
+      <span class="pub-num">03</span>
+      <div>
+        <div class="pub-title">Light-mediated control of electron partitioning in light-driven nitrogenase-quantum dot biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Gordon Research Seminar, Metallocofactors 2026</em> — Oral Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Light-mediated electron partitioning (GRS Oral)" data-overview="Oral at the Gordon Research Seminar — the early-career companion to the GRC. Showed how controlling the quantum dot surface ligands changes which electrons reach the enzyme active site, with implications for understanding how biological nitrogen fixation is regulated.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-conf">Conference</span>
+    </div>
+
+    <div class="pub-item" data-category="conference">
+      <span class="pub-num">04</span>
+      <div>
+        <div class="pub-title">Interfacial ligand control of electron partitioning in light-driven nitrogenase-quantum dot biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>ACS 67th Pentasectional Meeting</em> — Oral Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Interfacial ligand control of electron partitioning" data-overview="Oral talk showing how the molecular ligands coating a quantum dot's surface act as a control valve for electron flow into nitrogenase. Change the ligand chemistry, change the catalytic output — a clean demonstration of interfacial chemistry governing biological reactivity.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-conf">Conference</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">05</span>
+      <div>
+        <div class="pub-title">Light-driven probing of electron delivery and redox gating in nanocrystal-nitrogenase biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>American Chemical Society, Fall Meeting 2026</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Electron delivery and redox gating (ACS Fall Poster)" data-overview="Poster presenting spectroscopic and kinetic evidence for how electrons are delivered to nitrogenase under light excitation and how the enzyme gates redox access. The experimental data behind the mechanistic story.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">06</span>
+      <div>
+        <div class="pub-title">Light-controlled electron delivery to the FeMo-cofactor in light-driven nitrogenase-quantum dot biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Gordon Research Conference, Metallocofactors 2026</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="FeMo-cofactor electron delivery (GRC Poster)" data-overview="Poster companion to the GRC oral — more experimental detail on the binding interactions and spectroscopic signatures that underpin the electron delivery conclusions presented in the talk.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">07</span>
+      <div>
+        <div class="pub-title">Light-mediated control of electron partitioning in light-driven nitrogenase-quantum dot biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Gordon Research Seminar, Metallocofactors 2026</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Light-mediated electron partitioning (GRS Poster)" data-overview="Poster at the Gordon Research Seminar on how light mediates which electrons go where in the nanocrystal-nitrogenase hybrid — accessible version of the core science for the early-career audience at the seminar.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">08</span>
+      <div>
+        <div class="pub-title">Ligand-controlled electron delivery in light-driven nitrogenase-quantum dot biohybrids</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>IPDC Graduate Research Showcase</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Ligand-controlled electron delivery (IPDC Poster)" data-overview="Graduate Research Showcase poster on how the molecular coating of a quantum dot surface determines electron flow into nitrogenase — an accessible summary of the interfacial chemistry driving the project, presented for a broad departmental audience.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+  </div>
+
+  <!-- 2024 -->
+  <div class="pub-year-group reveal" id="yr-2024">
+    <div class="pub-year-heading">2024</div>
+
+    <div class="pub-item" data-category="research">
+      <span class="pub-num">09</span>
+      <div>
+        <div class="pub-title">Microscale thermophoresis (MST) as a tool to study binding interactions of oxygen-sensitive biohybrids</div>
+        <div class="pub-authors">Jagilinki, B. P.; Willis, M. A.; Mus, F.; <strong>Sharma, R.</strong>; Pellows, L. M.; Mulder, D. W.; Yang, Z. Y.; Seefeldt, L. C.; King, P. W.; Dukovic, G.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Bio-protocol</em>, 14(15): e5041</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="MST for binding interactions in oxygen-sensitive biohybrids" data-overview="Microscale thermophoresis measures how molecules move along a temperature gradient — when two molecules bind, that migration changes measurably. This protocol describes exactly how to use MST to study binding in oxygen-sensitive biohybrid systems where conventional assays break down." data-doi="https://doi.org/10.21769/BioProtoc.5041">TL;DR</button>
+          <a href="https://doi.org/10.21769/BioProtoc.5041" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-research">Research</span>
+    </div>
+
+    <div class="pub-item" data-category="research">
+      <span class="pub-num">10</span>
+      <div>
+        <div class="pub-title">Investigating AgCl-SnO₂ nanocomposite photocatalytic degradation of azo dye, associated reaction pathways, and its antibacterial activity</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Borah, S. J.; Bhawna; Gupta, A.; Jhajharia, P.; Dubey, K. K.; Kumar, V.</div>
+        <div class="pub-venue"><em>Journal of Photochemistry and Photobiology A: Chemistry</em>, 456: 115800</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="AgCl-SnO₂ nanocomposite for dye degradation and antibacterial activity" data-overview="AgCl and SnO₂ turn out to be a productive photocatalytic partnership. Under light, their composite breaks down industrial azo dyes efficiently — and the same mechanism that destroys the dye also kills bacteria. This paper maps the degradation pathways and identifies why both properties co-occur from the same photochemical event." data-doi="https://doi.org/10.1016/j.photochem.2024.115800">TL;DR</button>
+          <a href="https://doi.org/10.1016/j.photochem.2024.115800" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-research">Research</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">11</span>
+      <div>
+        <div class="pub-title">Advances in metallopolymers: synthesis strategies, catalytic insights, and environmental remediation applications</div>
+        <div class="pub-authors">Aslam, M.; Rani, A.; Khan, J.; <strong>Sharma, R.</strong>; Pant, B. N.; Singh, P.; Kumar, V.; Pandey, G.; Bhawna.</div>
+        <div class="pub-venue"><em>Sustainable Chemistry and Pharmacy</em>, 40: 101630</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Advances in metallopolymers" data-overview="Metallopolymers — polymers with metal atoms woven into the backbone or side chains — have unusual electronic and optical properties that make them attractive for catalysis and environmental cleanup. This review covers how they're synthesized, what makes them catalytically active, and where the open questions are." data-doi="https://doi.org/10.1016/j.scp.2024.101630">TL;DR</button>
+          <a href="https://doi.org/10.1016/j.scp.2024.101630" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="book">
+      <span class="pub-num">12</span>
+      <div>
+        <div class="pub-title">Bismuth oxyhalide photocatalysts: pioneering efficiency in hydrogen generation</div>
+        <div class="pub-authors">Bhawna; <strong>Sharma, R.</strong>; Kumar, S.; Vishvakarma, V. K.; Pandey, G.; Kumar, V.</div>
+        <div class="pub-venue"><em>ACS Symposium Series 1468</em>, pp. 241–254 · Towards Sustainable and Green Hydrogen Production by Photocatalysis (Vol. 2), American Chemical Society</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Bismuth oxyhalide photocatalysts for hydrogen generation" data-overview="Bismuth oxyhalides have a layered crystal structure that creates a built-in internal electric field — this field separates photogenerated charges efficiently, making them competitive light absorbers for hydrogen production. This chapter covers the design principles, the electronic structure argument, and current benchmarks in the field." data-doi="https://doi.org/10.1021/bk-2024-1468.ch009">TL;DR</button>
+          <a href="https://doi.org/10.1021/bk-2024-1468.ch009" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-book">Book Chapter</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">13</span>
+      <div>
+        <div class="pub-title">Illuminating the path: decoding molecular interactions in nitrogen reduction</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Mus, F.; Peters, J. W.</div>
+        <div class="pub-venue"><em>Departmental Graduate Research Showcase 2024</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Decoding molecular interactions in nitrogen reduction" data-overview="Departmental poster presenting the biophysical toolkit — MST, transient absorption spectroscopy — used to decode what's happening at the interface between quantum dots and nitrogenase. The methods story behind the mechanistic conclusions.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
   </div>
 
   <!-- 2023 -->
-  <div class="pub-year-group reveal">
+  <div class="pub-year-group reveal" id="yr-2023">
     <div class="pub-year-heading">2023</div>
 
-    <div class="pub-item">
-      <span class="pub-num">04</span>
+    <div class="pub-item" data-category="research">
+      <span class="pub-num">14</span>
       <div>
-        <div class="pub-title">Surface Ligand Effects on Colloidal Stability and Cellular Uptake of Gold Nanoparticles: A Systematic Investigation</div>
-        <div class="pub-authors"><strong>Sharma R.</strong>, Singh P., Mehta S., Gupta R.</div>
-        <div class="pub-venue"><em>Nanoscale</em> · Volume 15, Issue 12, pp. 5678–5692 · DOI: 10.1039/D3NR01234A</div>
+        <div class="pub-title">Unlocking the potential of N-doped SnO₂ for sustainable photocatalytic degradation of carcinogenic dyes</div>
+        <div class="pub-authors">Bhawna; <strong>Sharma, R.</strong>; Kumar, S.; Kumar, R.; Sahu, P. K.; Kumari, V.; Mishra, A. K.; Kumar, V.</div>
+        <div class="pub-venue"><em>Separations</em>, 10(6): 322</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">PDF</a>
-          <a href="#" class="pub-link">DOI</a>
-          <a href="#" class="pub-link">Abstract</a>
+          <button class="pub-link overview-btn" data-title="N-doped SnO₂ for photocatalytic dye degradation" data-overview="Doping tin oxide with nitrogen shifts its light absorption into the visible range, making it a far more practical photocatalyst for solar-driven applications. This paper tests N-doped SnO₂ against carcinogenic textile dyes and works through what the doping actually does to the band structure and reactive surface sites." data-doi="https://doi.org/10.3390/separations10060322">TL;DR</button>
+          <a href="https://doi.org/10.3390/separations10060322" class="pub-link" target="_blank" rel="noopener">DOI →</a>
         </div>
       </div>
-      <span class="pub-badge badge-journal">Journal</span>
+      <span class="pub-badge badge-research">Research</span>
     </div>
 
-    <div class="pub-item">
-      <span class="pub-num">05</span>
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">15</span>
       <div>
-        <div class="pub-title">The Intersection of Data Visualisation and Scientific Literacy: Opportunities for Reform in Research Communication</div>
-        <div class="pub-authors"><strong>Sharma R.</strong></div>
-        <div class="pub-venue"><em>bioRxiv</em> · Preprint · DOI: 10.1101/2023.09.15.557908</div>
+        <div class="pub-title">Grasping the supremacy of microplastic in the environment to understand its implications and eradications: a review</div>
+        <div class="pub-authors">Borah, S. J.; Gupta, A. K.; Gupta, A.; Bhawna; Kumar, S.; <strong>Sharma, R.</strong>; Kumar, R.; Kumar, P.; Dubey, K. K.; Kaushik, S.; Mishra, A. K.; Kumar, V.</div>
+        <div class="pub-venue"><em>Journal of Materials Science</em>, 58: 12899–12928</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">Preprint</a>
-          <a href="#" class="pub-link">Abstract</a>
+          <button class="pub-link overview-btn" data-title="Microplastics: environmental implications and remediation" data-overview="Microplastics are in the ocean, drinking water, and by now, probably in your bloodstream. This review traces where they come from, how they move through ecosystems, what they do when they arrive, and what the realistic cleanup options actually look like — a comprehensive map of a problem that keeps getting bigger." data-doi="https://doi.org/10.1007/s10853-023-08806-8">TL;DR</button>
+          <a href="https://doi.org/10.1007/s10853-023-08806-8" class="pub-link" target="_blank" rel="noopener">DOI →</a>
         </div>
       </div>
-      <span class="pub-badge badge-preprint">Preprint</span>
+      <span class="pub-badge badge-journal">Review</span>
     </div>
 
-    <div class="pub-item">
-      <span class="pub-num">06</span>
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">16</span>
       <div>
-        <div class="pub-title">Plasmonic Enhancement of Photoluminescence in Core-Shell Nanostructures</div>
-        <div class="pub-authors">Mehta S., Jain V., <strong>Sharma R.</strong>, Rao K.</div>
-        <div class="pub-venue"><em>International Conference on Nanoscience and Nanotechnology (ICONN)</em> · Poster Presentation, New Delhi</div>
+        <div class="pub-title">Catalytic heterostructured materials for CO₂ mitigation and conversion into fuels: a renewable energy approach towards a sustainable environment</div>
+        <div class="pub-authors">Bhawna; Kumar, S.; <strong>Sharma, R.</strong>; Bohra, S. J.; Gupta, A.; Gupta, M. K.; Kumar, R.; Dubey, K. K.; Mishra, Y. K.; Kumar, V.</div>
+        <div class="pub-venue"><em>Sustainable Energy and Fuels</em>, 7: 4354–4395</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">Abstract</a>
-          <a href="sciart.html" class="pub-link">Poster</a>
+          <button class="pub-link overview-btn" data-title="Catalytic heterostructures for CO₂ conversion to fuels" data-overview="Catalytic heterostructures — layered materials where the interface between two components is where all the chemistry happens — are being engineered to convert CO₂ into usable fuels using sunlight. A deep review of how these materials are designed, what performance has been achieved, and where the efficiency gaps still are." data-doi="https://doi.org/10.1039/D3SE00516J">TL;DR</button>
+          <a href="https://doi.org/10.1039/D3SE00516J" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">17</span>
+      <div>
+        <div class="pub-title">Emerging trends in nano-based antidiabetic therapeutics: a path to effective diabetes management</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Borah, S. J.; Bhawna; Kumar, S.; Gupta, A.; Kumari, V.; Kumar, R.; Dubey, K. K.; Kumar, V.</div>
+        <div class="pub-venue"><em>Materials Advances</em>, 4: 3091–3113</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Nano-based antidiabetic therapeutics" data-overview="Nanoparticles as drug delivery vehicles for diabetes isn't as far-fetched as it sounds — better insulin carriers, glucose-responsive release systems, oral formulations that survive the gut. This review maps what's been tried, what's worked in animal models, and what's heading toward clinical testing." data-doi="https://doi.org/10.1039/D3MA00159H">TL;DR</button>
+          <a href="https://doi.org/10.1039/D3MA00159H" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="book">
+      <span class="pub-num">18</span>
+      <div>
+        <div class="pub-title">Utilization of metallopolymer nanomaterials in optoelectronic sensing</div>
+        <div class="pub-authors">Bhawna; <strong>Sharma, R.</strong>; Kumar, S.; Sahu, P. K.; Gupta, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>Progress in Optical Science and Photonics, Vol. 27</em>, Springer, Singapore · Advanced Functional Materials for Optical and Hazardous Sensing</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Metallopolymer nanomaterials in optoelectronic sensing" data-overview="Metallopolymers give you precise control over optical and electronic properties that's hard to achieve with conventional polymers. This chapter covers how that control is being applied to build sensors for hazardous compounds — specifically in optoelectronic detection systems where sensitivity and selectivity matter most." data-doi="https://doi.org/10.1007/978-981-99-6014-9-11">TL;DR</button>
+          <a href="https://doi.org/10.1007/978-981-99-6014-9-11" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-book">Book Chapter</span>
+    </div>
+
+    <div class="pub-item" data-category="book">
+      <span class="pub-num">19</span>
+      <div>
+        <div class="pub-title">Organic small molecule materials and display technologies for OLEDs</div>
+        <div class="pub-authors">Bhawna; Borah, S. J.; Kumar, S.; <strong>Sharma, R.</strong>; Kumari, J.; Dheer, N.; Gupta, A.; Kumar, V.; Kumar, D.</div>
+        <div class="pub-venue"><em>Organic Light Emitting Diode (OLED) Toward Smart Lighting and Displays Technologies</em>, 1st ed., CRC Press</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Organic small molecules for OLEDs" data-overview="The organic small molecules behind OLED displays — how they're designed, what controls their emission color and quantum efficiency, and where the remaining materials science challenges are for brighter and longer-lasting displays. A chapter in a broader OLED reference covering the full stack from chemistry to device." data-doi="https://doi.org/10.1201/9781003260417-6">TL;DR</button>
+          <a href="https://doi.org/10.1201/9781003260417-6" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-book">Book Chapter</span>
+    </div>
+
+    <div class="pub-item" data-category="conference">
+      <span class="pub-num">20</span>
+      <div>
+        <div class="pub-title">Engineered nanocomposite for enhanced photocatalytic and antimicrobial activity</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Kumar, V.</div>
+        <div class="pub-venue"><em>American Chemical Society, Fall Meeting 2023</em> — Oral Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Engineered nanocomposite for photocatalysis and antimicrobial activity" data-overview="Oral presentation at ACS Fall 2023 on a nanocomposite engineered for dual function: degrading synthetic dyes under light while simultaneously inhibiting bacterial growth. The key finding — both properties arise from the same photochemical mechanism, which makes the material more useful and the design logic cleaner." data-doi="https://doi.org/10.1021/scimeetings.3c10242">TL;DR</button>
+          <a href="https://doi.org/10.1021/scimeetings.3c10242" class="pub-link" target="_blank" rel="noopener">DOI →</a>
         </div>
       </div>
       <span class="pub-badge badge-conf">Conference</span>
@@ -319,51 +530,217 @@
   </div>
 
   <!-- 2022 -->
-  <div class="pub-year-group reveal">
+  <div class="pub-year-group reveal" id="yr-2022">
     <div class="pub-year-heading">2022</div>
 
-    <div class="pub-item">
-      <span class="pub-num">07</span>
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">21</span>
       <div>
-        <div class="pub-title">Carbon Nanotube Functionalisation Strategies for Biosensor Development: A Comprehensive Review</div>
-        <div class="pub-authors"><strong>Sharma R.</strong>, Gupta R., Kapoor A.</div>
-        <div class="pub-venue"><em>Trends in Analytical Chemistry</em> · Volume 154, Article 116654 · DOI: 10.1016/j.trac.2022.116654</div>
+        <div class="pub-title">Enlightening innovations: metal chalcogenides in the pursuit of efficient photocatalysts</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Borah, S. J.; Dubey, K. K.; Kumar, P.; Kumar, V.</div>
+        <div class="pub-venue"><em>SMC Bulletin</em>, 13(2): 48–54</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">PDF</a>
-          <a href="#" class="pub-link">DOI</a>
-          <a href="#" class="pub-link">Abstract</a>
+          <button class="pub-link overview-btn" data-title="Metal chalcogenides in photocatalysis" data-overview="Metal chalcogenides — sulfides, selenides, and tellurides — keep showing up in photocatalysis research, and for good reason. This short communication covers the key optical and electronic properties that make them useful and the main directions the field is currently taking.">TL;DR</button>
         </div>
       </div>
       <span class="pub-badge badge-journal">Journal</span>
     </div>
 
-    <div class="pub-item">
-      <span class="pub-num">08</span>
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">22</span>
       <div>
-        <div class="pub-title">Hydrothermal Synthesis of ZnO Nanoflowers and Their Photocatalytic Activity Under Visible Light</div>
-        <div class="pub-authors">Singh P., <strong>Sharma R.</strong>, Mehta S.</div>
-        <div class="pub-venue"><em>Journal of Materials Chemistry A</em> · Volume 10, Issue 8, pp. 4321–4335 · DOI: 10.1039/D2TA00123G</div>
+        <div class="pub-title">An understanding of coronavirus and exploring molecular dynamics simulations to find promising candidates against the Mpro of nCoV</div>
+        <div class="pub-authors">Singh, M. B.; <strong>Sharma, R.</strong>; Kumar, D.; Khanna, P.; Mansi; Khanna, L.; Kumar, V.; Kumari, K.; Gupta, A.; Chaudhary, P.; Kaushik, N.; Choi, E. H.; Kaushik, N. K.; Singh, P.</div>
+        <div class="pub-venue"><em>Journal of Infection and Public Health</em>, 15(11): 1326–1349</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">PDF</a>
-          <a href="#" class="pub-link">DOI</a>
-          <a href="#" class="pub-link">Abstract</a>
+          <button class="pub-link overview-btn" data-title="Molecular dynamics for COVID-19 drug candidates" data-overview="When SARS-CoV-2 emerged, computational chemists went looking for drug candidates by simulating how small molecules dock into the viral main protease. This review covers what those simulations found, what's been validated experimentally, and what the early computational scramble for antivirals actually looked like." data-doi="https://doi.org/10.1016/j.jiph.2022.10.013">TL;DR</button>
+          <a href="https://doi.org/10.1016/j.jiph.2022.10.013" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">23</span>
+      <div>
+        <div class="pub-title">Functionalized peptide-based nanoparticles for targeted cancer nanotherapeutics: a state-of-the-art review</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Borah, S. J.; Bhawna; Kumar, S.; Gupta, A.; Singh, P.; Goel, V. K.; Kumar, R.; Kumar, V.</div>
+        <div class="pub-venue"><em>ACS Omega</em>, 7(41): 36092–36107</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Peptide nanoparticles for targeted cancer therapy" data-overview="Peptide-based nanoparticles can be engineered to recognize and bind cancer cells specifically — using the same molecular recognition logic that biology runs on. This review covers the main design strategies, how different formulations compare in preclinical models, and where the translation to clinical use still falls short." data-doi="https://doi.org/10.1021/acsomega.2c03974">TL;DR</button>
+          <a href="https://doi.org/10.1021/acsomega.2c03974" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">24</span>
+      <div>
+        <div class="pub-title">TiO₂ based photocatalytic membranes: an efficient strategy for pharmaceutical mineralization</div>
+        <div class="pub-authors">Kumar, S.; Bhawna; <strong>Sharma, R.</strong>; Gupta, A.; Dubey, K. K.; Khan, A. M.; Singhal, R.; Bharti, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>Science of the Total Environment</em>, 845: 157221</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="TiO₂ photocatalytic membranes for pharmaceutical removal" data-overview="Pharmaceutical contaminants pass through conventional water treatment mostly intact and accumulate downstream. TiO₂ photocatalytic membranes break drug molecules apart using light — this review covers how they're built, what pollutants they remove, and how their performance compares to standard treatment across different water matrices." data-doi="https://doi.org/10.1016/j.scitotenv.2022.157221">TL;DR</button>
+          <a href="https://doi.org/10.1016/j.scitotenv.2022.157221" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">25</span>
+      <div>
+        <div class="pub-title">Prospects of biosensors based on functionalized and nanostructured solitary: detection of viral infections and other risks</div>
+        <div class="pub-authors">Kumar, S.; <strong>Sharma, R.</strong>; Bhawna; Gupta, A.; Singh, P.; Kalia, S.; Thakur, P.; Kumar, V.</div>
+        <div class="pub-venue"><em>ACS Omega</em>, 7(26): 22073–22088</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Nanostructured biosensors for viral detection" data-overview="Functionalized nanostructures can detect specific viruses faster and at lower cost than many conventional diagnostics. This review covers the main surface functionalization strategies, what biological targets they can hit, and what that means for point-of-care diagnostics and pandemic preparedness." data-doi="https://doi.org/10.1021/acsomega.2c01033">TL;DR</button>
+          <a href="https://doi.org/10.1021/acsomega.2c01033" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">26</span>
+      <div>
+        <div class="pub-title">An insight of nanomaterials in tissue engineering from fabrication to applications</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Kumar, S.; Bhawna; Gupta, A.; Dheer, N.; Jain, P.; Singh, P.; Kumar, V.</div>
+        <div class="pub-venue"><em>Tissue Engineering and Regenerative Medicine</em>, 1–34</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Nanomaterials in tissue engineering" data-overview="Nanomaterials are going into tissue scaffolds to improve mechanical strength, guide cell adhesion, deliver drugs locally, and more closely mimic the extracellular matrix. This review covers fabrication approaches, the nanomaterial families being used, and where they've made it into real clinical applications." data-doi="https://doi.org/10.1007/s13770-022-00456-z">TL;DR</button>
+          <a href="https://doi.org/10.1007/s13770-022-00456-z" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">27</span>
+      <div>
+        <div class="pub-title">Recent update on ionic liquids (ILs) for biomedical sciences</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Verma, B.; Kumar, S.; Gupta, A.; Sahu, P. K.; Singh, P.; Kumar, V.</div>
+        <div class="pub-venue"><em>Journal of Iranian Chemical Society</em>, 19: 3215–3228</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Ionic liquids in biomedical sciences" data-overview="Ionic liquids — salts that stay liquid at room temperature — have properties that make them surprisingly useful in biomedicine: drug delivery vehicles, antimicrobial coatings, contrast agents for bioimaging. This review covers the latest applications and the structural features that make them work where conventional solvents don't." data-doi="https://doi.org/10.1007/s13738-022-02544-5">TL;DR</button>
+          <a href="https://doi.org/10.1007/s13738-022-02544-5" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">28</span>
+      <div>
+        <div class="pub-title">Recent insights into SnO₂ based engineered nanoparticles for sustainable H₂ generation and remediation of pesticides</div>
+        <div class="pub-authors">Bhawna; Kumar, S.; <strong>Sharma, R.</strong>; Gupta, A.; Tyagi, A.; Singh, P.; Kumar, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>New Journal of Chemistry</em>, 46: 4014–4048</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="SnO₂ nanoparticles for H₂ generation and pesticide remediation" data-overview="Two very different environmental problems — hydrogen production and pesticide contamination in water — both tackled with engineered tin oxide nanoparticles. This review covers what material modifications matter for each use case and where the underlying chemistry actually overlaps." data-doi="https://doi.org/10.1039/D1NJ05808H">TL;DR</button>
+          <a href="https://doi.org/10.1039/D1NJ05808H" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">29</span>
+      <div>
+        <div class="pub-title">Prospects of anti-diabetic drugs: nanoformulation and therapeutic applications</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Gupta, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>Recent Advances in Nano Medical Sciences 2022</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Nanoformulation of anti-diabetic drugs" data-overview="Poster comparing nanoformulation strategies for antidiabetic drugs — looking at particle types suited for oral vs. injectable delivery of insulin and other glucose-lowering agents, and what controls bioavailability in each case.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">30</span>
+      <div>
+        <div class="pub-title">Functionalization of peptide-based nanoparticles for anti-cancer therapeutics</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Gupta, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>International Conference on Advances in Chemical Sciences and Nanocomposites 2022</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Peptide nanoparticles for anti-cancer therapeutics" data-overview="Poster on surface functionalization strategies for peptide-based nanoparticles designed to find and bind cancer cells — covering targeting ligand selection, particle stability under physiological conditions, and in vitro cytotoxicity results.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+  </div>
+
+  <!-- 2021 -->
+  <div class="pub-year-group reveal" id="yr-2021">
+    <div class="pub-year-heading">2021</div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">31</span>
+      <div>
+        <div class="pub-title">Layered double hydroxide nanomaterials: biomedical applications, current status, and challenges</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Bhawna; Kumar, S.; Singh, P.; Gupta, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>Nano LIFE</em>, 11(3): 2130008</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Layered double hydroxide nanomaterials in biomedicine" data-overview="Layered double hydroxides are 2D materials with tunable chemistry that have attracted real attention in nanomedicine — drug delivery, gene therapy, bioimaging. This review covers what's been achieved so far, the material properties that make them useful, and the challenges standing between them and clinical use." data-doi="https://doi.org/10.1142/S1793984421300089">TL;DR</button>
+          <a href="https://doi.org/10.1142/S1793984421300089" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">32</span>
+      <div>
+        <div class="pub-title">An update on COVID-19: role of nanotechnology in vaccine development</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Gupta, A.; Kumar, R.; Singh, P.; Kumar, V.</div>
+        <div class="pub-venue"><em>SMC Bulletin</em>, 11(2): 88–96</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Nanotechnology in COVID-19 vaccine development" data-overview="Nanotechnology's role in COVID-19 vaccines goes well beyond the lipid nanoparticles in mRNA shots. This paper reviews the broader landscape of nano-based vaccine delivery approaches that emerged during the pandemic — from polymeric carriers to virus-like particles — and what each brings to the table.">TL;DR</button>
         </div>
       </div>
       <span class="pub-badge badge-journal">Journal</span>
     </div>
 
-    <div class="pub-item">
-      <span class="pub-num">09</span>
+    <div class="pub-item" data-category="journal">
+      <span class="pub-num">33</span>
       <div>
-        <div class="pub-title">Making Science Beautiful: A Practical Guide to Visual Abstracts for Researchers</div>
-        <div class="pub-authors"><strong>Sharma R.</strong></div>
-        <div class="pub-venue"><em>FEBS Open Bio</em> · Volume 12, Issue 5, pp. 901–910 · DOI: 10.1002/2211-5463.13414</div>
+        <div class="pub-title">Double-headed nucleosides: synthesis and applications</div>
+        <div class="pub-authors">Verma, V.; Maity, J.; Maikhuri, V. K.; <strong>Sharma, R.</strong>; Ganguly, H. K.; Prasad, A. K.</div>
+        <div class="pub-venue"><em>Beilstein Journal of Organic Chemistry</em>, 17(1): 1392–1439</div>
         <div class="pub-links">
-          <a href="#" class="pub-link">PDF</a>
-          <a href="#" class="pub-link">DOI</a>
+          <button class="pub-link overview-btn" data-title="Double-headed nucleosides: synthesis and applications" data-overview="A nucleoside with two bases on the same sugar scaffold behaves very differently from anything in natural DNA or RNA. This comprehensive review covers how double-headed nucleosides are synthesized, why their chemistry is chemically unusual, and their applications ranging from antiviral drugs to molecular recognition probes." data-doi="https://doi.org/10.3762/bjoc.17.98">TL;DR</button>
+          <a href="https://doi.org/10.3762/bjoc.17.98" class="pub-link" target="_blank" rel="noopener">DOI →</a>
         </div>
       </div>
-      <span class="pub-badge badge-journal">Journal</span>
+      <span class="pub-badge badge-journal">Review</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">34</span>
+      <div>
+        <div class="pub-title">An in-silico approach: natural antivirals as potent inhibitors for SARS-CoV-2</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Gupta, A.; Kumar, V.</div>
+        <div class="pub-venue"><em>BARC and SMC, DAE Symposium on Current Trends in Theoretical Chemistry 2021</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Natural antivirals as SARS-CoV-2 inhibitors (in silico)" data-overview="Poster on an in silico screening study using natural compounds as candidate inhibitors for SARS-CoV-2 — computationally docking them against the viral main protease to identify what might be worth testing in the lab. An early pandemic study asking whether plants might have already found parts of the answer.">TL;DR</button>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
+    </div>
+
+    <div class="pub-item" data-category="poster">
+      <span class="pub-num">35</span>
+      <div>
+        <div class="pub-title">Functionalized nanomaterials for biosensing applications</div>
+        <div class="pub-authors"><strong>Sharma, R.</strong>; Kumar, S.; Kumar, V.</div>
+        <div class="pub-venue"><em>American Chemical Society, Spring Meeting 2020</em> — Poster Presentation</div>
+        <div class="pub-links">
+          <button class="pub-link overview-btn" data-title="Functionalized nanomaterials for biosensing" data-overview="Poster at ACS Spring 2020 on using functionalized nanostructures as biosensors for detecting viruses and other biological threats. An early look at nanoplatforms that would become central to rapid diagnostic development during the pandemic." data-doi="https://doi.org/10.1021/scimeetings.1c00247">TL;DR</button>
+          <a href="https://doi.org/10.1021/scimeetings.1c00247" class="pub-link" target="_blank" rel="noopener">DOI →</a>
+        </div>
+      </div>
+      <span class="pub-badge badge-poster">Poster</span>
     </div>
   </div>
 
@@ -398,6 +775,19 @@
   </div>
 </footer>
 
+<!-- Overview Modal -->
+<div id="overview-modal" role="dialog" aria-modal="true">
+  <div class="overview-card">
+    <div class="overview-card-label">Paper overview</div>
+    <div class="overview-card-title" id="modal-title"></div>
+    <p class="overview-card-text" id="modal-text"></p>
+    <div class="overview-card-actions">
+      <button class="overview-close" id="modal-close-btn">Close</button>
+      <a class="overview-doi" id="modal-doi" href="#" target="_blank" rel="noopener">Read the full paper →</a>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
@@ -408,7 +798,39 @@
   document.querySelectorAll('a,button,.pub-item').forEach(el=>{ el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover')); el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover')); });
   gsap.registerPlugin(ScrollTrigger);
   gsap.utils.toArray('.reveal').forEach(el=>{ gsap.to(el,{ opacity:1, y:0, duration:.9, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' } }); });
-  document.querySelectorAll('.filter-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }); });
+  // Filter
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f=btn.dataset.filter;
+      document.querySelectorAll('.pub-item').forEach(item=>{
+        item.style.display=(f==='all'||item.dataset.category===f)?'':'none';
+      });
+      document.querySelectorAll('.pub-year-group').forEach(grp=>{
+        const vis=[...grp.querySelectorAll('.pub-item')].some(i=>i.style.display!=='none');
+        grp.style.display=vis?'':'none';
+      });
+    });
+  });
+  // Overview modal
+  const oModal=document.getElementById('overview-modal');
+  const oTitle=document.getElementById('modal-title');
+  const oText=document.getElementById('modal-text');
+  const oDoi=document.getElementById('modal-doi');
+  document.querySelectorAll('.overview-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      oTitle.textContent=btn.dataset.title||'';
+      oText.textContent=btn.dataset.overview||'';
+      const doi=btn.dataset.doi;
+      if(doi){ oDoi.href=doi; oDoi.style.display=''; } else { oDoi.style.display='none'; }
+      oModal.classList.add('open');
+    });
+  });
+  document.getElementById('modal-close-btn').addEventListener('click',()=>oModal.classList.remove('open'));
+  oModal.addEventListener('click',e=>{ if(e.target===oModal) oModal.classList.remove('open'); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') oModal.classList.remove('open'); });
   document.querySelectorAll('.stat-num').forEach(el=>{ const obs=new IntersectionObserver(entries=>{ if(entries[0].isIntersecting){ const txt=el.textContent,num=parseInt(txt),suf=txt.replace(/[0-9]/g,''); let c=0,step=num/40; const t=setInterval(()=>{ c=Math.min(c+step,num); el.textContent=Math.floor(c)+suf; if(c>=num)clearInterval(t); },30); obs.unobserve(el); } },{threshold:.5}); obs.observe(el); });
   // ── Theme switcher ─────────────────────────────────────────
   (function(){
