@@ -180,7 +180,39 @@
     :root[data-theme="read"] #navbar { background:rgba(245,240,228,0.95); border-bottom-color:rgba(44,36,22,0.1); }
     :root[data-theme="read"] #navbar.scrolled { background:rgba(245,240,228,0.98); }
 
-  </style>
+  
+    /* ── Nav Dropdown ───────────────────────────── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .35rem; }
+    .chev { width: 10px; height: 10px; transition: transform .25s; opacity: .45; flex-shrink: 0; }
+    .nav-dropdown:hover .chev { transform: rotate(180deg); opacity: 1; }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 1rem); left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: 6px; min-width: 248px; padding: .5rem 0;
+      list-style: none; opacity: 0; pointer-events: none;
+      transition: opacity .22s, transform .22s; z-index: 1000;
+      box-shadow: 0 16px 48px rgba(0,0,0,.55);
+    }
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu li a {
+      display: block; padding: .45rem 1.25rem;
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color .18s, background .18s; cursor: none; white-space: nowrap;
+    }
+    .nav-dropdown-menu li a:hover { color: var(--gold); background: var(--glass); }
+    .dd-sched {
+      font-size: .6rem; color: var(--gold); opacity: .6;
+      padding: .7rem 1.25rem .1rem; letter-spacing: .07em;
+      display: block; font-weight: 500;
+    }
+    .dd-sep { border: none; border-top: 1px solid var(--border); margin: .5rem 0; }
+    @media (max-width: 900px) { .nav-dropdown-menu { display: none; } }
+</style>
 </head>
 <body>
 
@@ -195,7 +227,19 @@
     <li><a href="publications.html">Publications</a></li>
     <li><a href="sciart.html">Sci-Art</a></li>
     <li><a href="speaking.html">Speaking</a></li>
-    <li><a href="writing.html">Writing</a></li>
+    <li class="nav-dropdown">
+      <a href="writing.html" class="nav-dropdown-trigger">Writing <svg class="chev" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="writing.html">All Writing</a></li>
+        <li><hr class="dd-sep"></li>
+        <li><span class="dd-sched">Mon · 8:30 AM CT</span><a href="bench-to-brain.html">Bench to Brain</a></li>
+        <li><span class="dd-sched">Tue · 8:30 AM CT</span><a href="atomic-ambition.html">Atomic Ambition</a></li>
+        <li><span class="dd-sched">Wed · 8:00 AM CT</span><a href="signal-over-noise.html">Signal Over Noise</a></li>
+        <li><span class="dd-sched">Fri · 9:00 AM CT</span><a href="science-tales.html">Science Tales</a></li>
+        <li><span class="dd-sched">Sat · 10:30 AM CT</span><a href="rendered.html">Rendered</a></li>
+      </ul>
+    </li>
+    <li><a href="adapt.html">Book</a></li>
   </ul>
   <a href="index.html#connect" class="nav-cta">Let's Connect</a>
   <div class="theme-switcher" id="themeSwitcher">

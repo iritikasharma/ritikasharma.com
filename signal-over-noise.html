@@ -125,7 +125,39 @@
       body { cursor: auto; }
       .btn-primary, .btn-outline, .btn-li, .nav-cta, .footer-nav a { cursor: auto; }
     }
-  </style>
+  
+    /* ── Nav Dropdown ───────────────────────────── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .35rem; }
+    .chev { width: 10px; height: 10px; transition: transform .25s; opacity: .45; flex-shrink: 0; }
+    .nav-dropdown:hover .chev { transform: rotate(180deg); opacity: 1; }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 1rem); left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--bg-1); border: 1px solid var(--border);
+      border-radius: 6px; min-width: 248px; padding: .5rem 0;
+      list-style: none; opacity: 0; pointer-events: none;
+      transition: opacity .22s, transform .22s; z-index: 1000;
+      box-shadow: 0 16px 48px rgba(0,0,0,.55);
+    }
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu li a {
+      display: block; padding: .45rem 1.25rem;
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color .18s, background .18s; cursor: none; white-space: nowrap;
+    }
+    .nav-dropdown-menu li a:hover { color: var(--gold); background: var(--glass); }
+    .dd-sched {
+      font-size: .6rem; color: var(--gold); opacity: .6;
+      padding: .7rem 1.25rem .1rem; letter-spacing: .07em;
+      display: block; font-weight: 500;
+    }
+    .dd-sep { border: none; border-top: 1px solid var(--border); margin: .5rem 0; }
+    @media (max-width: 900px) { .nav-dropdown-menu { display: none; } }
+</style>
 </head>
 <body>
 
@@ -140,7 +172,19 @@
     <li><a href="publications.html">Publications</a></li>
     <li><a href="sciart.html">Sci-Art</a></li>
     <li><a href="speaking.html">Speaking</a></li>
-    <li><a href="writing.html" class="active">Writing</a></li>
+    <li class="nav-dropdown">
+      <a href="writing.html" class="nav-dropdown-trigger active">Writing <svg class="chev" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="writing.html">All Writing</a></li>
+        <li><hr class="dd-sep"></li>
+        <li><span class="dd-sched">Mon · 8:30 AM CT</span><a href="bench-to-brain.html">Bench to Brain</a></li>
+        <li><span class="dd-sched">Tue · 8:30 AM CT</span><a href="atomic-ambition.html">Atomic Ambition</a></li>
+        <li><span class="dd-sched">Wed · 8:00 AM CT</span><a href="signal-over-noise.html">Signal Over Noise</a></li>
+        <li><span class="dd-sched">Fri · 9:00 AM CT</span><a href="science-tales.html">Science Tales</a></li>
+        <li><span class="dd-sched">Sat · 10:30 AM CT</span><a href="rendered.html">Rendered</a></li>
+      </ul>
+    </li>
+    <li><a href="adapt.html">Book</a></li>
   </ul>
   <a href="index.html#connect" class="nav-cta">Let's Connect</a>
   <div class="theme-switcher" id="themeSwitcher">
@@ -161,7 +205,7 @@
         <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         <span class="sub-count" data-nl="signal-over-noise">—</span> subscribers
       </span>
-      <span class="nl-freq-badge">Weekly</span>
+      <span class="nl-freq-badge">Every Wednesday · 8:00 AM CT</span>
     </div>
     <div class="nl-cta-row reveal">
       <a href="https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/" class="btn-li" target="_blank" rel="noopener">
