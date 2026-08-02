@@ -169,6 +169,11 @@
     .badge-book { background:rgba(167,139,250,.1); color:#a78bfa; border:1px solid rgba(167,139,250,.2); }
     .badge-conf { background:rgba(52,211,153,.1); color:#34d399; border:1px solid rgba(52,211,153,.2); }
     .badge-poster { background:rgba(251,146,60,.1); color:#fb923c; border:1px solid rgba(251,146,60,.2); }
+    .feat-card { background:linear-gradient(135deg,rgba(212,175,55,.07) 0%,rgba(212,175,55,.02) 100%); border:1px solid rgba(212,175,55,.3); border-radius:6px; padding:2.5rem; margin-bottom:3rem; position:relative; overflow:hidden; }
+    .feat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),transparent); }
+    .feat-label { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:.85rem; }
+    .feat-title { font-family:var(--ff-head); font-size:1.35rem; color:var(--text); line-height:1.4; margin-bottom:.65rem; }
+    .feat-meta { font-size:.85rem; color:var(--muted); margin-bottom:1.5rem; }
   </style>
 </head>
 <body>
@@ -229,6 +234,14 @@
     <div class="stat-cell"><div class="stat-num" data-count="443">443</div><div class="stat-lbl">Citations</div></div>
     <div class="stat-cell"><div class="stat-num" data-count="11">11</div><div class="stat-lbl">h-index</div></div>
     <div class="stat-cell"><div class="stat-num" data-count="13">13</div><div class="stat-lbl">i10-index</div></div>
+  </div>
+
+  <!-- Featured Publication -->
+  <div class="feat-card reveal">
+    <div class="feat-label">★ Highlight Paper · 2026</div>
+    <div class="feat-title">Mechanistic insights into dinitrogen reduction to ammonia in light-controlled nanocrystal:nitrogenase complexes</div>
+    <div class="feat-meta"><em>Accounts of Chemical Research</em>, 59, 1609–1620 · <strong>Sharma, R.</strong>; Mus, F.; Pellows, L. M.; Dahl, P. J.; Mulder, D. W.; Yang, Z.-Y.; King, P. W.; Dukovic, G.; Seefeldt, L. C.; Peters, J. W.</div>
+    <a href="https://doi.org/10.1021/acs.accounts.5c00763" class="btn-primary" style="font-size:.72rem;padding:.65rem 1.75rem;" target="_blank" rel="noopener">Read Paper →</a>
   </div>
 
   <div class="pub-controls reveal">
