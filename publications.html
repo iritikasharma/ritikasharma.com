@@ -259,7 +259,7 @@
   <div class="pub-year-group reveal" id="yr-2026">
     <div class="pub-year-heading">2026</div>
 
-    <div class="pub-item" data-category="research">
+    <div class="pub-item" data-category="journal">
       <span class="pub-num">01</span>
       <div>
         <div class="pub-title">Mechanistic insights into dinitrogen reduction to ammonia in light-controlled nanocrystal:nitrogenase complexes</div>
@@ -844,6 +844,11 @@
   document.getElementById('modal-close-btn').addEventListener('click',()=>oModal.classList.remove('open'));
   oModal.addEventListener('click',e=>{ if(e.target===oModal) oModal.classList.remove('open'); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') oModal.classList.remove('open'); });
+  // Make pub-items with a DOI link clickable on the whole row
+  document.querySelectorAll('.pub-item').forEach(item=>{
+    const doi=item.querySelector('a.pub-link[href]');
+    if(doi){ item.style.cursor='pointer'; item.addEventListener('click',e=>{ if(!e.target.closest('button')&&!e.target.closest('a')) window.open(doi.href,'_blank','noopener'); }); }
+  });
   document.querySelectorAll('.stat-num').forEach(el=>{ const obs=new IntersectionObserver(entries=>{ if(entries[0].isIntersecting){ const txt=el.textContent,num=parseInt(txt),suf=txt.replace(/[0-9]/g,''); let c=0,step=num/40; const t=setInterval(()=>{ c=Math.min(c+step,num); el.textContent=Math.floor(c)+suf; if(c>=num)clearInterval(t); },30); obs.unobserve(el); } },{threshold:.5}); obs.observe(el); });
   // ── Theme switcher ─────────────────────────────────────────
   (function(){
