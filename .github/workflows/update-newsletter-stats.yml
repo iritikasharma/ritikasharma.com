@@ -1,11 +1,31 @@
-name: Update Newsletter Follower Counts
+name: Update Newsletter Subscriber Counts
 
 on:
   schedule:
     # 6:45 AM UTC on the 1st of every month (runs after Scholar stats at 6:23)
     - cron: '45 6 1 * *'
   workflow_dispatch:
-    # Allow manual trigger from the GitHub Actions tab
+    inputs:
+      bench_to_brain:
+        description: 'Bench to Brain subscribers (leave blank to auto-scrape)'
+        required: false
+        default: ''
+      atomic_ambition:
+        description: 'Atomic Ambition subscribers'
+        required: false
+        default: ''
+      signal_over_noise:
+        description: 'Signal Over Noise subscribers'
+        required: false
+        default: ''
+      science_tales:
+        description: 'Science Tales subscribers'
+        required: false
+        default: ''
+      rendered:
+        description: 'Rendered subscribers'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -24,11 +44,18 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          pip install requests playwright
+          playwright install chromium --with-deps
 
-      - name: Fetch LinkedIn follower counts and update HTML
+      - name: Fetch subscriber counts and update HTML
         env:
           LINKEDIN_LI_AT: ${{ secrets.LINKEDIN_LI_AT }}
+          COUNT_BENCH_TO_BRAIN: ${{ github.event.inputs.bench_to_brain }}
+          COUNT_ATOMIC_AMBITION: ${{ github.event.inputs.atomic_ambition }}
+          COUNT_SIGNAL_OVER_NOISE: ${{ github.event.inputs.signal_over_noise }}
+          COUNT_SCIENCE_TALES: ${{ github.event.inputs.science_tales }}
+          COUNT_RENDERED: ${{ github.event.inputs.rendered }}
         run: python .github/scripts/update_newsletter_stats.py
 
       - name: Commit and push if counts changed
@@ -36,10 +63,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if git diff --quiet; then
-            echo "No changes — follower counts are already up to date."
+            echo "No changes — subscriber counts are already up to date."
           else
             git add bench-to-brain.html signal-over-noise.html science-tales.html rendered.html atomic-ambition.html index.html
-            git commit -m "chore: update newsletter follower counts [automated $(date +%Y-%m-%d)]"
+            git commit -m "chore: update newsletter subscriber counts [automated $(date +%Y-%m-%d)]"
             git push
             echo "Counts updated and deployed."
           fi
