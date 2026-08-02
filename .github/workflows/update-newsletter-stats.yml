@@ -1,0 +1,45 @@
+name: Update Newsletter Follower Counts
+
+on:
+  schedule:
+    # 6:45 AM UTC on the 1st of every month (runs after Scholar stats at 6:23)
+    - cron: '45 6 1 * *'
+  workflow_dispatch:
+    # Allow manual trigger from the GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-newsletters:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch LinkedIn follower counts and update HTML
+        env:
+          LINKEDIN_LI_AT: ${{ secrets.LINKEDIN_LI_AT }}
+        run: python .github/scripts/update_newsletter_stats.py
+
+      - name: Commit and push if counts changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "No changes — follower counts are already up to date."
+          else
+            git add bench-to-brain.html signal-over-noise.html science-tales.html rendered.html atomic-ambition.html index.html
+            git commit -m "chore: update newsletter follower counts [automated $(date +%Y-%m-%d)]"
+            git push
+            echo "Counts updated and deployed."
+          fi

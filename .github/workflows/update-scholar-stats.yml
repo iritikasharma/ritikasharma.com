@@ -36,7 +36,7 @@ jobs:
           if git diff --quiet; then
             echo "No changes — stats are already up to date."
           else
-            git add publications.html about.html
+            git add publications.html about.html index.html
             git commit -m "chore: update Google Scholar stats [automated $(date +%Y-%m-%d)]"
             git push
             echo "Stats updated and deployed."
