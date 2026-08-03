@@ -32,31 +32,39 @@ permissions:
 
 jobs:
   update-newsletters:
-    runs-on: ubuntu-latest
+    # Runs on YOUR Mac (self-hosted runner) so LinkedIn doesn't block the IP.
+    # Setup: github.com/iritikasharma/ritikasharma.com/settings/actions/runners/new
+    runs-on: [self-hosted, macos]
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
-          pip install requests playwright
-          playwright install chromium --with-deps
+          python3 -m pip install --quiet --upgrade pip
+          python3 -m pip install --quiet playwright requests
+          python3 -m playwright install chromium
 
       - name: Fetch subscriber counts and update HTML
         env:
-          LINKEDIN_LI_AT: ${{ secrets.LINKEDIN_LI_AT }}
+          # li_at is read from ~/.config/ritikasharma/linkedin_li_at on your Mac.
+          # GitHub Secret is kept as fallback only.
           COUNT_BENCH_TO_BRAIN: ${{ github.event.inputs.bench_to_brain }}
           COUNT_ATOMIC_AMBITION: ${{ github.event.inputs.atomic_ambition }}
           COUNT_SIGNAL_OVER_NOISE: ${{ github.event.inputs.signal_over_noise }}
           COUNT_SCIENCE_TALES: ${{ github.event.inputs.science_tales }}
           COUNT_RENDERED: ${{ github.event.inputs.rendered }}
-        run: python .github/scripts/update_newsletter_stats.py
+        run: |
+          LI_AT_FILE="$HOME/.config/ritikasharma/linkedin_li_at"
+          if [ -f "$LI_AT_FILE" ] && [ -s "$LI_AT_FILE" ]; then
+            export LINKEDIN_LI_AT="$(cat "$LI_AT_FILE")"
+            echo "Using li_at from local file."
+          else
+            export LINKEDIN_LI_AT="${{ secrets.LINKEDIN_LI_AT }}"
+            echo "Using li_at from GitHub Secret."
+          fi
+          python3 .github/scripts/update_newsletter_stats.py
 
       - name: Commit and push if counts changed
         run: |
