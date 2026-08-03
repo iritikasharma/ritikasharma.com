@@ -178,9 +178,10 @@
   
     /* ── Nav Dropdown ───────────────────────────── */
     .nav-dropdown { position: relative; }
-    .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .35rem; }
-    .chev { width: 10px; height: 10px; transition: transform .25s; opacity: .45; flex-shrink: 0; }
-    .nav-dropdown:hover .chev { transform: rotate(180deg); opacity: 1; }
+    .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .3rem; line-height: 1; }
+    .chev { width: 9px; height: 9px; margin-top: 1px; transition: transform .22s; opacity: .4; flex-shrink: 0; }
+    .nav-dropdown:hover > a .chev,
+    .nav-dropdown:focus-within > a .chev { transform: rotate(180deg); opacity: .85; }
     .nav-dropdown-menu {
       position: absolute; top: calc(100% + 1rem); left: 50%;
       transform: translateX(-50%) translateY(-8px);
@@ -225,11 +226,36 @@
       <ul class="nav-dropdown-menu">
         <li><a href="writing.html">All Writing</a></li>
         <li><hr class="dd-sep"></li>
-        <li><span class="dd-sched">Mon · 8:30 AM CT</span><a href="https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/" target="_blank" rel="noopener">Bench to Brain</a></li>
-        <li><span class="dd-sched">Tue · 8:30 AM CT</span><a href="https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/" target="_blank" rel="noopener">Atomic Ambition</a></li>
-        <li><span class="dd-sched">Wed · 8:00 AM CT</span><a href="https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/" target="_blank" rel="noopener">Signal Over Noise</a></li>
-        <li><span class="dd-sched">Fri · 9:00 AM CT</span><a href="https://www.linkedin.com/newsletters/science-tales-7427433291634540546/" target="_blank" rel="noopener">Science Tales</a></li>
-        <li><span class="dd-sched">Sat · 10:30 AM CT</span><a href="https://www.linkedin.com/newsletters/rendered-7434333824727060480/" target="_blank" rel="noopener">Rendered</a></li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Mon · 8:30 AM CT</span>
+            <span class="dd-nl-name">Bench to Brain</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Tue · 8:30 AM CT</span>
+            <span class="dd-nl-name">Atomic Ambition</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Wed · 8:00 AM CT</span>
+            <span class="dd-nl-name">Signal Over Noise</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/science-tales-7427433291634540546/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Fri · 9:00 AM CT</span>
+            <span class="dd-nl-name">Science Tales</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/rendered-7434333824727060480/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Sat · 10:30 AM CT</span>
+            <span class="dd-nl-name">Rendered</span>
+          </a>
+        </li>
       </ul>
     </li>
     <li><a href="adapt.html">Book</a></li>

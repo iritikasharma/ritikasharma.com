@@ -520,27 +520,50 @@
       padding: 9rem 0;
       background: var(--bg-1);
     }
-    .nl-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .nl-intro { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-top: .75rem; }
+    .nl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
     .nl-card {
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
-      padding: 2rem; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      padding: 1.75rem 2rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color .3s, transform .25s, box-shadow .25s;
       position: relative; overflow: hidden;
     }
-    .nl-card:hover { border-color: rgba(10,102,194,0.4); transform: translateY(-4px); }
     .nl-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-      background: #0a66c2; transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: #0a66c2; transition: width .3s;
     }
-    .nl-card:hover::before { transform: scaleX(1); }
-    .nl-li-icon { margin-bottom: 1.25rem; }
-    .nl-li-icon svg { width: 28px; height: 28px; }
+    .nl-card:hover { border-color: rgba(10,102,194,.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+    .nl-card:hover::before { width: 5px; }
+    .nl-card-top { display: flex; align-items: center; justify-content: space-between; }
+    .nl-day { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .nl-li-icon svg { width: 20px; height: 20px; opacity: .55; transition: opacity .2s; }
+    .nl-card:hover .nl-li-icon svg { opacity: 1; }
     .nl-name {
-      font-family: var(--ff-head); font-size: 1.1rem; color: var(--text);
-      margin-bottom: 0.5rem; font-weight: 500;
+      font-family: var(--ff-head); font-size: 1.2rem; font-weight: 500;
+      color: var(--text); line-height: 1.2;
     }
-    .nl-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
-    .nl-stats { display: flex; gap: 1.25rem; font-size: 0.75rem; color: var(--muted); padding-top: 1rem; border-top: 1px solid var(--border); }
-    .nl-stat strong { color: var(--text); }
+    .nl-desc { font-size: .875rem; color: var(--muted); line-height: 1.8; flex: 1; }
+    .nl-topics { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .nl-topic {
+      font-size: .6rem; letter-spacing: .08em; text-transform: uppercase;
+      padding: .22rem .65rem; background: var(--glass); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--muted);
+    }
+    .nl-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid var(--border);
+    }
+    .nl-subs { font-size: .75rem; color: var(--muted); }
+    .nl-subs strong { color: var(--gold); font-size: .85rem; }
+    .nl-sub-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .38rem 1rem; background: #0a66c2; color: #fff;
+      font-family: var(--ff-body); font-size: .68rem; letter-spacing: .08em;
+      text-transform: uppercase; font-weight: 600; border-radius: 2px;
+      text-decoration: none; transition: background .2s; cursor: none;
+    }
+    .nl-sub-btn:hover { background: #0856a4; }
+
 
     /* ── Shop ────────────────────────────────────────── */
     #shop {
@@ -766,9 +789,10 @@
   
     /* ── Nav Dropdown ───────────────────────────── */
     .nav-dropdown { position: relative; }
-    .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .35rem; }
-    .chev { width: 10px; height: 10px; transition: transform .25s; opacity: .45; flex-shrink: 0; }
-    .nav-dropdown:hover .chev { transform: rotate(180deg); opacity: 1; }
+    .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .3rem; line-height: 1; }
+    .chev { width: 9px; height: 9px; margin-top: 1px; transition: transform .22s; opacity: .4; flex-shrink: 0; }
+    .nav-dropdown:hover > a .chev,
+    .nav-dropdown:focus-within > a .chev { transform: rotate(180deg); opacity: .85; }
     .nav-dropdown-menu {
       position: absolute; top: calc(100% + 1rem); left: 50%;
       transform: translateX(-50%) translateY(-8px);
@@ -819,11 +843,36 @@
       <ul class="nav-dropdown-menu">
         <li><a href="writing.html">All Writing</a></li>
         <li><hr class="dd-sep"></li>
-        <li><span class="dd-sched">Mon · 8:30 AM CT</span><a href="bench-to-brain.html">Bench to Brain</a></li>
-        <li><span class="dd-sched">Tue · 8:30 AM CT</span><a href="atomic-ambition.html">Atomic Ambition</a></li>
-        <li><span class="dd-sched">Wed · 8:00 AM CT</span><a href="signal-over-noise.html">Signal Over Noise</a></li>
-        <li><span class="dd-sched">Fri · 9:00 AM CT</span><a href="science-tales.html">Science Tales</a></li>
-        <li><span class="dd-sched">Sat · 10:30 AM CT</span><a href="rendered.html">Rendered</a></li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Mon · 8:30 AM CT</span>
+            <span class="dd-nl-name">Bench to Brain</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Tue · 8:30 AM CT</span>
+            <span class="dd-nl-name">Atomic Ambition</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Wed · 8:00 AM CT</span>
+            <span class="dd-nl-name">Signal Over Noise</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/science-tales-7427433291634540546/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Fri · 9:00 AM CT</span>
+            <span class="dd-nl-name">Science Tales</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/newsletters/rendered-7434333824727060480/" target="_blank" rel="noopener" class="dd-nl-link">
+            <span class="dd-sched">Sat · 10:30 AM CT</span>
+            <span class="dd-nl-name">Rendered</span>
+          </a>
+        </li>
       </ul>
     </li>
     <li><a href="adapt.html">Book</a></li>
@@ -1349,72 +1398,95 @@
     <div class="section-header">
       <div class="section-label reveal">LinkedIn Newsletters</div>
       <h2 class="section-title reveal">Weekly <em>dispatches</em></h2>
+      <p class="nl-intro reveal">Five newsletters. Five lenses on science, ambition, and the future. Delivered to your LinkedIn feed — pick the ones that match your obsessions.</p>
     </div>
     <div class="nl-grid">
-
-      <a href="bench-to-brain.html" class="nl-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="nl-li-icon">
-          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <div class="nl-card reveal">
+        <div class="nl-card-top">
+          <span class="nl-day">Mon · 8:30 AM CT</span>
+          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
         </div>
         <div class="nl-name">Bench to Brain</div>
-        <p class="nl-desc">Research insights translated for curious minds outside the lab. Science that's actually interesting, without the jargon.</p>
-        <div class="nl-stats">
-          <span><span data-nl="bench-to-brain">305</span> subscribers</span>
-          <span style="color:#0a66c2;">Read more →</span>
+        <p class="nl-desc">Real science, no jargon. Every Monday, one breakthrough from the frontier of research — what it means, why it matters, and what the abstract didn't tell you.</p>
+        <div class="nl-topics">
+          <span class="nl-topic">New Papers</span>
+          <span class="nl-topic">Lab Life</span>
+          <span class="nl-topic">Science Explainers</span>
         </div>
-      </a>
-
-      <a href="signal-over-noise.html" class="nl-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="nl-li-icon">
-          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <div class="nl-footer">
+          <span class="nl-subs"><strong><span data-nl="bench-to-brain">—</span></strong> subscribers</span>
+          <a href="https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
         </div>
-        <div class="nl-name">Signal Over Noise</div>
-        <p class="nl-desc">Cutting through the flood of research news to find what actually matters — for scientists and curious non-experts alike.</p>
-        <div class="nl-stats">
-          <span><span data-nl="signal-over-noise">—</span> subscribers</span>
-          <span style="color:#0a66c2;">Read more →</span>
-        </div>
-      </a>
-
-      <a href="science-tales.html" class="nl-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="nl-li-icon">
-          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </div>
-        <div class="nl-name">Science Tales</div>
-        <p class="nl-desc">Stories from the lab — the experiments, the unexpected results, and the human moments behind the research.</p>
-        <div class="nl-stats">
-          <span><span data-nl="science-tales">—</span> subscribers</span>
-          <span style="color:#0a66c2;">Read more →</span>
-        </div>
-      </a>
-
-      <a href="rendered.html" class="nl-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="nl-li-icon">
-          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </div>
-        <div class="nl-name">Rendered</div>
-        <p class="nl-desc">Science made visible. On the art of communicating research through visuals, design, and the craft of science illustration.</p>
-        <div class="nl-stats">
-          <span><span data-nl="rendered">—</span> subscribers</span>
-          <span style="color:#0a66c2;">Read more →</span>
-        </div>
-      </a>
-
-      <a href="atomic-ambition.html" class="nl-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="nl-li-icon">
-          <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </div>
+      <div class="nl-card reveal">
+        <div class="nl-card-top">
+          <span class="nl-day">Tue · 8:30 AM CT</span>
+          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
         </div>
         <div class="nl-name">Atomic Ambition</div>
-        <p class="nl-desc">On building a career in science — navigating academia, chasing curiosity, and finding your way in a field that rewards persistence.</p>
-        <div class="nl-stats">
-          <span><span data-nl="atomic-ambition">—</span> subscribers</span>
-          <span style="color:#0a66c2;">Read more →</span>
+        <p class="nl-desc">The rules of building a career in science just changed. Every Tuesday — how to position yourself at the intersection of AI, biotech, and ambition, and build work the algorithms can't replace.</p>
+        <div class="nl-topics">
+          <span class="nl-topic">AI & Industry</span>
+          <span class="nl-topic">Career Strategy</span>
+          <span class="nl-topic">Biotech Trends</span>
         </div>
-      </a>
+        <div class="nl-footer">
+          <span class="nl-subs"><strong><span data-nl="atomic-ambition">—</span></strong> subscribers</span>
+          <a href="https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
+        </div>
+      </div>
+      <div class="nl-card reveal">
+        <div class="nl-card-top">
+          <span class="nl-day">Wed · 8:00 AM CT</span>
+          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+        </div>
+        <div class="nl-name">Signal Over Noise</div>
+        <p class="nl-desc">The smartest people you know are drowning in information. Every Wednesday, the frameworks, systems, and ideas that cut through the flood — so you can think better and move faster.</p>
+        <div class="nl-topics">
+          <span class="nl-topic">Focus Systems</span>
+          <span class="nl-topic">Mental Models</span>
+          <span class="nl-topic">Productivity</span>
+        </div>
+        <div class="nl-footer">
+          <span class="nl-subs"><strong><span data-nl="signal-over-noise">—</span></strong> subscribers</span>
+          <a href="https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
+        </div>
+      </div>
+      <div class="nl-card reveal">
+        <div class="nl-card-top">
+          <span class="nl-day">Fri · 9:00 AM CT</span>
+          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+        </div>
+        <div class="nl-name">Science Tales</div>
+        <p class="nl-desc">Science's greatest discoveries are buried under bad writing. Every Friday, a story from the lab — the accidents, the arguments, the 3 AM moments when everything clicked.</p>
+        <div class="nl-topics">
+          <span class="nl-topic">Discovery Stories</span>
+          <span class="nl-topic">Lab Culture</span>
+          <span class="nl-topic">Science History</span>
+        </div>
+        <div class="nl-footer">
+          <span class="nl-subs"><strong><span data-nl="science-tales">—</span></strong> subscribers</span>
+          <a href="https://www.linkedin.com/newsletters/science-tales-7427433291634540546/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
+        </div>
+      </div>
+      <div class="nl-card reveal">
+        <div class="nl-card-top">
+          <span class="nl-day">Sat · 10:30 AM CT</span>
+          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+        </div>
+        <div class="nl-name">Rendered</div>
+        <p class="nl-desc">Your data is extraordinary. Your figures are not. Every Saturday, one lesson in the craft of science communication — how to make research visible in ways that actually stop people scrolling.</p>
+        <div class="nl-topics">
+          <span class="nl-topic">Visual Design</span>
+          <span class="nl-topic">Science Illustration</span>
+          <span class="nl-topic">Figures & Posters</span>
+        </div>
+        <div class="nl-footer">
+          <span class="nl-subs"><strong><span data-nl="rendered">—</span></strong> subscribers</span>
+          <a href="https://www.linkedin.com/newsletters/rendered-7434333824727060480/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
+        </div>
+      </div>
 
-    </div>
-    <div style="margin-top:2.5rem; text-align:center;" class="reveal">
-      <a href="https://www.linkedin.com/in/iritikasharma1/" class="btn-outline" target="_blank" rel="noopener">Follow on LinkedIn</a>
     </div>
   </div>
 </section>
