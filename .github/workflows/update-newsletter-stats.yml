@@ -65,7 +65,7 @@ jobs:
           if git diff --quiet; then
             echo "No changes — subscriber counts are already up to date."
           else
-            git add bench-to-brain.html signal-over-noise.html science-tales.html rendered.html atomic-ambition.html index.html
+            git add index.html
             git commit -m "chore: update newsletter subscriber counts [automated $(date +%Y-%m-%d)]"
             git push
             echo "Counts updated and deployed."

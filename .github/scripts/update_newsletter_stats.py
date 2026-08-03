@@ -20,31 +20,31 @@ NEWSLETTERS = [
     {
         "slug": "bench-to-brain",
         "url": "https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/",
-        "files": ["bench-to-brain.html", "index.html"],
+        "files": ["index.html"],
         "env_var": "COUNT_BENCH_TO_BRAIN",
     },
     {
         "slug": "signal-over-noise",
         "url": "https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/",
-        "files": ["signal-over-noise.html", "index.html"],
+        "files": ["index.html"],
         "env_var": "COUNT_SIGNAL_OVER_NOISE",
     },
     {
         "slug": "science-tales",
         "url": "https://www.linkedin.com/newsletters/science-tales-7427433291634540546/",
-        "files": ["science-tales.html", "index.html"],
+        "files": ["index.html"],
         "env_var": "COUNT_SCIENCE_TALES",
     },
     {
         "slug": "rendered",
         "url": "https://www.linkedin.com/newsletters/rendered-7434333824727060480/",
-        "files": ["rendered.html", "index.html"],
+        "files": ["index.html"],
         "env_var": "COUNT_RENDERED",
     },
     {
         "slug": "atomic-ambition",
         "url": "https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/",
-        "files": ["atomic-ambition.html", "index.html"],
+        "files": ["index.html"],
         "env_var": "COUNT_ATOMIC_AMBITION",
     },
 ]
