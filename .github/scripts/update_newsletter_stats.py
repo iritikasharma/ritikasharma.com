@@ -98,24 +98,50 @@ def fetch_with_playwright(url: str, li_at: str) -> str | None:
     print("  Trying Playwright (headless Chrome)…")
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            browser = p.chromium.launch(
+                headless=True,
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-sandbox",
+                    "--disable-dev-shm-usage",
+                ],
+            )
             ctx = browser.new_context(
                 user_agent=HEADERS["User-Agent"],
                 locale="en-US",
                 viewport={"width": 1280, "height": 800},
+                extra_http_headers={
+                    "Accept-Language": "en-US,en;q=0.9",
+                    "Accept": "text/html,application/xhtml+xml,application/xhtml;q=0.9,*/*;q=0.8",
+                },
             )
-            ctx.add_cookies([{
-                "name": "li_at",
-                "value": li_at,
-                "domain": ".linkedin.com",
-                "path": "/",
-                "httpOnly": True,
-                "secure": True,
-            }])
+            # Mask automation fingerprint
+            ctx.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            ctx.add_cookies([
+                {
+                    "name": "li_at",
+                    "value": li_at,
+                    "domain": ".linkedin.com",
+                    "path": "/",
+                    "httpOnly": True,
+                    "secure": True,
+                },
+                {
+                    "name": "lang",
+                    "value": "v=2&lang=en-us",
+                    "domain": ".linkedin.com",
+                    "path": "/",
+                },
+            ])
             page = ctx.new_page()
             page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+            # Check we're not on a login/redirect loop page
+            if "linkedin.com/login" in page.url or "linkedin.com/authwall" in page.url:
+                print(f"  Redirected to login — li_at cookie is expired or invalid", file=sys.stderr)
+                browser.close()
+                return None
             # Give JS a moment to hydrate subscriber count
-            page.wait_for_timeout(3_000)
+            page.wait_for_timeout(4_000)
             html = page.content()
             browser.close()
         return extract_count_from_html(html)
