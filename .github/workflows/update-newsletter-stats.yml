@@ -2,28 +2,27 @@ name: Update Newsletter Subscriber Counts
 
 on:
   schedule:
-    # 6:45 AM UTC on the 1st of every month (runs after Scholar stats at 6:23)
-    - cron: '45 6 1 * *'
+    - cron: '0 9 1 * *'   # 9:00 AM UTC on the 1st of every month
   workflow_dispatch:
     inputs:
       bench_to_brain:
-        description: 'Bench to Brain subscribers (leave blank to auto-scrape)'
+        description: 'Bench to Brain (leave blank to use LinkedIn API)'
         required: false
         default: ''
       atomic_ambition:
-        description: 'Atomic Ambition subscribers'
+        description: 'Atomic Ambition'
         required: false
         default: ''
       signal_over_noise:
-        description: 'Signal Over Noise subscribers'
+        description: 'Signal Over Noise'
         required: false
         default: ''
       science_tales:
-        description: 'Science Tales subscribers'
+        description: 'Science Tales'
         required: false
         default: ''
       rendered:
-        description: 'Rendered subscribers'
+        description: 'Rendered'
         required: false
         default: ''
 
@@ -32,39 +31,24 @@ permissions:
 
 jobs:
   update-newsletters:
-    # Runs on YOUR Mac (self-hosted runner) so LinkedIn doesn't block the IP.
-    # Setup: github.com/iritikasharma/ritikasharma.com/settings/actions/runners/new
-    runs-on: [self-hosted, macos]
+    runs-on: ubuntu-latest   # LinkedIn API works from any IP — no self-hosted runner needed
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Python dependencies
-        run: |
-          python3 -m pip install --quiet --upgrade pip
-          python3 -m pip install --quiet playwright requests
-          python3 -m playwright install chromium
-
       - name: Fetch subscriber counts and update HTML
         env:
-          # li_at is read from ~/.config/ritikasharma/linkedin_li_at on your Mac.
-          # GitHub Secret is kept as fallback only.
-          COUNT_BENCH_TO_BRAIN: ${{ github.event.inputs.bench_to_brain }}
-          COUNT_ATOMIC_AMBITION: ${{ github.event.inputs.atomic_ambition }}
+          LINKEDIN_ACCESS_TOKEN:  ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_CLIENT_ID:     ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
+          COUNT_BENCH_TO_BRAIN:   ${{ github.event.inputs.bench_to_brain }}
+          COUNT_ATOMIC_AMBITION:  ${{ github.event.inputs.atomic_ambition }}
           COUNT_SIGNAL_OVER_NOISE: ${{ github.event.inputs.signal_over_noise }}
-          COUNT_SCIENCE_TALES: ${{ github.event.inputs.science_tales }}
-          COUNT_RENDERED: ${{ github.event.inputs.rendered }}
-        run: |
-          LI_AT_FILE="$HOME/.config/ritikasharma/linkedin_li_at"
-          if [ -f "$LI_AT_FILE" ] && [ -s "$LI_AT_FILE" ]; then
-            export LINKEDIN_LI_AT="$(cat "$LI_AT_FILE")"
-            echo "Using li_at from local file."
-          else
-            export LINKEDIN_LI_AT="${{ secrets.LINKEDIN_LI_AT }}"
-            echo "Using li_at from GitHub Secret."
-          fi
-          python3 .github/scripts/update_newsletter_stats.py
+          COUNT_SCIENCE_TALES:    ${{ github.event.inputs.science_tales }}
+          COUNT_RENDERED:         ${{ github.event.inputs.rendered }}
+        run: python3 .github/scripts/update_newsletter_stats.py
 
       - name: Commit and push if counts changed
         run: |
