@@ -46,12 +46,23 @@
       font-weight: 400;
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
     }
+    @media (hover: hover) { body { cursor: none; } }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
+
+    /* ── Skip link ───────────────────────────────────── */
+    .skip-link {
+      position: fixed; top: 1rem; left: 1rem; z-index: 9999;
+      padding: 0.6rem 1.2rem; background: var(--gold); color: var(--bg);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none; border-radius: 2px;
+      opacity: 0; pointer-events: none; transform: translateY(-4px);
+      transition: opacity 150ms, transform 150ms;
+    }
+    .skip-link:focus { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
     /* ── Custom Cursor ───────────────────────────────── */
     #cursor-dot {
@@ -94,18 +105,26 @@
     .nav-links a {
       color: var(--muted); text-decoration: none; font-size: 0.8rem;
       letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
-      transition: color 0.2s; cursor: none;
+      transition: color 150ms cubic-bezier(0.4,0,0.2,1); cursor: none;
     }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
     .nav-cta {
       padding: 0.5rem 1.4rem; border: 1px solid var(--gold);
       color: var(--gold); background: transparent; border-radius: 2px;
       font-family: var(--ff-body); font-size: 0.75rem; letter-spacing: 0.12em;
-      text-transform: uppercase; cursor: none; transition: all 0.2s;
+      text-transform: uppercase; cursor: none;
+      transition: background 200ms cubic-bezier(0.4,0,0.2,1), color 200ms cubic-bezier(0.4,0,0.2,1);
     }
     .nav-cta:hover { background: var(--gold); color: var(--bg); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
-    .nav-hamburger span { width: 24px; height: 1px; background: var(--text); transition: all 0.3s; }
+    .nav-cta:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; min-width: 44px; min-height: 44px;
+      align-items: center; justify-content: center;
+      background: none; border: none; padding: 10px; margin: -10px;
+    }
+    .nav-hamburger span { width: 24px; height: 1px; background: var(--text); transition: transform 300ms cubic-bezier(0.4,0,0.2,1), opacity 200ms; display: block; }
 
     /* ── Sections shared ─────────────────────────────── */
     section { position: relative; overflow: hidden; }
@@ -124,7 +143,7 @@
       margin-bottom: 1.5rem;
     }
     .section-title em { font-style: italic; color: var(--gold); }
-    .reveal { opacity: 0; transform: translateY(40px); }
+    .reveal { opacity: 0; transform: translateY(24px); }
 
     /* ── Hero ────────────────────────────────────────── */
     #hero {
@@ -165,17 +184,22 @@
       font-family: var(--ff-body); font-size: 0.8rem; letter-spacing: 0.12em;
       text-transform: uppercase; font-weight: 600; border: none;
       cursor: none; text-decoration: none; display: inline-block;
-      transition: all 0.25s; border-radius: 2px;
+      transition: background 220ms cubic-bezier(0.4,0,0.2,1), transform 300ms cubic-bezier(0.16,1,0.3,1), box-shadow 300ms cubic-bezier(0.16,1,0.3,1);
+      border-radius: 2px; min-height: 44px; display: inline-flex; align-items: center;
     }
     .btn-primary:hover { background: #e8c84a; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(212,175,55,0.3); }
+    .btn-primary:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
     .btn-outline {
       padding: 0.85rem 2.2rem; background: transparent;
       border: 1px solid var(--border); color: var(--text);
       font-family: var(--ff-body); font-size: 0.8rem; letter-spacing: 0.12em;
       text-transform: uppercase; font-weight: 500; cursor: none; text-decoration: none;
-      display: inline-block; transition: all 0.25s; border-radius: 2px;
+      display: inline-flex; align-items: center;
+      transition: border-color 220ms cubic-bezier(0.4,0,0.2,1), background 220ms cubic-bezier(0.4,0,0.2,1);
+      border-radius: 2px; min-height: 44px;
     }
     .btn-outline:hover { border-color: var(--text); background: var(--glass); }
+    .btn-outline:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
     .scroll-indicator {
       position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -290,10 +314,11 @@
     .card-arrow {
       width: 32px; height: 32px; border-radius: 50%;
       border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s; flex-shrink: 0;
+      transition: background 200ms cubic-bezier(0.4,0,0.2,1), border-color 200ms cubic-bezier(0.4,0,0.2,1);
+      flex-shrink: 0;
     }
     .bento-card:hover .card-arrow { background: var(--gold); border-color: var(--gold); }
-    .card-arrow svg { width: 14px; height: 14px; stroke: var(--muted); transition: stroke 0.2s; }
+    .card-arrow svg { width: 14px; height: 14px; stroke: var(--muted); transition: stroke 200ms cubic-bezier(0.4,0,0.2,1); }
     .bento-card:hover .card-arrow svg { stroke: var(--bg); }
     .card-icon {
       width: 48px; height: 48px; border-radius: 8px;
@@ -363,23 +388,28 @@
     }
     .gallery-overlay {
       position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 50%);
-      opacity: 0; transition: opacity 0.35s; display: flex; align-items: flex-end; padding: 1.5rem;
+      opacity: 0; transition: opacity 350ms cubic-bezier(0.4,0,0.2,1); display: flex; align-items: flex-end; padding: 1.5rem;
     }
     .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-info { transform: translateY(10px); transition: transform 0.35s; }
+    .gallery-info { transform: translateY(10px); transition: transform 350ms cubic-bezier(0.16,1,0.3,1); }
     .gallery-item:hover .gallery-info { transform: translateY(0); }
     .gallery-item-title { font-family: var(--ff-head); font-size: 1rem; color: var(--text); }
     .gallery-item-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
     .gallery-zoom {
       position: absolute; top: 1rem; right: 1rem;
-      width: 36px; height: 36px; border-radius: 50%;
+      width: 44px; height: 44px; border-radius: 50%;
       background: rgba(10,10,10,0.7); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      opacity: 0; transition: opacity 300ms cubic-bezier(0.4,0,0.2,1), transform 300ms cubic-bezier(0.16,1,0.3,1);
       transform: scale(0.8);
     }
     .gallery-item:hover .gallery-zoom { opacity: 1; transform: scale(1); }
     .gallery-zoom svg { width: 14px; height: 14px; stroke: var(--text); }
+    @media (hover: none) {
+      .gallery-overlay { opacity: 1; transition: none; }
+      .gallery-info { transform: translateY(0); }
+      .gallery-zoom { opacity: 1; transform: scale(1); }
+    }
     /* placeholder color blocks for demo */
     .gp-1 { background: linear-gradient(135deg, #0d1b2a 0%, #1e3a5f 50%, #0a0a0a 100%); }
     .gp-2 { background: linear-gradient(135deg, #1a0a00 0%, #4a2000 50%, #0a0a0a 100%); }
@@ -398,16 +428,18 @@
     }
     .speaking-card {
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
-      padding: 2rem; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      padding: 2rem; cursor: none;
+      transition: border-color 300ms cubic-bezier(0.4,0,0.2,1), transform 400ms cubic-bezier(0.16,1,0.3,1);
       position: relative; overflow: hidden;
     }
     .speaking-card::after {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, var(--gold), var(--blue));
-      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+      transform: scaleX(0); transform-origin: left; transition: transform 400ms cubic-bezier(0.16,1,0.3,1);
     }
     .speaking-card:hover::after { transform: scaleX(1); }
     .speaking-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-4px); }
+    @media (hover: none) { .speaking-card:active { border-color: rgba(212,175,55,0.2); transform: translateY(-2px); } }
     .speaking-year { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.15em; font-weight: 600; margin-bottom: 1rem; }
     .speaking-event { font-family: var(--ff-head); font-size: 1.2rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.3; }
     .speaking-venue { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
@@ -426,8 +458,8 @@
     .yt-channel-badge {
       display: flex; align-items: center; gap: 0.75rem;
       padding: 0.6rem 1.25rem; border: 1px solid var(--border);
-      border-radius: 24px; transition: border-color 0.2s;
-      text-decoration: none; cursor: none;
+      border-radius: 24px; transition: border-color 200ms cubic-bezier(0.4,0,0.2,1);
+      text-decoration: none; cursor: none; min-height: 44px;
     }
     .yt-channel-badge:hover { border-color: #ff4444; }
     .yt-icon { width: 20px; height: 20px; }
@@ -438,10 +470,12 @@
     }
     .yt-card {
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
-      overflow: hidden; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      overflow: hidden; cursor: none;
+      transition: border-color 300ms cubic-bezier(0.4,0,0.2,1), transform 400ms cubic-bezier(0.16,1,0.3,1);
       text-decoration: none;
     }
     .yt-card:hover { border-color: rgba(255,68,68,0.3); transform: translateY(-4px); }
+    @media (hover: none) { .yt-card:active { border-color: rgba(255,68,68,0.3); transform: translateY(-2px); } }
     .yt-thumb {
       aspect-ratio: 16/9; background: var(--bg); position: relative;
       display: flex; align-items: center; justify-content: center; overflow: hidden;
@@ -449,7 +483,7 @@
     .yt-play {
       width: 52px; height: 52px; border-radius: 50%;
       background: rgba(255,68,68,0.9); display: flex; align-items: center; justify-content: center;
-      transition: transform 0.2s, background 0.2s; z-index: 1;
+      transition: transform 300ms cubic-bezier(0.16,1,0.3,1), background 200ms cubic-bezier(0.4,0,0.2,1); z-index: 1;
     }
     .yt-card:hover .yt-play { transform: scale(1.1); background: #ff4444; }
     .yt-play svg { width: 20px; height: 20px; fill: white; margin-left: 3px; }
@@ -478,7 +512,7 @@
       grid-column: span 2;
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
-      padding: 3rem; cursor: none; transition: border-color 0.3s;
+      padding: 3rem; cursor: none; transition: border-color 300ms cubic-bezier(0.4,0,0.2,1);
       text-decoration: none;
     }
     .blog-featured:hover { border-color: rgba(212,175,55,0.25); }
@@ -500,10 +534,12 @@
     .blog-byline-sep { width: 1px; height: 12px; background: var(--border); }
     .blog-card {
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
-      padding: 2rem; cursor: none; transition: border-color 0.3s, transform 0.2s;
+      padding: 2rem; cursor: none;
+      transition: border-color 300ms cubic-bezier(0.4,0,0.2,1), transform 400ms cubic-bezier(0.16,1,0.3,1);
       text-decoration: none; display: block;
     }
     .blog-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-4px); }
+    @media (hover: none) { .blog-card:active { border-color: rgba(212,175,55,0.2); transform: translateY(-2px); } }
     .blog-card-img { aspect-ratio: 16/9; border-radius: 4px; margin-bottom: 1.25rem; }
     .bc1 { background: linear-gradient(135deg, #1a0a00, #3a1800); }
     .bc2 { background: linear-gradient(135deg, #0a1a0a, #0f2a10); }
@@ -525,17 +561,19 @@
     .nl-card {
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
       padding: 1.75rem 2rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;
-      transition: border-color .3s, transform .25s, box-shadow .25s;
+      transition: border-color 300ms cubic-bezier(0.4,0,0.2,1), transform 400ms cubic-bezier(0.16,1,0.3,1), box-shadow 400ms cubic-bezier(0.16,1,0.3,1);
       position: relative; overflow: hidden;
     }
     .nl-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-      background: #0a66c2; transition: width .3s;
+      content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+      background: #0a66c2; transform: scaleX(0.6); transform-origin: left;
+      transition: transform 400ms cubic-bezier(0.16,1,0.3,1);
     }
     .nl-card:hover { border-color: rgba(10,102,194,.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.25); }
-    .nl-card:hover::before { width: 5px; }
+    .nl-card:hover::before { transform: scaleX(1); }
+    @media (hover: none) { .nl-card:active { border-color: rgba(10,102,194,.35); transform: translateY(-2px); } }
     .nl-card-top { display: flex; align-items: center; justify-content: space-between; }
-    .nl-day { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .nl-day { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
     .nl-li-icon svg { width: 20px; height: 20px; opacity: .55; transition: opacity .2s; }
     .nl-card:hover .nl-li-icon svg { opacity: 1; }
     .nl-name {
@@ -557,12 +595,116 @@
     .nl-subs strong { color: var(--gold); font-size: .85rem; }
     .nl-sub-btn {
       display: inline-flex; align-items: center; gap: .4rem;
-      padding: .38rem 1rem; background: #0a66c2; color: #fff;
+      padding: .6rem 1rem; background: #0a66c2; color: #fff;
       font-family: var(--ff-body); font-size: .68rem; letter-spacing: .08em;
       text-transform: uppercase; font-weight: 600; border-radius: 2px;
-      text-decoration: none; transition: background .2s; cursor: none;
+      text-decoration: none; transition: background 200ms cubic-bezier(0.4,0,0.2,1);
+      cursor: none; min-height: 44px;
     }
     .nl-sub-btn:hover { background: #0856a4; }
+
+    /* ── Newsletter Circular Carousel ─────────────────── */
+    .nl-carousel {
+      position: relative; width: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      outline: none; padding-top: 3.5rem;
+    }
+    .nl-carousel-track {
+      position: relative; height: 300px; width: 100%; overflow: visible;
+    }
+    .nl-cc-card {
+      position: absolute; left: 50%; top: 50%;
+      width: 200px;
+      will-change: transform, opacity;
+      cursor: none;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 1.25rem 1.4rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      text-align: left;
+      transition: box-shadow 300ms cubic-bezier(0.4,0,0.2,1), border-color 300ms;
+      backface-visibility: hidden;
+      pointer-events: auto;
+    }
+    .nl-cc-card.is-active {
+      box-shadow: 0 20px 60px -12px rgba(0,0,0,0.4);
+      border-color: rgba(10,102,194,0.35);
+    }
+    .nl-cc-day {
+      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+    .nl-cc-name {
+      font-family: var(--ff-head);
+      font-size: 0.92rem; font-weight: 500;
+      color: var(--text); line-height: 1.25;
+      margin-top: 0.6rem;
+      transition: color 300ms;
+    }
+    .nl-cc-card:not(.is-active) .nl-cc-name { color: var(--muted); }
+    .nl-cc-desc {
+      font-size: 0.67rem; color: var(--muted);
+      line-height: 1.55; margin-top: 0.4rem;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .nl-cc-li {
+      width: 14px; height: 14px; opacity: 0.4; margin-top: 0.6rem; flex-shrink: 0;
+    }
+    .nl-cc-card.is-active .nl-cc-li { opacity: 0.8; }
+    /* Detail panel */
+    .nl-carousel-detail {
+      width: 100%; max-width: 520px;
+      padding: 2.25rem 0 1.25rem;
+      min-height: 200px;
+      text-align: center;
+    }
+    .nl-detail-anim {
+      animation: nlDetailFade 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes nlDetailFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .nl-detail-name {
+      font-family: var(--ff-head); font-size: 1.5rem; font-weight: 500;
+      color: var(--text); margin-bottom: 0.75rem;
+    }
+    .nl-detail-desc {
+      font-size: 0.95rem; color: var(--muted); line-height: 1.8;
+      margin-bottom: 1.25rem; max-width: 460px; margin-left: auto; margin-right: auto;
+    }
+    .nl-detail-footer {
+      display: flex; align-items: center; justify-content: center; gap: 1.25rem;
+      margin-top: 1.25rem; flex-wrap: wrap;
+    }
+    /* Controls */
+    .nl-carousel-controls {
+      display: flex; align-items: center; gap: 1rem; padding-bottom: 0.25rem;
+    }
+    .nl-ctrl-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--glass); color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 200ms cubic-bezier(0.4,0,0.2,1), color 200ms, border-color 200ms;
+    }
+    .nl-ctrl-btn:hover { background: var(--bg-2); color: var(--text); border-color: rgba(10,102,194,0.5); }
+    .nl-ctrl-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .nl-dots-row { display: flex; align-items: center; gap: 6px; }
+    .nl-dot {
+      height: 6px; border-radius: 3px; border: none; padding: 0; cursor: pointer;
+      background: var(--border); width: 6px;
+      transition: width 300ms cubic-bezier(0.16,1,0.3,1), background 200ms;
+    }
+    .nl-dot.is-active { width: 24px; background: #0a66c2; }
+    /* Subscriber data holder (hidden, updated by CI) */
+    .nl-subs-store { display: none; }
+    @media (max-width: 900px) {
+      .nl-cc-card { cursor: auto; }
+      .nl-ctrl-btn { cursor: pointer; }
+    }
 
 
     /* ── Shop ────────────────────────────────────────── */
@@ -669,26 +811,37 @@
     .connect-desc { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; }
     .connect-email {
       display: block; font-family: var(--ff-head); font-size: 1.6rem; color: var(--gold);
-      text-decoration: none; margin-bottom: 2.5rem; transition: color 0.2s;
+      text-decoration: none; margin-bottom: 2.5rem;
+      transition: color 200ms cubic-bezier(0.4,0,0.2,1);
       cursor: none; font-style: italic;
     }
     .connect-email:hover { color: #e8c84a; }
     .social-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .social-link {
       display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.6rem 1.1rem; border: 1px solid var(--border); border-radius: 24px;
+      padding: 0.7rem 1.1rem; border: 1px solid var(--border); border-radius: 24px;
       text-decoration: none; color: var(--muted); font-size: 0.8rem;
-      transition: all 0.2s; cursor: none;
+      transition: border-color 200ms cubic-bezier(0.4,0,0.2,1), color 200ms cubic-bezier(0.4,0,0.2,1);
+      cursor: none; min-height: 44px;
     }
     .social-link:hover { border-color: var(--gold); color: var(--gold); }
+    .social-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
     .social-link svg { width: 16px; height: 16px; }
     .connect-form { display: flex; flex-direction: column; gap: 1rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-label {
+      display: block; font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem;
+    }
     .form-field input, .form-field textarea {
       width: 100%; padding: 0.9rem 1.2rem; background: var(--bg-2);
       border: 1px solid var(--border); color: var(--text);
       font-family: var(--ff-body); font-size: 0.9rem; outline: none;
-      border-radius: 2px; transition: border-color 0.2s;
+      border-radius: 2px; transition: border-color 200ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .form-field input:focus-visible, .form-field textarea:focus-visible {
+      border-color: rgba(212,175,55,0.4);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
     }
     .form-field input:focus, .form-field textarea:focus { border-color: rgba(212,175,55,0.4); }
     .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
@@ -697,10 +850,12 @@
       padding: 1rem 2.5rem; background: var(--gold); color: var(--bg);
       border: none; font-family: var(--ff-body); font-size: 0.8rem;
       letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
-      cursor: none; border-radius: 2px; transition: all 0.2s;
+      cursor: none; border-radius: 2px; min-height: 44px;
+      transition: background 200ms cubic-bezier(0.4,0,0.2,1), transform 300ms cubic-bezier(0.16,1,0.3,1), box-shadow 300ms cubic-bezier(0.16,1,0.3,1);
       align-self: flex-start;
     }
     .form-submit:hover { background: #e8c84a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.25); }
+    .form-submit:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 
     /* ── Footer ──────────────────────────────────────── */
     footer {
@@ -714,8 +869,9 @@
     .footer-logo img { height: 28px; filter: invert(1); opacity: 0.5; }
     .footer-copy { font-size: 0.75rem; color: var(--muted); }
     .footer-nav { display: flex; gap: 1.5rem; }
-    .footer-nav a { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.2s; cursor: none; }
+    .footer-nav a { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 150ms cubic-bezier(0.4,0,0.2,1); cursor: none; }
     .footer-nav a:hover { color: var(--text); }
+    .footer-nav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
 
     /* ── Mobile ──────────────────────────────────────── */
     @media (max-width: 900px) {
@@ -751,9 +907,15 @@
     }
     /* ── Theme Switcher ────────────────────────────────────── */
     .theme-switcher { display:flex; align-items:center; gap:2px; background:var(--glass); border:1px solid var(--border); border-radius:100px; padding:3px; margin-right:.5rem; }
-    .theme-btn { width:28px; height:28px; border-radius:50%; border:none; background:transparent; color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+    .theme-btn {
+      width:44px; height:44px; border-radius:50%; border:none; background:transparent;
+      color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition: background 200ms cubic-bezier(0.4,0,0.2,1), color 200ms cubic-bezier(0.4,0,0.2,1);
+      flex-shrink: 0;
+    }
     .theme-btn:hover { color:var(--text); }
     .theme-btn.active { background:var(--gold); color:var(--bg); }
+    .theme-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
     .theme-btn svg { width:13px; height:13px; pointer-events:none; }
 
     /* ── Light Mode ────────────────────────────────────────── */
@@ -790,7 +952,7 @@
     /* ── Nav Dropdown ───────────────────────────── */
     .nav-dropdown { position: relative; }
     .nav-dropdown-trigger { display: inline-flex !important; align-items: center; gap: .3rem; line-height: 1; }
-    .chev { width: 9px; height: 9px; margin-top: 1px; transition: transform .22s; opacity: .4; flex-shrink: 0; }
+    .chev { width: 9px; height: 9px; margin-top: 1px; transition: transform 220ms cubic-bezier(0.4,0,0.2,1); opacity: .4; flex-shrink: 0; }
     .nav-dropdown:hover > a .chev,
     .nav-dropdown:focus-within > a .chev { transform: rotate(180deg); opacity: .85; }
     .nav-dropdown-menu {
@@ -799,26 +961,45 @@
       background: var(--bg-1); border: 1px solid var(--border);
       border-radius: 6px; min-width: 248px; padding: .5rem 0;
       list-style: none; opacity: 0; pointer-events: none;
-      transition: opacity .22s, transform .22s; z-index: 1000;
-      box-shadow: 0 16px 48px rgba(0,0,0,.55);
+      transition: opacity 220ms cubic-bezier(0.4,0,0.2,1), transform 220ms cubic-bezier(0.16,1,0.3,1);
+      z-index: 1000; box-shadow: 0 16px 48px rgba(0,0,0,.55);
     }
-    .nav-dropdown:hover .nav-dropdown-menu {
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
       opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0);
     }
     .nav-dropdown-menu li a {
       display: block; padding: .45rem 1.25rem;
       font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
       color: var(--muted); text-decoration: none;
-      transition: color .18s, background .18s; cursor: none; white-space: nowrap;
+      transition: color 150ms cubic-bezier(0.4,0,0.2,1), background 150ms cubic-bezier(0.4,0,0.2,1);
+      cursor: none; white-space: nowrap;
     }
     .nav-dropdown-menu li a:hover { color: var(--gold); background: var(--glass); }
+    .dd-nl-link { display: flex !important; flex-direction: column; gap: .1rem; padding: .55rem 1.25rem !important; }
+    .dd-nl-name { font-size: .72rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
     .dd-sched {
       font-size: .6rem; color: var(--gold); opacity: .6;
-      padding: .7rem 1.25rem .1rem; letter-spacing: .07em;
+      padding: 0 !important; letter-spacing: .07em;
       display: block; font-weight: 500;
     }
     .dd-sep { border: none; border-top: 1px solid var(--border); margin: .5rem 0; }
-    @media (max-width: 900px) { .nav-dropdown-menu { display: none; } }
+
+    /* ── Mobile Nav ─────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-dropdown-menu { display: none; }
+      #navbar.nav-open { background: var(--bg) !important; backdrop-filter: none !important; }
+      #navbar.nav-open .nav-links {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        position: fixed; inset: 0; background: var(--bg); z-index: 800;
+        gap: 2rem; padding: 2rem;
+      }
+      #navbar.nav-open .nav-links a { font-size: 1.1rem; letter-spacing: 0.15em; cursor: auto; }
+      #navbar.nav-open .nav-cta { display: flex; margin-top: 1rem; cursor: auto; }
+      .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    }
 </style>
 </head>
 <body>
@@ -826,6 +1007,9 @@
 <!-- Custom Cursor -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
+
+<!-- Skip Link -->
+<a href="#hero" class="skip-link">Skip to content</a>
 
 <!-- Navbar -->
 <nav id="navbar">
@@ -839,7 +1023,7 @@
     <li><a href="sciart.html">Sci-Art</a></li>
     <li><a href="speaking.html">Speaking</a></li>
     <li class="nav-dropdown">
-      <a href="writing.html" class="nav-dropdown-trigger">Writing <svg class="chev" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 5 5 9 1"/></svg></a>
+      <a href="writing.html" class="nav-dropdown-trigger">Writing</a>
       <ul class="nav-dropdown-menu">
         <li><a href="writing.html">All Writing</a></li>
         <li><hr class="dd-sep"></li>
@@ -883,9 +1067,9 @@
     <button class="theme-btn" data-theme="light" aria-label="Light mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
     <button class="theme-btn" data-theme="read" aria-label="Reading mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></button>
   </div>
-  <div class="nav-hamburger" id="hamburger" role="button" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Open navigation" aria-expanded="false">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
 <!-- ══ HERO ══════════════════════════════════════════════ -->
@@ -1065,7 +1249,7 @@
     <!-- Featured Publication -->
     <div class="reveal" style="background:linear-gradient(135deg,rgba(212,175,55,.07) 0%,rgba(212,175,55,.02) 100%);border:1px solid rgba(212,175,55,.3);border-radius:6px;padding:2rem 2.25rem;margin-bottom:2.5rem;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);"></div>
-      <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.75rem;">★ Featured Publication · 2026</div>
+      <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Featured Publication · 2026</div>
       <div style="font-family:var(--ff-head);font-size:1.2rem;color:var(--text);line-height:1.45;margin-bottom:.6rem;">Mechanistic insights into dinitrogen reduction to ammonia in light-controlled nanocrystal:nitrogenase complexes</div>
       <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.25rem;"><em>Accounts of Chemical Research</em> · 2026 · Sharma R. et al.</div>
       <a href="https://doi.org/10.1021/acs.accounts.5c00763" class="btn-primary" style="font-size:.72rem;padding:.6rem 1.5rem;" target="_blank" rel="noopener">Read Paper →</a>
@@ -1074,7 +1258,7 @@
     <div class="pub-list">
 
       <a class="pub-item reveal" href="https://doi.org/10.21769/BioProtoc.5041" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-        <span class="pub-num">01</span>
+        <span class="pub-num">2024</span>
         <div class="pub-body">
           <div class="pub-title">Microscale thermophoresis (MST) as a tool to study binding interactions of oxygen-sensitive biohybrids</div>
           <div class="pub-meta"><em>Bio-protocol</em> · 2024 · Jagilinki B. P., Willis M. A., Mus F., Sharma R. et al.</div>
@@ -1083,7 +1267,7 @@
       </a>
 
       <a class="pub-item reveal" href="https://doi.org/10.1016/j.photochem.2024.115800" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-        <span class="pub-num">02</span>
+        <span class="pub-num">2024</span>
         <div class="pub-body">
           <div class="pub-title">Investigating AgCl-SnO₂ nanocomposite photocatalytic degradation of azo dye, associated reaction pathways, and its antibacterial activity</div>
           <div class="pub-meta"><em>Journal of Photochemistry and Photobiology A: Chemistry</em> · 2024 · Sharma R. et al.</div>
@@ -1092,7 +1276,7 @@
       </a>
 
       <a class="pub-item reveal" href="https://doi.org/10.1016/j.scp.2024.101630" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-        <span class="pub-num">03</span>
+        <span class="pub-num">2024</span>
         <div class="pub-body">
           <div class="pub-title">Advances in metallopolymers: synthesis strategies, catalytic insights, and environmental remediation applications</div>
           <div class="pub-meta"><em>Sustainable Chemistry and Pharmacy</em> · 2024 · Aslam M., Rani A., Sharma R. et al.</div>
@@ -1101,7 +1285,7 @@
       </a>
 
       <a class="pub-item reveal" href="https://doi.org/10.1021/bk-2024-1468.ch009" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-        <span class="pub-num">04</span>
+        <span class="pub-num">2024</span>
         <div class="pub-body">
           <div class="pub-title">Bismuth oxyhalide photocatalysts: pioneering efficiency in hydrogen generation</div>
           <div class="pub-meta"><em>ACS Symposium Series 1468</em> · 2024 · Bhawna, Sharma R. et al.</div>
@@ -1400,91 +1584,35 @@
       <h2 class="section-title reveal">Weekly <em>dispatches</em></h2>
       <p class="nl-intro reveal">Five newsletters. Five lenses on science, ambition, and the future. Delivered to your LinkedIn feed — pick the ones that match your obsessions.</p>
     </div>
-    <div class="nl-grid">
-      <div class="nl-card reveal">
-        <div class="nl-card-top">
-          <span class="nl-day">Mon · 8:30 AM CT</span>
-          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-        </div>
-        <div class="nl-name">Bench to Brain</div>
-        <p class="nl-desc">Real science, no jargon. Every Monday, one breakthrough from the frontier of research — what it means, why it matters, and what the abstract didn't tell you.</p>
-        <div class="nl-topics">
-          <span class="nl-topic">New Papers</span>
-          <span class="nl-topic">Lab Life</span>
-          <span class="nl-topic">Science Explainers</span>
-        </div>
-        <div class="nl-footer">
-          <span class="nl-subs"><strong><span data-nl="bench-to-brain">—</span></strong> subscribers</span>
-          <a href="https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
-        </div>
-      </div>
-      <div class="nl-card reveal">
-        <div class="nl-card-top">
-          <span class="nl-day">Tue · 8:30 AM CT</span>
-          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-        </div>
-        <div class="nl-name">Atomic Ambition</div>
-        <p class="nl-desc">The rules of building a career in science just changed. Every Tuesday — how to position yourself at the intersection of AI, biotech, and ambition, and build work the algorithms can't replace.</p>
-        <div class="nl-topics">
-          <span class="nl-topic">AI & Industry</span>
-          <span class="nl-topic">Career Strategy</span>
-          <span class="nl-topic">Biotech Trends</span>
-        </div>
-        <div class="nl-footer">
-          <span class="nl-subs"><strong><span data-nl="atomic-ambition">—</span></strong> subscribers</span>
-          <a href="https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
-        </div>
-      </div>
-      <div class="nl-card reveal">
-        <div class="nl-card-top">
-          <span class="nl-day">Wed · 8:00 AM CT</span>
-          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-        </div>
-        <div class="nl-name">Signal Over Noise</div>
-        <p class="nl-desc">The smartest people you know are drowning in information. Every Wednesday, the frameworks, systems, and ideas that cut through the flood — so you can think better and move faster.</p>
-        <div class="nl-topics">
-          <span class="nl-topic">Focus Systems</span>
-          <span class="nl-topic">Mental Models</span>
-          <span class="nl-topic">Productivity</span>
-        </div>
-        <div class="nl-footer">
-          <span class="nl-subs"><strong><span data-nl="signal-over-noise">—</span></strong> subscribers</span>
-          <a href="https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
-        </div>
-      </div>
-      <div class="nl-card reveal">
-        <div class="nl-card-top">
-          <span class="nl-day">Fri · 9:00 AM CT</span>
-          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-        </div>
-        <div class="nl-name">Science Tales</div>
-        <p class="nl-desc">Science's greatest discoveries are buried under bad writing. Every Friday, a story from the lab — the accidents, the arguments, the 3 AM moments when everything clicked.</p>
-        <div class="nl-topics">
-          <span class="nl-topic">Discovery Stories</span>
-          <span class="nl-topic">Lab Culture</span>
-          <span class="nl-topic">Science History</span>
-        </div>
-        <div class="nl-footer">
-          <span class="nl-subs"><strong><span data-nl="science-tales">—</span></strong> subscribers</span>
-          <a href="https://www.linkedin.com/newsletters/science-tales-7427433291634540546/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
-        </div>
-      </div>
-      <div class="nl-card reveal">
-        <div class="nl-card-top">
-          <span class="nl-day">Sat · 10:30 AM CT</span>
-          <span class="nl-li-icon"><svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-        </div>
-        <div class="nl-name">Rendered</div>
-        <p class="nl-desc">Your data is extraordinary. Your figures are not. Every Saturday, one lesson in the craft of science communication — how to make research visible in ways that actually stop people scrolling.</p>
-        <div class="nl-topics">
-          <span class="nl-topic">Visual Design</span>
-          <span class="nl-topic">Science Illustration</span>
-          <span class="nl-topic">Figures & Posters</span>
-        </div>
-        <div class="nl-footer">
-          <span class="nl-subs"><strong><span data-nl="rendered">—</span></strong> subscribers</span>
-          <a href="https://www.linkedin.com/newsletters/rendered-7434333824727060480/" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
-        </div>
+    <!-- Subscriber count store: hidden spans updated by CI workflow -->
+    <div class="nl-subs-store" aria-hidden="true">
+      <span data-nl="bench-to-brain">—</span>
+      <span data-nl="atomic-ambition">—</span>
+      <span data-nl="signal-over-noise">—</span>
+      <span data-nl="science-tales">—</span>
+      <span data-nl="rendered">—</span>
+    </div>
+
+    <!-- Circular carousel (driven by JS below) -->
+    <div id="nl-carousel" class="nl-carousel reveal"
+         tabindex="0" role="region"
+         aria-label="Newsletter carousel" aria-roledescription="carousel">
+
+      <!-- Arc track — cards injected by JS -->
+      <div class="nl-carousel-track" id="nl-track"></div>
+
+      <!-- Active newsletter detail -->
+      <div class="nl-carousel-detail" id="nl-detail"></div>
+
+      <!-- Prev / dots / Next -->
+      <div class="nl-carousel-controls">
+        <button class="nl-ctrl-btn" id="nl-prev" aria-label="Previous newsletter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="nl-dots-row" id="nl-dots" role="tablist" aria-label="Select newsletter"></div>
+        <button class="nl-ctrl-btn" id="nl-next" aria-label="Next newsletter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
 
     </div>
@@ -1581,17 +1709,21 @@
       <div class="connect-form reveal">
         <div class="form-row">
           <div class="form-field">
-            <input type="text" placeholder="Your Name" aria-label="Name">
+            <label for="contact-name" class="form-label">Name</label>
+            <input id="contact-name" type="text" placeholder="Your Name" aria-label="Name">
           </div>
           <div class="form-field">
-            <input type="email" placeholder="Your Email" aria-label="Email">
+            <label for="contact-email" class="form-label">Email</label>
+            <input id="contact-email" type="email" placeholder="Your Email" aria-label="Email">
           </div>
         </div>
         <div class="form-field">
-          <input type="text" placeholder="Subject" aria-label="Subject">
+          <label for="contact-subject" class="form-label">Subject</label>
+          <input id="contact-subject" type="text" placeholder="Subject" aria-label="Subject">
         </div>
         <div class="form-field">
-          <textarea placeholder="Your message…" aria-label="Message"></textarea>
+          <label for="contact-message" class="form-label">Message</label>
+          <textarea id="contact-message" placeholder="Your message…" aria-label="Message"></textarea>
         </div>
         <button class="form-submit">Send Message</button>
       </div>
@@ -1640,7 +1772,7 @@ function animRing() {
   ring.style.top  = ry + 'px';
   requestAnimationFrame(animRing);
 }
-animRing();
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { animRing(); }
 
 document.querySelectorAll('a, button, [data-tilt], .bento-card, .gallery-item, .speaking-card, .yt-card, .blog-card, .blog-featured, .nl-card, .pub-item').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
@@ -1651,6 +1783,22 @@ document.querySelectorAll('a, button, [data-tilt], .bento-card, .gallery-item, .
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── Mobile nav toggle ─────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+function toggleNav(force) {
+  const isOpen = force !== undefined ? force : !navbar.classList.contains('nav-open');
+  navbar.classList.toggle('nav-open', isOpen);
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', isOpen);
+  hamburger.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+hamburger.addEventListener('click', () => toggleNav());
+document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleNav(false); });
+navbar.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => toggleNav(false));
 });
 
 // ── Three.js Hero ────────────────────────────────────────
@@ -1753,7 +1901,12 @@ window.addEventListener('scroll', () => {
 
     renderer.render(scene, camera);
   }
-  animate();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    updateLines();
+    renderer.render(scene, camera);
+  } else {
+    animate();
+  }
 
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -1781,7 +1934,7 @@ gsap.utils.toArray('.reveal').forEach(el => {
   gsap.to(el, {
     opacity: 1,
     y: 0,
-    duration: 0.9,
+    duration: 0.7,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: el,
@@ -1878,6 +2031,170 @@ const statObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 statNums.forEach(n => statObserver.observe(n));
+  // ── Newsletter Circular Carousel ─────────────────────────
+  (function initNLCarousel() {
+    const LI_ICON = '<svg class="nl-cc-li" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>';
+
+    const NL = [
+      { key:'bench-to-brain',   name:'Bench to Brain',   day:'Mon · 8:30 AM CT',
+        desc:'Real science, no jargon. One breakthrough from the frontier of research — what it means, why it matters, and what the abstract didn\'t tell you.',
+        topics:['New Papers','Lab Life','Science Explainers'],
+        url:'https://www.linkedin.com/newsletters/bench-to-brain-7414488376021774338/' },
+      { key:'atomic-ambition',  name:'Atomic Ambition',  day:'Tue · 8:30 AM CT',
+        desc:'How to position yourself at the intersection of AI, biotech, and ambition — and build work the algorithms can\'t replace.',
+        topics:['AI & Industry','Career Strategy','Biotech Trends'],
+        url:'https://www.linkedin.com/newsletters/atomic-ambition-7456739889594683392/' },
+      { key:'signal-over-noise',name:'Signal Over Noise', day:'Wed · 8:00 AM CT',
+        desc:'The frameworks, systems, and ideas that cut through the flood — so you can think better and move faster.',
+        topics:['Focus Systems','Mental Models','Productivity'],
+        url:'https://www.linkedin.com/newsletters/signal-over-noise-7421784782902153216/' },
+      { key:'science-tales',    name:'Science Tales',    day:'Fri · 9:00 AM CT',
+        desc:'A story from the lab — the accidents, the arguments, the 3 AM moments when everything clicked.',
+        topics:['Discovery Stories','Lab Culture','Science History'],
+        url:'https://www.linkedin.com/newsletters/science-tales-7427433291634540546/' },
+      { key:'rendered',         name:'Rendered',         day:'Sat · 10:30 AM CT',
+        desc:'One lesson in the craft of science communication — how to make research visible in ways that actually stop people scrolling.',
+        topics:['Visual Design','Science Illustration','Figures & Posters'],
+        url:'https://www.linkedin.com/newsletters/rendered-7434333824727060480/' }
+    ];
+
+    const VISIBLE = 5;
+    const total   = NL.length;
+    let active    = 0;
+    let paused    = false;
+    let timer     = null;
+
+    const trackEl  = document.getElementById('nl-track');
+    const detailEl = document.getElementById('nl-detail');
+    const dotsEl   = document.getElementById('nl-dots');
+    const prevBtn  = document.getElementById('nl-prev');
+    const nextBtn  = document.getElementById('nl-next');
+    const rootEl   = document.getElementById('nl-carousel');
+    if (!trackEl) return;
+
+    function radii() {
+      return window.innerWidth < 700
+        ? { rx: 115, ry: 42 }
+        : { rx: 220, ry: 62 };
+    }
+
+    function getPos(idx) {
+      const { rx, ry } = radii();
+      const half = Math.floor(VISIBLE / 2);
+      let off = idx - active;
+      if (off >  half) off -= total;
+      if (off < -half) off += total;
+      if (Math.abs(off) > half + 1) return null;
+      const angle = (off / VISIBLE) * Math.PI;
+      const dist  = Math.abs(off);
+      const max   = half + 1;
+      return {
+        x:       Math.sin(angle) * rx,
+        y:      -Math.cos(angle) * ry,
+        scale:   Math.max(0.62, 1 - (dist / max) * 0.34),
+        opacity: Math.max(0.22, 1 - (dist / max) * 0.76),
+        zIndex:  VISIBLE - dist
+      };
+    }
+
+    // Build card elements
+    const cards = NL.map((item, i) => {
+      const el = document.createElement('button');
+      el.className = 'nl-cc-card';
+      el.setAttribute('role', 'option');
+      el.setAttribute('aria-label', item.name);
+      el.setAttribute('aria-selected', 'false');
+      el.innerHTML = `
+        <span class="nl-cc-day">${item.day}</span>
+        <div>
+          <div class="nl-cc-name">${item.name}</div>
+          <div class="nl-cc-desc">${item.desc}</div>
+        </div>
+        ${LI_ICON}`;
+      el.addEventListener('click', () => goTo(i));
+      trackEl.appendChild(el);
+      gsap.set(el, { xPercent: -50, yPercent: -50 });
+      return el;
+    });
+
+    // Build dot indicators
+    const dots = NL.map((item, i) => {
+      const el = document.createElement('button');
+      el.className = 'nl-dot';
+      el.setAttribute('role', 'tab');
+      el.setAttribute('aria-label', item.name);
+      el.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(el);
+      return el;
+    });
+
+    function renderDetail() {
+      const item = NL[active];
+      const subsEl = document.querySelector(`.nl-subs-store [data-nl="${item.key}"]`);
+      const subs   = subsEl ? subsEl.textContent.trim() : '—';
+      detailEl.innerHTML = `
+        <div class="nl-detail-anim">
+          <div class="nl-detail-name">${item.name}</div>
+          <p class="nl-detail-desc">${item.desc}</p>
+          <div class="nl-topics">
+            ${item.topics.map(t => `<span class="nl-topic">${t}</span>`).join('')}
+          </div>
+          <div class="nl-detail-footer">
+            <span class="nl-subs"><strong>${subs}</strong> subscribers</span>
+            <a href="${item.url}" class="nl-sub-btn" target="_blank" rel="noopener">Subscribe →</a>
+          </div>
+        </div>`;
+    }
+
+    function render() {
+      cards.forEach((card, i) => {
+        const pos    = getPos(i);
+        const isAct  = i === active;
+        card.classList.toggle('is-active', isAct);
+        card.setAttribute('aria-selected', isAct);
+        if (pos) {
+          gsap.to(card, {
+            x: pos.x, y: pos.y, scale: pos.scale,
+            opacity: pos.opacity, zIndex: pos.zIndex,
+            duration: 0.65, ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        } else {
+          gsap.set(card, { opacity: 0, zIndex: 0 });
+        }
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === active);
+        dot.setAttribute('aria-selected', i === active);
+      });
+      renderDetail();
+    }
+
+    function goTo(idx) {
+      active = ((idx % total) + total) % total;
+      render();
+    }
+    function next() { goTo(active + 1); }
+    function prev() { goTo(active - 1); }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    rootEl.addEventListener('mouseenter', () => { paused = true; });
+    rootEl.addEventListener('mouseleave', () => { paused = false; });
+    rootEl.addEventListener('focusin',   () => { paused = true; });
+    rootEl.addEventListener('focusout',  () => { paused = false; });
+    rootEl.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    });
+
+    timer = setInterval(() => { if (!paused) next(); }, 4200);
+    window.addEventListener('resize', render);
+
+    render();
+  })();
+
   // ── Theme switcher ─────────────────────────────────────────
   (function(){
     function applyTheme(t){
